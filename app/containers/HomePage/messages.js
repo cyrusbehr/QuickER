@@ -10,6 +10,6 @@ export const scope = 'app.containers.HomePage';
 export default defineMessages({
   header: {
     id: `${scope}.header`,
-    defaultMessage: 'QuickER is in construction',
+    defaultMessage: 'QuickER is under construction',
   },
 });
