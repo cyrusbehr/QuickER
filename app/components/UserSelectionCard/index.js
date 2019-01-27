@@ -6,30 +6,36 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Card from '@material-ui/core/Card';
+import ReactRouterPropTypes from 'react-router-prop-types';
 
-const UserSelectionCard = props => {
-  return (
-    <React.Fragment>
-      
+class UserSelectionCard extends React.Component {
+  redirect() {
+    return;
+    //this.props.history.push(this.props.redirectRoute);
+  }
+
+  render() {
+    return (
+      <React.Fragment>
         <div className="col s6">
           <div className="card grey lighten-4 ">
             <div className="card-content ">
-              <span className="actionSubtitle">{props.title}</span>
-              <div className="hero-card"></div>
+              <span className="actionSubtitle">{this.props.title}</span>
+              <div className="hero-card" />
               <button type="button" className="circular ui icon button">
-                <i className="angle right icon" /> 
+                <i className="angle right icon" />
               </button>
             </div>
           </div>
         </div>
-    
-    </React.Fragment>
-  );
-};
+      </React.Fragment>
+    );
+  }
+}
 
 UserSelectionCard.propTypes = {
   title: PropTypes.string,
+  history: ReactRouterPropTypes.history.isRequired,
 };
 
 UserSelectionCard.propTypes = {};

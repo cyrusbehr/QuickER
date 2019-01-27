@@ -10,6 +10,7 @@
  */
 import React from 'react';
 import UserSelectionCard from '../../components/UserSelectionCard/index';
+import { LoginCardData } from './constants';
 /* eslint-disable react/prefer-stateless-function */
 export default class HomePage extends React.Component {
   render() {
@@ -23,12 +24,9 @@ export default class HomePage extends React.Component {
           </div>
         </div>
         <div className="row">
-      
           <UserSelectionCard title="Hospital" />
-        
-        
+
           <UserSelectionCard title="Clinic" />
-        
         </div>
       </React.Fragment>
     );

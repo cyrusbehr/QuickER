@@ -8,3 +8,16 @@
  * Follow this format:
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
+
+const loginRoute = '/login';
+const clinicMainRoute = '/clinic';
+const clinicLoginRoute = clinicMainRoute.concat(loginRoute);
+const erMainRoute = '/er';
+const erLoginRout = erMainRoute.concat(loginRoute);
+
+module.exports = {
+  clinicMainRoute,
+  erMainRoute,
+  clinicLoginRoute,
+  erLoginRout,
+};
