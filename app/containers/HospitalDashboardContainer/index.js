@@ -7,17 +7,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import HospitalDashboardNavbar from 'components/HospitalDashboardNavbar/index';
+import HospitalDashboardCard from 'components/HospitalDashboardCard/index';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import makeSelectHospitalDashboardContainer from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import HospitalDashboardNavbar from 'components/HospitalDashboardNavbar/index';
-import HospitalDashboardCard from 'components/HospitalDashboardCard/index';
+import { DashboardCardData } from './constants';
 
 /* eslint-disable react/prefer-stateless-function */
 export class HospitalDashboardContainer extends React.Component {
@@ -25,7 +25,22 @@ export class HospitalDashboardContainer extends React.Component {
     return (
       <React.Fragment>
         <HospitalDashboardNavbar />
-        <HospitalDashboardCard />
+        <div className="hospitalDashCardContainer">
+          {DashboardCardData.map(data => {
+            return (
+              <HospitalDashboardCard
+                key={data.clinicName}
+                clinicName={data.clinicName}
+                waitTime={data.waitTime}
+                walkTime={data.walkTime}
+                waitUnit={data.waitUnit}
+                driveTime={data.driveTime}
+                address={data.address}
+                active={data.active}
+              />
+            );
+          })}
+        </div>
       </React.Fragment>
     );
   }
