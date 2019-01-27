@@ -12,25 +12,75 @@ tagName{
 }
 
 px
-% 
+%
 em
 
 */
 
-.centerItems {
-  text-align: center;
+@media screen and (min-width: 601px) {
+  .centerItems {
+    text-align: center;
+    padding: 200px 0 0 0;
+  }
+
+  .titleFont {
+    font-family: 'Open Sans', sans-serif;
+    font-style: italic;
+    font-size: 120px;
+    color: #cc1919;
+    text-shadow: 0px 3px 6px #a0a0a0;
+  }
+
+  .extraboldTitleFont {
+    font-weight: bolder;
+  }
+
+  .lighterTitleFont {
+    font-weight: lighter;
+  }
+
+  .actionSubtitle {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 40px;
+    color: #213a8e;
+    padding-top: 150px;
+  }
 }
 
-.extraboldTitleFont {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: bolder;
-  font-style: italic;
-  font-size: 128px;
-}
+@media screen and (max-width: 600px) {
+  .centerItems {
+    text-align: left;
+    padding: 70px 0 0 70px;
+  }
 
-.defaultTitleFont {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: lighter;
-  font-style: italic;
-  font-size: 128px;
+  .test {
+    font-size: 20px;
+  }
+
+  .titleFont {
+    font-family: 'Open Sans', sans-serif;
+    font-style: italic;
+    font-size: 60px;
+    color: #cc1919;
+    text-shadow: 0px 3px 6px #a0a0a0;
+  }
+
+  .extraboldTitleFont {
+    font-weight: bolder;
+  }
+
+  .lighterTitleFont {
+    font-weight: lighter;
+  }
+
+  .actionSubtitle {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 30px;
+    color: #213a8e;
+    padding-top: 50px;
+  }
 }
