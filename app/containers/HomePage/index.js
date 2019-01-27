@@ -17,7 +17,7 @@ export default class HomePage extends React.Component {
       <React.Fragment>
         <div>
           <div className="centerItems">
-            <span className="defaultTitleFont">Quicke</span>
+            <span className="defaultTitleFont">Quick</span>
             <span className="extraboldTitleFont">ER</span>
             <div>choose your role</div>
           </div>
