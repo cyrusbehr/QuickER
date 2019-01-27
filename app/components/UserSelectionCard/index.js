@@ -22,7 +22,7 @@ class UserSelectionCard extends React.Component {
               <span className="actionSubtitle">{this.props.title}</span>
               <div className="hero-card" />
               <button type="button" className="circular ui icon button">
-                <i className="angle right icon" />
+                <i className="angle right icon redbutton " />
               </button>
             </div>
           </div>

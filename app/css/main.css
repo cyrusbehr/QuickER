@@ -81,7 +81,7 @@ em
     font-style: normal;
     font-size: 30px;
     color: #213a8e;
-    padding-top: 50px;
+    padding: 100px ;
   }
 }
 
@@ -102,6 +102,26 @@ em
 }
 
 .hero-card {
-  padding: 4dw;
+  
+  padding: 100px;
 }
 
+.cardTitle {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 30px;
+  color: #213a8e;
+  margin: 30px;
+}
+
+.buttonStyle {
+  margin: 50px;
+  align-items: right;
+}
+
+.redbutton {
+  color: #cc1919;
+  height: 30px;
+}
