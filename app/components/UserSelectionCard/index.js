@@ -10,8 +10,7 @@ import ReactRouterPropTypes from 'react-router-prop-types';
 
 class UserSelectionCard extends React.Component {
   redirect() {
-    return;
-    //this.props.history.push(this.props.redirectRoute);
+    this.props.history.push(this.props.redirectRoute);
   }
 
   render() {
@@ -34,7 +33,8 @@ class UserSelectionCard extends React.Component {
 }
 
 UserSelectionCard.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  redirectRoute: PropTypes.string.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
 };
 

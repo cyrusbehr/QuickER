@@ -24,9 +24,16 @@ export default class HomePage extends React.Component {
           </div>
         </div>
         <div className="row">
-          <UserSelectionCard title="Hospital" />
-
-          <UserSelectionCard title="Clinic" />
+          {LoginCardData.map(data => {
+            return (
+              <UserSelectionCard
+                key={data.title}
+                title={data.title}
+                redirectRoute={data.redirectRoute}
+                {...this.props}
+              />
+            );
+          })}
         </div>
       </React.Fragment>
     );
