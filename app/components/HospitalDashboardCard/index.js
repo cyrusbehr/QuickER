@@ -49,7 +49,7 @@ class HospitalDashboardCard extends React.Component {
     }
     return (
       <span className="closedCardWaitTimeStr">
-        Opens {this.props.waitTime.toString(10)} {this.props.waitUnit}
+        Opens at {this.props.waitTime.toString(10)} {this.props.waitUnit}
       </span>
     );
   };
