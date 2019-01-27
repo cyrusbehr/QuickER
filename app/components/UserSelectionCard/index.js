@@ -16,15 +16,12 @@ class UserSelectionCard extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div className="col s6" onClick={() => this.redirect()}>
-          <div className="card grey lighten-4 cardMargin">
-            <div className="card-content cardTitle">
-              <span className="actionSubtitle">{this.props.title}</span>
-              <div className="hero-card" />
-              <button type="button" className="circular ui icon button massive">
-                <i className="angle right icon redbutton " />
-              </button>
-            </div>
+        <div className="card loginCard" onClick={() => this.redirect()}>
+          <div className="actionSubtitle">{this.props.title}</div>
+          <div className="loginButton">
+            <button type="button" className="circular ui icon button massive ">
+              <i className="angle right icon redbutton " />
+            </button>
           </div>
         </div>
       </React.Fragment>

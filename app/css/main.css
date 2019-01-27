@@ -1,56 +1,70 @@
-@media screen and (min-width: 601px) {
-  .centerItems {
-    text-align: center;
-    padding: 200px 0 0 0;
-  }
-
-  .titleFontSize {
-    font-size: 120px;
-  }
-
-  .dashboardTitleFontSize {
-    font-size: 40px;
-  }
-  .navBar {
-    height: 70px;
-  }
-
-  .dashboardTitleHeader {
-    padding: 20px;
-  }
-
-  .titleFontRed {
-    font-family: 'Open Sans', sans-serif;
-    font-style: italic;
-    color: #cc1919;
-    text-shadow: 0px 0px 0px #a0a0a0;
-  }
-
-  .titleFontBlue {
-    font-family: 'Open Sans', sans-serif;
-    font-style: italic;
-    color: #29408f;
-    text-shadow: 0px 0px 0px #a0a0a0;
-  }
-
-  .extraboldTitleFont {
-    font-weight: bolder;
-  }
-
-  .lighterTitleFont {
-    font-weight: lighter;
-  }
-
-  .actionSubtitle {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: bold;
-    font-style: normal;
-    font-size: 40px;
-    color: #213a8e;
-    padding-top: 150px;
-  }
+.loginCardContianer {
+  display: flex;
+  justify-content: center;
 }
 
+.loginCard {
+  cursor: pointer;
+  width: 250px;
+  height: 250px;
+  margin: 60px 40px;
+  text-align: center;
+}
+
+.centerItems {
+  text-align: center;
+}
+
+.titleFontSize {
+  font-size: 120px;
+}
+
+.dashboardTitleFontSize {
+  font-size: 40px;
+}
+.navBar {
+  height: 70px;
+}
+
+.dashboardTitleHeader {
+  padding: 20px;
+}
+
+.titleFontRed {
+  font-family: 'Open Sans', sans-serif;
+  font-style: italic;
+  color: #cc1919;
+  text-shadow: 0px 0px 0px #a0a0a0;
+}
+
+.titleFontBlue {
+  font-family: 'Open Sans', sans-serif;
+  font-style: italic;
+  color: #29408f;
+  text-shadow: 0px 0px 0px #a0a0a0;
+}
+
+.extraboldTitleFont {
+  font-weight: bolder;
+}
+
+.lighterTitleFont {
+  font-weight: lighter;
+}
+
+.actionSubtitle {
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  font-size: 40px;
+  color: #213a8e;
+  padding-top: 40px;
+  text-align: center;
+}
+
+.loginButton {
+  margin-top: 100px;
+}
+/*
 @media screen and (max-width: 600px) {
   .centerItems {
     text-align: left;
@@ -86,6 +100,7 @@
     padding: 100px;
   }
 }
+*/
 
 .card-image {
   float: left;
@@ -125,10 +140,6 @@
 .redbutton {
   color: #cc1919;
   height: 30px;
-}
-
-.cardMargin {
-  margin: 100px;
 }
 
 .hospitalDashCards {

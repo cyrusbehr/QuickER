@@ -17,6 +17,11 @@ export default class HomePage extends React.Component {
     return (
       <React.Fragment>
         <div>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
           <div className="centerItems">
             <span className="titleFontRed lighterTitleFont titleFontSize">
               Quick
@@ -27,7 +32,7 @@ export default class HomePage extends React.Component {
             <div className="actionSubtitle">choose your role</div>
           </div>
         </div>
-        <div className="row">
+        <div className="loginCardContianer">
           {LoginCardData.map(data => {
             return (
               <UserSelectionCard
