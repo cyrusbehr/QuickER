@@ -11,6 +11,27 @@ import PropTypes from 'prop-types';
 
 /* eslint-disable react/prefer-stateless-function */
 class HospitalDashboardCard extends React.Component {
+  getQueueContent = () => {
+    if (this.props.active) {
+      return (
+        <div className="addToQueue center">
+          <span className="addToQueueTxt">add to queue</span>
+          <button
+            type="button"
+            className="circular ui icon button massive white"
+          >
+            <i className="angle right icon redbutton" />
+          </button>
+        </div>
+      );
+    }
+    return (
+      <div className="closed center">
+        <span className="closedTxt horzCenter">closed</span>
+      </div>
+    );
+  };
+
   getWaitTimeContent = () => {
     if (this.props.active) {
       return (
@@ -35,7 +56,11 @@ class HospitalDashboardCard extends React.Component {
 
   render() {
     return (
-      <div className="hospitalDashCards">
+      <div
+        className={
+          this.props.active ? 'hospitalDashCards' : 'hospitalDashCardsDisabled'
+        }
+      >
         <div className="hospitalDashCardsPad">
           <div className="waitTime boxShadowEffect">
             <span className="center">
@@ -74,15 +99,7 @@ class HospitalDashboardCard extends React.Component {
           <div className="clinicNameStr">{this.props.clinicName}</div>
           <div className="addressStr">{this.props.address}</div>
         </div>
-        <div className="addToQueue center">
-          <span className="addToQueueTxt">add to queue</span>
-          <button
-            type="button"
-            className="circular ui icon button massive white"
-          >
-            <i className="angle right icon redbutton" />
-          </button>
-        </div>
+        {this.getQueueContent()}
       </div>
     );
   }

@@ -132,13 +132,27 @@
 }
 
 .hospitalDashCards {
+  cursor: pointer;
   width: 250px;
   height: 250px;
-  border-bottom: 7px solid #cc1919;
   box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
   margin-left: 20px;
   margin-top: 20px;
   color: #213a8e;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  border-radius: 0px;
+  margin-bottom: 60px;
+}
+
+.hospitalDashCardsDisabled {
+  width: 250px;
+  height: 250px;
+  box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
+  margin-left: 20px;
+  margin-top: 20px;
+  color: #acb6d5;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
@@ -259,8 +273,33 @@
   padding: 30px 10px;
 }
 
+.closedTxt {
+  width: 100%;
+  color: white;
+  font-size: 18px;
+  font-family: 'Open Sans', sans-serif;
+  font-style: italic;
+  font-weight: bold;
+  padding: 21.5px 10px;
+}
+
+.closed {
+  background-color: #c6c7cc;
+  width: 100%;
+  color: white;
+  font-size: 18px;
+  font-family: 'Open Sans', sans-serif;
+  font-style: italic;
+  font-weight: bold;
+  padding: 30px 10px;
+}
+
 .addToQueueTxt {
   padding-right: 25px;
+}
+
+.horzCenter {
+  margin: auto;
 }
 
 /* TODO on all cards need to change cursor type to indicate that it should be clicked
