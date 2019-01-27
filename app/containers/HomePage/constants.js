@@ -1,13 +1,13 @@
-const loginRoute = '/login';
+const loginRoute = '/dashboard';
 const clinicMainRoute = '/clinic';
 const clinicLoginRoute = clinicMainRoute.concat(loginRoute);
-const erMainRoute = '/er';
-const erLoginRout = erMainRoute.concat(loginRoute);
+const hospitalMainRoute = '/hospital';
+const hospitalLoginRout = hospitalMainRoute.concat(loginRoute);
 
 const LoginCardData = [
   {
     title: 'Hospital',
-    redirectRoute: erLoginRout,
+    redirectRoute: hospitalLoginRout,
   },
   {
     title: 'Clinic',
@@ -17,8 +17,8 @@ const LoginCardData = [
 
 module.exports = {
   clinicMainRoute,
-  erMainRoute,
+  hospitalMainRoute,
   clinicLoginRoute,
-  erLoginRout,
+  hospitalLoginRout,
   LoginCardData,
 };

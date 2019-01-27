@@ -9,7 +9,7 @@
  * the linting exception.
  */
 import React from 'react';
-import UserSelectionCard from '../../components/UserSelectionCard/index';
+import UserSelectionCard from 'components/UserSelectionCard/index';
 import { LoginCardData } from './constants';
 /* eslint-disable react/prefer-stateless-function */
 export default class HomePage extends React.Component {
