@@ -36,34 +36,52 @@ class HospitalDashboardCard extends React.Component {
   render() {
     return (
       <div className="hospitalDashCards">
-        <div className="waitTime boxShadowEffect">
-          <span className="center">
-            <i className="material-icons hospitalDashIconLarge">access_time</i>
-            {this.getWaitTimeContent()}
-          </span>
-        </div>
-        <div className="commuteTimeCont">
-          <div className="center boxShadowEffect commuteTime commuteTimeLeft">
-            <i className="material-icons hospitalDashIconSmall">
-              directions_walk
-            </i>
-            <span className="waitTimeStrSmall">
-              {this.props.walkTime.toString(10)}
-            </span>
-            <span className="waitUnitStrSmall">
-              <div>mins</div>
-              <div>walk</div>
+        <div className="hospitalDashCardsPad">
+          <div className="waitTime boxShadowEffect">
+            <span className="center">
+              <i className="material-icons hospitalDashIconLarge">
+                access_time
+              </i>
+              {this.getWaitTimeContent()}
             </span>
           </div>
-          <div className="boxShadowEffect commuteTime commuteTimeRight">
-            <i className="material-icons hospitalDashIconSmall">
-              directions_car
-            </i>
+          <div className="commuteTimeCont">
+            <div className="center boxShadowEffect commuteTime commuteTimeLeft">
+              <i className="material-icons hospitalDashIconSmall">
+                directions_walk
+              </i>
+              <span className="waitTimeStrSmall">
+                {this.props.walkTime.toString(10)}
+              </span>
+              <span className="waitUnitStrSmall">
+                <div>mins</div>
+                <div>walk</div>
+              </span>
+            </div>
+            <div className="center boxShadowEffect commuteTime commuteTimeRight">
+              <i className="material-icons hospitalDashIconSmall">
+                directions_car
+              </i>
+              <span className="waitTimeStrSmall">
+                {this.props.driveTime.toString(10)}
+              </span>
+              <span className="waitUnitStrSmall">
+                <div>mins</div>
+                <div>walk</div>
+              </span>
+            </div>
           </div>
+          <div className="clinicNameStr">{this.props.clinicName}</div>
+          <div className="addressStr">{this.props.address}</div>
         </div>
-        <div>address here</div>
-        <div>
-          add to queue <button type="button">queue</button>
+        <div className="addToQueue center">
+          <span className="addToQueueTxt">add to queue</span>
+          <button
+            type="button"
+            className="circular ui icon button massive white"
+          >
+            <i className="angle right icon redbutton" />
+          </button>
         </div>
       </div>
     );
@@ -75,6 +93,9 @@ HospitalDashboardCard.propTypes = {
   active: PropTypes.bool,
   waitTime: PropTypes.number,
   walkTime: PropTypes.number,
+  driveTime: PropTypes.number,
+  address: PropTypes.string,
+  clinicName: PropTypes.string,
 };
 
 export default HospitalDashboardCard;

@@ -134,17 +134,22 @@
 .hospitalDashCards {
   width: 250px;
   height: 250px;
-  border-bottom: 7px solid #00c993;
+  border-bottom: 7px solid #cc1919;
   box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
   margin-left: 20px;
   margin-top: 20px;
   color: #213a8e;
-  padding: 10px;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
   border-radius: 0px;
+  margin-bottom: 60px;
 }
+
+.hospitalDashCardsPad {
+  padding: 10px;
+}
+
 .hospitalDashCardContainer {
   display: flex;
   justify-content: flex-start;
@@ -226,3 +231,38 @@
   font-size: 20px;
   font-weight: 500;
 }
+
+.clinicNameStr {
+  margin-top: 15px;
+  font-family: 'Open Sans', sans-serif;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.addressStr {
+  margin-top: 3px;
+  font-family: 'Open Sans', sans-serif;
+  font-style: italic;
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+
+.addToQueue {
+  background-color: #213a8e;
+  width: 100%;
+  color: white;
+  font-size: 18px;
+  font-family: 'Open Sans', sans-serif;
+  font-style: italic;
+  font-weight: bold;
+  padding: 30px 10px;
+}
+
+.addToQueueTxt {
+  padding-right: 25px;
+}
+
+/* TODO on all cards need to change cursor type to indicate that it should be clicked
+ TODO should also make cards grow with .grow class
+*/
