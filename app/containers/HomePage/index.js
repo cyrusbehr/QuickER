@@ -9,16 +9,18 @@
  * the linting exception.
  */
 import React from 'react';
+import '../../css/main.css';
+
 /* eslint-disable react/prefer-stateless-function */
 export default class HomePage extends React.Component {
   render() {
     return (
       <React.Fragment>
         <div>
-          Quick
-          <span>ER</span>
+          <span className="">Quick</span>
+          <span className="">ER</span>
         </div>
-        <dvi>choose your role</dvi>
+        <div>choose your role</div>
       </React.Fragment>
     );
   }
