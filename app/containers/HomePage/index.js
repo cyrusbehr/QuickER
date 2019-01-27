@@ -9,7 +9,7 @@
  * the linting exception.
  */
 import React from 'react';
-
+import UserSelectionCard from '../../components/UserSelectionCard/index';
 /* eslint-disable react/prefer-stateless-function */
 export default class HomePage extends React.Component {
   render() {
@@ -21,6 +21,12 @@ export default class HomePage extends React.Component {
             <span className="extraboldTitleFont">ER</span>
             <div>choose your role</div>
           </div>
+        </div>
+        <div>
+          <UserSelectionCard title="Hospital" />
+        </div>
+        <div>
+          <UserSelectionCard title="Clinic" />
         </div>
       </React.Fragment>
     );
