@@ -16,7 +16,7 @@ class UserSelectionCard extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div className="col s6">
+        <div className="col s6" onClick={() => this.redirect()}>
           <div className="card grey lighten-4 ">
             <div className="card-content ">
               <span className="actionSubtitle">{this.props.title}</span>
