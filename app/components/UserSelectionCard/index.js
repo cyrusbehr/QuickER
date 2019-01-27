@@ -16,7 +16,10 @@ class UserSelectionCard extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div className="card loginCard" onClick={() => this.redirect()}>
+        <div
+          className="card loginCard hoverGrow"
+          onClick={() => this.redirect()}
+        >
           <div className="actionSubtitle">{this.props.title}</div>
           <div className="loginButton">
             <button type="button" className="circular ui icon button massive ">
