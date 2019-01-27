@@ -80,6 +80,8 @@
     "loadable-components": "2.2.3",
     "lodash": "4.17.11",
     "minimist": "1.2.0",
+    "mongodb": "^3.1.13",
+    "mongoose": "^5.4.7",
     "popper.js": "^1.14.6",
     "prop-type": "0.0.1",
     "prop-types": "15.6.2",
