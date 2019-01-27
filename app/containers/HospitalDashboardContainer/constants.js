@@ -13,6 +13,7 @@ const DashboardCardData = [
     driveTime: 4,
     clinicName: 'Wesbrook Clinic',
     address: '2545 Birney Ave.',
+    id: 1,
     active: true,
   },
   {
@@ -22,6 +23,7 @@ const DashboardCardData = [
     driveTime: 10,
     clinicName: 'Point Grey Clinic',
     address: '212 W Broadway',
+    id: 2,
     active: true,
   },
   {
@@ -31,6 +33,7 @@ const DashboardCardData = [
     driveTime: 0,
     clinicName: 'Student Clinic',
     address: '412 Wesbrook Mall',
+    id: 3,
     active: false,
   },
 ];

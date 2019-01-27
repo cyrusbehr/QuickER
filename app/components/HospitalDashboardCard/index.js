@@ -18,6 +18,7 @@ class HospitalDashboardCard extends React.Component {
           <span className="addToQueueTxt">add to queue</span>
           <button
             type="button"
+            onClick={this.onPress}
             className="circular ui icon button massive white"
           >
             <i className="angle right icon redbutton" />
@@ -52,6 +53,15 @@ class HospitalDashboardCard extends React.Component {
         Opens at {this.props.waitTime.toString(10)} {this.props.waitUnit}
       </span>
     );
+  };
+
+  onPress = () => {
+    const data = {
+      id: this.props.id,
+      clinicName: this.props.clinicName,
+      size: 'small',
+    };
+    this.props.onButtonPress(data);
   };
 
   render() {
@@ -115,6 +125,8 @@ HospitalDashboardCard.propTypes = {
   driveTime: PropTypes.number,
   address: PropTypes.string,
   clinicName: PropTypes.string,
+  onButtonPress: PropTypes.func,
+  id: PropTypes.number,
 };
 
 export default HospitalDashboardCard;

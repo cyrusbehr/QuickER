@@ -337,3 +337,8 @@
 .hoverGrow:focus {
   transform: scale3d(1.02, 1.02, 1);
 }
+
+Modal {
+  margin-left: 'auto';
+  margin-right: 'auto';
+}
