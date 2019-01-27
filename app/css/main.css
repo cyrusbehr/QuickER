@@ -18,21 +18,34 @@ em
 */
 .centerItems {
   text-align: center;
+  padding: 100px
 }
 
 .test {
   font-size: 20px;
 }
 
+
 .extraboldTitleFont{
   font-family: 'Open Sans', sans-serif;
   font-weight: bolder;
   font-style: italic;
-  font-size: 128px;}
-
+  font-size: 128px;
+  color:#CC1919
+}
 .defaultTitleFont {
   font-family: 'Open Sans', sans-serif;
   font-weight: lighter;
   font-style: italic;
   font-size: 128px;
+  color:#CC1919
+
+}
+
+.actionSubtitle{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 128px;
+  color: #213A8E
 }
