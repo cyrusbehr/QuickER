@@ -9,12 +9,16 @@
 import '@babel/polyfill';
 
 // Import all the third party stuff
+import 'bootstrap/dist/css/bootstrap.min.css';
+import $ from 'jquery';
+import Popper from 'popper.js';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router/immutable';
 import history from 'utils/history';
 import 'sanitize.css/sanitize.css';
+import './css/main.css';
 
 // Import root app
 import App from 'containers/App';

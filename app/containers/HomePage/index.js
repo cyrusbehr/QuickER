@@ -9,7 +9,6 @@
  * the linting exception.
  */
 import React from 'react';
-import '../../css/main.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class HomePage extends React.Component {
@@ -17,10 +16,37 @@ export default class HomePage extends React.Component {
     return (
       <React.Fragment>
         <div>
-          <span className="">Quick</span>
-          <span className="">ER</span>
+          <div className="centerItems">
+            <span className="" role="alert">
+              Quick
+            </span>
+            <span className="">ER</span>
+            <div>choose your role</div>
+          </div>
         </div>
-        <div>choose your role</div>
+        <div className="dropdown">
+          <button
+            className="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Dropdown button
+          </button>
+          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a className="dropdown-item" href="#test1">
+              Action
+            </a>
+            <a className="dropdown-item" href="#tes2">
+              Another action
+            </a>
+            <a className="dropdown-item" href="#test1">
+              Something else here
+            </a>
+          </div>
+        </div>
       </React.Fragment>
     );
   }
