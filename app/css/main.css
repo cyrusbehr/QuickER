@@ -84,3 +84,24 @@ em
     padding-top: 50px;
   }
 }
+
+.card-image {
+  float: left;
+  width: 40%;
+  height: 250px;
+}
+.card-image img {
+  height: 100%;
+}
+.right-content {
+  width: 60%;
+  float: left;
+}
+.card-title {
+  padding-left: 20px;
+}
+
+.hero-card {
+  padding: 4dw;
+}
+

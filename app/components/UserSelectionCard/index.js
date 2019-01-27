@@ -11,18 +11,19 @@ import Card from '@material-ui/core/Card';
 const UserSelectionCard = props => {
   return (
     <React.Fragment>
-      <div className="row">
-        <div className="col s12 m6">
-          <div className="card blue-grey darken-1">
-            <div className="card-content white-text">
-              <span className="card-title">{props.title}</span>
+      
+        <div className="col s6">
+          <div className="card grey lighten-4 ">
+            <div className="card-content ">
+              <span className="actionSubtitle">{props.title}</span>
+              <div className="hero-card"></div>
               <button type="button" className="circular ui icon button">
-                <i className="angle right icon" />
+                <i className="angle right icon" /> 
               </button>
             </div>
           </div>
         </div>
-      </div>
+    
     </React.Fragment>
   );
 };

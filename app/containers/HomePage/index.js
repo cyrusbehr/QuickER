@@ -22,11 +22,13 @@ export default class HomePage extends React.Component {
             <div className="actionSubtitle">choose your role</div>
           </div>
         </div>
-        <div>
+        <div className="row">
+      
           <UserSelectionCard title="Hospital" />
-        </div>
-        <div>
+        
+        
           <UserSelectionCard title="Clinic" />
+        
         </div>
       </React.Fragment>
     );
