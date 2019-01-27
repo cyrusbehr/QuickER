@@ -1,10 +1,9 @@
 const express = require('express');
 const api = express();
+const mongoose = require('mongoose');
+const { Clinic, Hospital } = require('../models/models');
 
-// GET http://localhost:8080/api
-api.get('/', function(req, res) {
-  res.json({ message: 'hooray! welcome to our api!' });
-});
+api.post('/registerClinic', function(req, res) {});
 
 module.exports = {
   api,

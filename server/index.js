@@ -1,7 +1,7 @@
 /* eslint consistent-return:0 import/order:0 */
 
 const { api } = require('./api');
-
+const mongoose = require('mongoose');
 const express = require('express');
 const logger = require('./logger');
 
@@ -18,6 +18,11 @@ const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+mongoose.createConnection(process.env.MONGODB_URI);
+mongoose.connection.on('connected', () => {
+  console.log('we connected to mongoDB!');
+});
 
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
 app.use('/api', api);
