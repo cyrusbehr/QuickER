@@ -94,7 +94,7 @@ class HospitalDashboardCard extends React.Component {
               </span>
               <span className="waitUnitStrSmall">
                 <div>mins</div>
-                <div>walk</div>
+                <div>drive</div>
               </span>
             </div>
           </div>
