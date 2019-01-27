@@ -282,6 +282,7 @@
   font-style: italic;
   font-weight: bold;
   padding: 30px 10px;
+  height: 120px;
 }
 
 .closedTxt {
@@ -291,7 +292,6 @@
   font-family: 'Open Sans', sans-serif;
   font-style: italic;
   font-weight: bold;
-  padding: 21.5px 10px;
 }
 
 .closed {
@@ -303,6 +303,7 @@
   font-style: italic;
   font-weight: bold;
   padding: 30px 10px;
+  height: 120px;
 }
 
 .addToQueueTxt {
