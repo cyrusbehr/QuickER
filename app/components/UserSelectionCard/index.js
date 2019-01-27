@@ -16,12 +16,12 @@ class UserSelectionCard extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div className="col s6">
-          <div className="card grey lighten-4 ">
-            <div className="card-content ">
+        <div className="col s6 m6">
+          <div className="card grey lighten-4 cardMargin">
+            <div className="card-content cardTitle">
               <span className="actionSubtitle">{this.props.title}</span>
               <div className="hero-card" />
-              <button type="button" className="circular ui icon button">
+              <button type="button" className="circular ui icon button massive">
                 <i className="angle right icon redbutton " />
               </button>
             </div>
