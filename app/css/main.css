@@ -142,6 +142,10 @@
   height: 30px;
 }
 
+.whiteHover:hover {
+  background-color: #e0e0e0 !important;
+}
+
 .hospitalDashCards {
   cursor: pointer;
   width: 250px;
@@ -336,9 +340,4 @@
 .hoverGrow:hover,
 .hoverGrow:focus {
   transform: scale3d(1.02, 1.02, 1);
-}
-
-Modal {
-  margin-left: 'auto';
-  margin-right: 'auto';
 }

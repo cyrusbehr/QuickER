@@ -19,7 +19,7 @@ class HospitalDashboardCard extends React.Component {
           <button
             type="button"
             onClick={this.onPress}
-            className="circular ui icon button massive white"
+            className="circular ui icon button massive white whiteHover"
           >
             <i className="angle right icon redbutton" />
           </button>
