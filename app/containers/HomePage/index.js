@@ -15,7 +15,7 @@ import { LoginCardData } from './constants';
 export default class HomePage extends React.Component {
   render() {
     return (
-      <React.Fragment>
+      <div className="homePageContainer">
         <div>
           <br />
           <br />
@@ -44,7 +44,7 @@ export default class HomePage extends React.Component {
             );
           })}
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

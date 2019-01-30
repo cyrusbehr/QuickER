@@ -341,3 +341,16 @@
 .hoverGrow:focus {
   transform: scale3d(1.02, 1.02, 1);
 }
+
+.homePageContainer {
+  width: 100%;
+  height: 100%;
+  background: url('https://res.cloudinary.com/dxih0rp6w/image/upload/v1548819317/sitting-patient_mljmmr.svg'),
+    url('https://res.cloudinary.com/dxih0rp6w/image/upload/v1548819330/standing-doc_ppdzp7.svg');
+  background-position: right -150px center, left -120px center;
+  background-repeat: no-repeat, no-repeat;
+  background-size: 600px 500px;
+  /*
+TODO firgure out why this div is not the height of the full screen
+*/
+}
