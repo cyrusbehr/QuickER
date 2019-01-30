@@ -347,7 +347,7 @@
   height: 100vh;
   background: url('https://res.cloudinary.com/dxih0rp6w/image/upload/v1548819317/sitting-patient_mljmmr.svg'),
     url('https://res.cloudinary.com/dxih0rp6w/image/upload/v1548819330/standing-doc_ppdzp7.svg');
-  background-position: right -150px center, left -120px center;
+  background-position: right -120px center, left -100px center;
   background-repeat: no-repeat, no-repeat;
   background-size: 600px 500px;
   /*
