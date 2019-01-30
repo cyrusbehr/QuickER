@@ -1,56 +1,102 @@
-.loginCardContianer {
+.cBlue-Text {
+  color: #213a8e;
+  /*
+  color: #2195F3;
+  */
+}
+
+.cRed-Text {
+  color: #cc1919 !important;
+}
+
+.cRed-Background {
+  background-color: #cc1919;
+}
+
+.cBlue-Background {
+  background-color: #213a8e;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.hover-grow {
+  transition: transform 0.5s;
+}
+.hover-grow::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
+  content: '';
+  opacity: 0;
+  z-index: -1;
+}
+
+.hover-grow:hover,
+.hover-grow:focus {
+  transform: scale3d(1.02, 1.02, 1);
+}
+
+.login-card-contianer {
   display: flex;
   justify-content: center;
 }
 
-.loginCard {
-  cursor: pointer;
+.align-text-center {
+  text-align: center;
+}
+
+.login-card {
   width: 250px;
   height: 250px;
   margin: 60px 40px;
-  text-align: center;
 }
 
-.centerItems {
-  text-align: center;
-}
-
-.titleFontSize {
+.title-font-size {
   font-size: 120px;
 }
 
 .dashboardTitleFontSize {
   font-size: 40px;
 }
-.navBar {
+
+.nav-bar {
   height: 70px;
 }
 
-.dashboardTitleHeader {
+.dashboard-title-header {
   padding: 20px;
 }
 
-.titleFontRed {
+.cFont {
   font-family: 'Open Sans', sans-serif;
-  font-style: italic;
-  color: #cc1919;
-  text-shadow: 0px 0px 0px #a0a0a0;
 }
 
-.titleFontBlue {
+.cFontBold {
   font-family: 'Open Sans', sans-serif;
-  font-style: italic;
-  color: #29408f;
-  text-shadow: 0px 0px 0px #a0a0a0;
+  font-style: bold;
 }
 
-.extraboldTitleFont {
+.cFontItalics {
+  font-family: 'Open Sans', sans-serif;
+  font-style: italic;
+}
+
+.bolder {
   font-weight: bolder;
 }
 
-.lighterTitleFont {
+.ligther {
   font-weight: lighter;
 }
+/*
+TODO need to fix and split up CSS below
+*/
 
 .actionSubtitle {
   font-family: 'Open Sans', sans-serif;
@@ -64,43 +110,6 @@
 .loginButton {
   margin-top: 100px;
 }
-/*
-@media screen and (max-width: 600px) {
-  .centerItems {
-    text-align: left;
-    padding: 70px 0 0 70px;
-  }
-
-  .test {
-    font-size: 20px;
-  }
-
-  .titleFont {
-    font-family: 'Open Sans', sans-serif;
-    font-style: italic;
-    font-size: 60px;
-    color: #cc1919;
-    text-shadow: 0px 3px 6px #a0a0a0;
-  }
-
-  .extraboldTitleFont {
-    font-weight: bolder;
-  }
-
-  .lighterTitleFont {
-    font-weight: lighter;
-  }
-
-  .actionSubtitle {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: bold;
-    font-style: normal;
-    font-size: 30px;
-    color: #213a8e;
-    padding: 100px;
-  }
-}
-*/
 
 .card-image {
   float: left;
@@ -318,30 +327,6 @@
   margin: auto;
 }
 
-/* TODO on all cards need to change cursor type to indicate that it should be clicked
- TODO should also make cards grow with .grow class
-*/
-.hoverGrow {
-  transition: transform 0.5s;
-}
-.hoverGrow::after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transition: opacity 2s cubic-bezier(0.165, 0.84, 0.44, 1);
-  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
-  content: '';
-  opacity: 0;
-  z-index: -1;
-}
-
-.hoverGrow:hover,
-.hoverGrow:focus {
-  transform: scale3d(1.02, 1.02, 1);
-}
-
 .homePageContainer {
   width: 100%;
   height: 100vh;
@@ -351,6 +336,10 @@
   background-repeat: no-repeat, no-repeat;
   background-size: 600px 500px;
   /*
-TODO firgure out why this div is not the height of the full screen
-*/
+  TODO can also use query for when the page size is large than x and make the assets larger 
+  */
 }
+
+/*
+TODO need to add media query at 700px width to change backgroud image, one card per row, and change font size
+*/

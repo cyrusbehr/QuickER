@@ -22,17 +22,17 @@ export default class HomePage extends React.Component {
           <br />
           <br />
           <br />
-          <div className="centerItems">
-            <span className="titleFontRed lighterTitleFont titleFontSize">
+          <div className="align-text-center">
+            <span className="cFontItalics cRed-Text lighter title-font-size">
               Quick
             </span>
-            <span className="titleFontRed extraboldTitleFont titleFontSize">
+            <span className="cFontItalics cRed-Text bolder title-font-size">
               ER
             </span>
             <div className="actionSubtitle">choose your role</div>
           </div>
         </div>
-        <div className="loginCardContianer">
+        <div className="login-card-contianer">
           {LoginCardData.map(data => {
             return (
               <UserSelectionCard

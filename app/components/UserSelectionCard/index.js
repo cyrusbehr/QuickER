@@ -17,7 +17,7 @@ class UserSelectionCard extends React.Component {
     return (
       <React.Fragment>
         <div
-          className="card loginCard hoverGrow"
+          className="card login-card align-text-center hover-grow cursor-pointer"
           onClick={() => this.redirect()}
         >
           <div className="actionSubtitle">{this.props.title}</div>

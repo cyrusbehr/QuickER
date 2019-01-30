@@ -10,14 +10,14 @@ import React from 'react';
 
 function HospitalDashboardNavbar() {
   return (
-    <nav className="navBar">
+    <nav className="nav-bar">
       <div className="nav-wrapper white">
         <span className="dashboardTitleFontSize">
-          <span className="dashboardTitleHeader">
-            <span className="titleFontRed lighterTitleFont ">Quick</span>
-            <span className="titleFontRed extraboldTitleFont">ER</span>
+          <span className="dashboard-title-header">
+            <span className="cRed-Text cFontItalics lighter ">Quick</span>
+            <span className="cFontItalics cRed-Text bolder">ER</span>
           </span>
-          <span className="titleFontBlue">Hospital Dashboard</span>
+          <span className="cFontItalics cBlue-Text">Hospital Dashboard</span>
         </span>
       </div>
     </nav>

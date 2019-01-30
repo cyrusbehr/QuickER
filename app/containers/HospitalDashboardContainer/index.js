@@ -70,7 +70,9 @@ export class HospitalDashboardContainer extends React.Component {
           onClose={this.close}
           style={inlineStyle.modal}
         >
-          <Modal.Header>Add patient to queue</Modal.Header>
+          <Modal.Header className="blue-text">
+            Add patient to queue
+          </Modal.Header>
           <Modal.Content>
             <p>{this.state.clinicName}</p>
           </Modal.Content>
