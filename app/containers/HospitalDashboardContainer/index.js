@@ -8,7 +8,6 @@ import HospitalDashboardCard from 'components/HospitalDashboardCard/index';
 import HospitalDashboardNavbar from 'components/HospitalDashboardNavbar/index';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Button, Modal } from 'semantic-ui-react';
 
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -24,25 +23,11 @@ import makeSelectHospitalDashboardContainer from './selectors';
 export class HospitalDashboardContainer extends React.Component {
   state = { open: false };
 
-  showModal = data =>
-    this.setState({
-      size: data.size,
-      open: true,
-      id: data.id,
-      clinicName: data.clinicName,
-    });
-
   close = () => this.setState({ open: false });
 
   render() {
     const { open, size } = this.state;
 
-    const inlineStyle = {
-      modal: {
-        marginLeft: 'auto',
-        marginRight: 'auto',
-      },
-    };
     return (
       <React.Fragment>
         <HospitalDashboardNavbar />
@@ -64,27 +49,6 @@ export class HospitalDashboardContainer extends React.Component {
             );
           })}
         </div>
-        <Modal
-          size={size}
-          open={open}
-          onClose={this.close}
-          style={inlineStyle.modal}
-        >
-          <Modal.Header className="blue-text">
-            Add patient to queue
-          </Modal.Header>
-          <Modal.Content>
-            <p>{this.state.clinicName}</p>
-          </Modal.Content>
-          <Modal.Actions>
-            <Button onClick={this.close} negative>
-              Cancel
-            </Button>
-            <Button positive content="Yes">
-              Confirm
-            </Button>
-          </Modal.Actions>
-        </Modal>
       </React.Fragment>
     );
   }
