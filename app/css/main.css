@@ -344,7 +344,7 @@
 
 .homePageContainer {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background: url('https://res.cloudinary.com/dxih0rp6w/image/upload/v1548819317/sitting-patient_mljmmr.svg'),
     url('https://res.cloudinary.com/dxih0rp6w/image/upload/v1548819330/standing-doc_ppdzp7.svg');
   background-position: right -150px center, left -120px center;
