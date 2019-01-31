@@ -5,6 +5,13 @@ const { Clinic, Hospital } = require('../models/models');
 const { check, validationResult } = require('express-validator/check');
 const bcrypt = require('bcrypt');
 
+api.post('/queuepatient', (req, res) => {
+  res.json({
+    error: null,
+    response: 'success',
+  });
+});
+
 api.post(
   '/registerClinic',
   [

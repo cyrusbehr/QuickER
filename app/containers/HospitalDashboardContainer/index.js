@@ -1,7 +1,10 @@
 /**
  *
- * HospitalDashboardContainer
  *
+ * TODO after you press the submit button,
+ *  need to clear the state so that when they
+ * want to refer a new patient the confirm button
+ * is disabled again
  */
 
 import HospitalDashboardCard from 'components/HospitalDashboardCard/index';
@@ -15,6 +18,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import axios from 'axios';
 
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -53,6 +57,29 @@ export class HospitalDashboardContainer extends React.Component {
       id: data.id,
       clinicName: data.clinicName,
     });
+  };
+
+  handleConfirm = () => {
+    this.setState({ open: false });
+
+    const basedomain = window.location.origin;
+    const apiEndpoint = `${basedomain}/api/queuepatient`;
+    console.log(apiEndpoint);
+    axios
+      .post(apiEndpoint, {
+        firstname: this.state.patientFirstName,
+        lastname: this.state.patientLastName,
+        phone: this.state.patientPhone,
+        clinicID: this.state.id,
+        DOB: this.state.patientDOB,
+      })
+      .then(r => {
+        // Show some sore of confirmation alert to the user
+        console.log(r);
+      })
+      .catch(err => {
+        console.log('There was an error with the request : ', err);
+      });
   };
 
   handleClose = () => {
@@ -158,7 +185,7 @@ export class HospitalDashboardContainer extends React.Component {
               Cancel
             </Button>
             <Button
-              onClick={this.handleClose}
+              onClick={this.handleConfirm}
               color="primary"
               disabled={!this.getFormStatus()}
             >
