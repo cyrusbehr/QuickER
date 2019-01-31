@@ -6,6 +6,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import Fab from '@material-ui/core/Fab';
+import Icon from '@material-ui/core/Icon';
 // import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 
@@ -16,13 +18,9 @@ class HospitalDashboardCard extends React.Component {
       return (
         <div className="addToQueue center">
           <span className="addToQueueTxt">add to queue</span>
-          <button
-            type="button"
-            onClick={this.onPress}
-            className="circular ui icon button massive white whiteHover"
-          >
-            <i className="angle right icon redbutton" />
-          </button>
+          <Fab color="default" type="button" onClick={this.onPress}>
+            <Icon className="icon-color">navigate_next</Icon>
+          </Fab>
         </div>
       );
     }
@@ -75,7 +73,11 @@ class HospitalDashboardCard extends React.Component {
       >
         <div className="hospitalDashCardsPad">
           <div className="waitTime boxShadowEffect">
-            <span className="center">
+            <span
+              className={
+                this.props.active ? 'center' : 'center open-time-margin'
+              }
+            >
               <i className="material-icons hospitalDashIconLarge">
                 access_time
               </i>

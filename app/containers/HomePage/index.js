@@ -17,19 +17,14 @@ export default class HomePage extends React.Component {
     return (
       <div className="homePageContainer">
         <div>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <div className="align-text-center">
-            <span className="cFontItalics cRed-Text lighter title-font-size">
-              Quick
-            </span>
-            <span className="cFontItalics cRed-Text bolder title-font-size">
-              ER
-            </span>
-            <div className="actionSubtitle">choose your role</div>
+          <div className="align-text-center title-margin">
+            <div className="cFontItalics cRed-Text">
+              <span className="lighter title-font-size">Quick</span>
+              <span className="bolder title-font-size">ER</span>
+            </div>
+            <div className="action-subtitle cFont cBlue-Text">
+              Choose your role
+            </div>
           </div>
         </div>
         <div className="login-card-contianer">

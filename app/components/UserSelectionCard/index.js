@@ -7,6 +7,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
+import Fab from '@material-ui/core/Fab';
+import Icon from '@material-ui/core/Icon';
 
 class UserSelectionCard extends React.Component {
   redirect() {
@@ -22,9 +24,9 @@ class UserSelectionCard extends React.Component {
         >
           <div className="actionSubtitle">{this.props.title}</div>
           <div className="loginButton">
-            <button type="button" className="circular ui icon button massive ">
-              <i className="angle right icon redbutton " />
-            </button>
+            <Fab color="default">
+              <Icon className="icon-color">navigate_next</Icon>
+            </Fab>
           </div>
         </div>
       </React.Fragment>

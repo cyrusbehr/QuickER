@@ -5,6 +5,10 @@
   */
 }
 
+.icon-color {
+  color: #cc1919;
+}
+
 .cRed-Text {
   color: #cc1919 !important;
 }
@@ -54,7 +58,7 @@
 .login-card {
   width: 250px;
   height: 250px;
-  margin: 60px 40px;
+  margin: 40px 40px;
 }
 
 .title-font-size {
@@ -75,6 +79,7 @@
 
 .cFont {
   font-family: 'Open Sans', sans-serif;
+  font-style: normal;
 }
 
 .cFontBold {
@@ -87,28 +92,39 @@
   font-style: italic;
 }
 
+.title-margin {
+  padding-top: 10px;
+}
+
 .bolder {
   font-weight: bolder;
 }
-
-.ligther {
+0 .lighter {
   font-weight: lighter;
 }
+
+.action-subtitle {
+  font-size: 40px;
+}
+
 /*
 TODO need to fix and split up CSS below
 */
+.card-title {
+  padding-top: 30px;
+}
 
 .actionSubtitle {
+  padding-top: 20px;
   font-family: 'Open Sans', sans-serif;
   font-style: normal;
   font-size: 40px;
   color: #213a8e;
-  padding-top: 40px;
   text-align: center;
 }
 
 .loginButton {
-  margin-top: 100px;
+  margin-top: 75px;
 }
 
 .card-image {
@@ -268,6 +284,10 @@ TODO need to fix and split up CSS below
 .closedCardWaitTimeStr {
   font-size: 20px;
   font-weight: 500;
+}
+
+.open-time-margin {
+  margin: 5px 0;
 }
 
 .clinicNameStr {
