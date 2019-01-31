@@ -5,13 +5,15 @@
  */
 
 import React from 'react';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 // import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 
 function HospitalDashboardNavbar() {
   return (
-    <nav className="nav-bar">
-      <div className="nav-wrapper white">
+    <AppBar position="static" color="default">
+      <Toolbar>
         <span className="dashboardTitleFontSize">
           <span className="dashboard-title-header">
             <span className="cRed-Text cFontItalics lighter ">Quick</span>
@@ -19,8 +21,8 @@ function HospitalDashboardNavbar() {
           </span>
           <span className="cFontItalics cBlue-Text">Hospital Dashboard</span>
         </span>
-      </div>
-    </nav>
+      </Toolbar>
+    </AppBar>
   );
 }
 
