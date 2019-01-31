@@ -65,7 +65,7 @@ class HospitalDashboardCard extends React.Component {
       <div
         className={
           this.props.active
-            ? 'hover-grow hospitalDashCards'
+            ? 'hospitalDashCards'
             : 'hospitalDashCardsDisabled'
         }
       >
