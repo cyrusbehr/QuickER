@@ -89,6 +89,7 @@ DEMO: https://codepen.io/anon/pen/xMgRQq
   width: 250px;
   height: 250px;
   margin: 40px 40px;
+  background-color: white;
 }
 
 .title-font-size {
@@ -404,4 +405,9 @@ TODO need to fix and split up CSS below
 
 /*
 TODO need to add media query at 700px width to change backgroud image, one card per row, and change font size
+*/
+
+/*
+TODO on home page the grey background does not extend all the way to the top
+there is a small sliver of white
 */
