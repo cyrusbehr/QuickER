@@ -8,6 +8,13 @@ import HospitalDashboardCard from 'components/HospitalDashboardCard/index';
 import HospitalDashboardNavbar from 'components/HospitalDashboardNavbar/index';
 import PropTypes from 'prop-types';
 import React from 'react';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -23,10 +30,20 @@ import makeSelectHospitalDashboardContainer from './selectors';
 export class HospitalDashboardContainer extends React.Component {
   state = { open: false };
 
-  close = () => this.setState({ open: false });
+  handleClickOpen = data => {
+    this.setState({
+      open: true,
+      id: data.id,
+      clinicName: data.clinicName,
+    });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
 
   render() {
-    const { open, size } = this.state;
+    const { open } = this.state;
 
     return (
       <React.Fragment>
@@ -44,7 +61,7 @@ export class HospitalDashboardContainer extends React.Component {
                 address={data.address}
                 active={data.active}
                 id={data.id}
-                onButtonPress={data => this.showModal(data)}
+                onButtonPress={data => this.handleClickOpen(data)}
               />
             );
           })}
