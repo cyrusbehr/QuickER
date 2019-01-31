@@ -130,7 +130,8 @@ DEMO: https://codepen.io/anon/pen/xMgRQq
 .bolder {
   font-weight: bolder;
 }
-0 .lighter {
+
+.lighter {
   font-weight: lighter;
 }
 
