@@ -19,6 +19,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
+import Snackbar from '../../components/Snackbar/index';
 
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -40,16 +41,31 @@ export class HospitalDashboardContainer extends React.Component {
     patientLastName: '',
     patientPhone: 0,
     patientDOB: '',
+    openError: false,
+    openSuccess: false,
+  };
+
+  handleErrorClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    this.setState({ openError: false });
+  };
+
+  handleSuccessClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    this.setState({ openSuccess: false });
   };
 
   // Returns true if all required values of the form have been filled
-  getFormStatus = () => {
-    return (
-      this.state.patientFirstName &&
-      this.state.patientLastName &&
-      this.state.patientDOB
-    );
-  };
+  getFormStatus = () =>
+    this.state.patientFirstName &&
+    this.state.patientLastName &&
+    this.state.patientDOB;
 
   handleClickOpen = data => {
     this.setState({
@@ -74,8 +90,11 @@ export class HospitalDashboardContainer extends React.Component {
         DOB: this.state.patientDOB,
       })
       .then(r => {
-        // Show some sore of confirmation alert to the user
-        console.log(r);
+        if (r.error) {
+          this.setState({ openError: true });
+        } else {
+          this.setState({ openSuccess: true });
+        }
       })
       .catch(err => {
         console.log('There was an error with the request : ', err);
@@ -108,6 +127,24 @@ export class HospitalDashboardContainer extends React.Component {
     return (
       <React.Fragment>
         <HospitalDashboardNavbar />
+        <Snackbar
+          variant="success"
+          message={`${this.state.patientFirstName} was successfully added to ${
+            this.state.clinicName
+          } queue`}
+          open={this.state.openSuccess}
+          handleClose={this.handleSuccessClose}
+          autoHideDuration="8000"
+        />
+        <Snackbar
+          variant="error"
+          message={`Unable to add ${this.state.patientFirstName} to ${
+            this.state.clinicName
+          } queue`}
+          open={this.state.openError}
+          handleClose={this.handleErrorClose}
+          autoHideDuration="8000"
+        />
         <div className="hospitalDashCardContainer">
           {DashboardCardData.map(data => {
             return (
