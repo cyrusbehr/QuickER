@@ -28,7 +28,24 @@ import makeSelectHospitalDashboardContainer from './selectors';
 
 /* eslint-disable react/prefer-stateless-function */
 export class HospitalDashboardContainer extends React.Component {
-  state = { open: false };
+  state = {
+    open: false,
+    id: '',
+    clinicName: '',
+    patientFirstName: '',
+    patientLastName: '',
+    patientPhone: 0,
+    patientDOB: '',
+  };
+
+  // Returns true if all required values of the form have been filled
+  getFormStatus = () => {
+    return (
+      this.state.patientFirstName &&
+      this.state.patientLastName &&
+      this.state.patientDOB
+    );
+  };
 
   handleClickOpen = data => {
     this.setState({
@@ -40,6 +57,22 @@ export class HospitalDashboardContainer extends React.Component {
 
   handleClose = () => {
     this.setState({ open: false });
+  };
+
+  handleFirstNameChange = e => {
+    this.setState({ patientFirstName: e.target.value });
+  };
+
+  handleLastNameChange = e => {
+    this.setState({ patientLastName: e.target.value });
+  };
+
+  handlePhoneChange = e => {
+    this.setState({ patientPhone: e.target.value });
+  };
+
+  handleDOBChange = e => {
+    this.setState({ patientDOB: e.target.value });
   };
 
   render() {
@@ -66,6 +99,73 @@ export class HospitalDashboardContainer extends React.Component {
             );
           })}
         </div>
+
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">
+            Add patient to queue
+            <br />
+            {this.state.clinicName}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText>{/*this.state.clinicName*/}</DialogContentText>
+            <div className="modal-form-content">
+              <TextField
+                required
+                autoFocus
+                margin="dense"
+                id="firstName"
+                label="First Name"
+                type="text"
+                fullWidth
+                onChange={e => this.handleFirstNameChange(e)}
+              />
+              <TextField
+                required
+                margin="dense"
+                id="lastName"
+                label="Last Name"
+                type="text"
+                fullWidth
+                onChange={e => this.handleLastNameChange(e)}
+              />
+              <TextField
+                margin="dense"
+                id="phone"
+                label="Phone"
+                type="number"
+                fullWidth
+                onChange={e => this.handlePhoneChange(e)}
+              />
+              <TextField
+                required
+                id="date"
+                label="Date of Birth"
+                type="date"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                fullWidth
+                onChange={e => this.handleDOBChange(e)}
+              />
+            </div>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button
+              onClick={this.handleClose}
+              color="primary"
+              disabled={!this.getFormStatus()}
+            >
+              Confirm
+            </Button>
+          </DialogActions>
+        </Dialog>
       </React.Fragment>
     );
   }

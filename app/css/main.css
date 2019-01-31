@@ -201,6 +201,19 @@ TODO need to fix and split up CSS below
   background-color: #e0e0e0 !important;
 }
 
+#form-dialog-title {
+  border-bottom: 1px solid #d2d7d3;
+  width: 600px;
+}
+
+#form-dialog-title {
+  padding: 16px 25px;
+}
+
+.modal-form-content {
+  margin-top: 20px;
+}
+
 .hospitalDashCards {
   width: 250px;
   height: 250px;

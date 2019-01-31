@@ -23,7 +23,7 @@ class HospitalDashboardCard extends React.Component {
       );
     }
     return (
-      <div className="closed center">
+      <div className="closed align-text-center center">
         <span className="closedTxt horzCenter">closed</span>
       </div>
     );
