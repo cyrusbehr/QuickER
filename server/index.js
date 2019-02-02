@@ -1,9 +1,15 @@
 /* eslint consistent-return:0 import/order:0 */
 
 const { api } = require('./api');
+const auth = require('./auth');
 const mongoose = require('mongoose');
 const express = require('express');
 const logger = require('./logger');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const session = require('express-session');
+const { Clinic, Hospital, User } = require('../models/models');
+const bcrypt = require('bcrypt');
 
 const argv = require('./argv');
 const port = require('./port');
@@ -24,7 +30,49 @@ mongoose.connection.on('connected', () => {
   console.log('we connected to mongoDB!');
 });
 
+// Do passport and session setup here
+
+app.use(
+  session({
+    secret: 'cryptocurrency',
+    resave: true,
+    saveUninitialized: true,
+  }),
+);
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  User.findById(id, (err, user) => {
+    done(err, user);
+  });
+});
+
+// http://www.passportjs.org/docs/authenticate/
+passport.use(
+  new LocalStrategy((username, password, done) => {
+    User.findOne({ username }, (err, user) => {
+      if (err) {
+        return done(err);
+      }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      if (bcrypt.compareSync(password, user.password)) {
+        return done(null, user);
+      }
+      return done(null, false, { message: 'Incorrect password.' });
+    });
+  }),
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
+app.use('/', auth(passport));
 app.use('/api', api);
 
 // In production we need to pass these values in instead of relying on webpack
