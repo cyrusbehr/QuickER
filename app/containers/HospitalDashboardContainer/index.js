@@ -197,14 +197,6 @@ export class HospitalDashboardContainer extends React.Component {
                 onChange={e => this.handleLastNameChange(e)}
               />
               <TextField
-                margin="dense"
-                id="phone"
-                label="Phone"
-                type="number"
-                fullWidth
-                onChange={e => this.handlePhoneChange(e)}
-              />
-              <TextField
                 required
                 id="date"
                 label="Date of Birth"
@@ -214,6 +206,14 @@ export class HospitalDashboardContainer extends React.Component {
                 }}
                 fullWidth
                 onChange={e => this.handleDOBChange(e)}
+              />
+              <TextField
+                margin="dense"
+                id="phone"
+                label="Phone"
+                type="number"
+                fullWidth
+                onChange={e => this.handlePhoneChange(e)}
               />
             </div>
           </DialogContent>
