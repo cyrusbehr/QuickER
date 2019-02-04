@@ -1,9 +1,3 @@
-/**
- *
- * HospitalDashboardCard
- *
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import Fab from '@material-ui/core/Fab';
@@ -64,9 +58,7 @@ class HospitalDashboardCard extends React.Component {
     return (
       <div
         className={
-          this.props.active
-            ? 'hospitalDashCards'
-            : 'hospitalDashCardsDisabled'
+          this.props.active ? 'hospitalDashCards' : 'hospitalDashCardsDisabled'
         }
       >
         <div className="hospitalDashCardsPad">

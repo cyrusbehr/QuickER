@@ -10,10 +10,10 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import HomePage from 'containers/HomePage/Loadable';
+import HomePageContainer from 'containers/HomePageContainer/Loadable';
 import HospitalDashboardContainer from 'containers/HospitalDashboardContainer/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
-import HandleProgressBar from '../HandleProgressBar/index';
+import HandleProgressBar from '../HandleProgressBar/Loadable';
 
 import GlobalStyle from '../../global-styles';
 
@@ -22,7 +22,7 @@ export default function App() {
     <div>
       <HandleProgressBar />
       <Switch>
-        <Route exact path="/" component={HomePage} />
+        <Route exact path="/" component={HomePageContainer} />
         <Route
           exact
           path="/hospital/dashboard"

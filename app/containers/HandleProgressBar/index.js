@@ -21,8 +21,10 @@ TopBarProgress.config({
 /* eslint-disable react/prefer-stateless-function */
 export class HandleProgressBar extends React.Component {
   render() {
-    const { progressBarStatus } = this.props;
+    const { progressBarStatus } = this.props.handleProgressBar;
+
     if (progressBarStatus) {
+      console.log('The progress bar should be rendereing here!');
       return <TopBarProgress />;
     }
     return '';
@@ -33,15 +35,9 @@ HandleProgressBar.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-// const mapStateToProps = createStructuredSelector({
-//   handleProgressBar: makeSelectHandleProgressBar(),
-// });
-
-const mapStateToProps = state => {
-  return {
-    progressBarStatus: state.handleProgressBarReducer.progressBarStatus,
-  };
-};
+const mapStateToProps = createStructuredSelector({
+  handleProgressBar: makeSelectHandleProgressBar(),
+});
 
 function mapDispatchToProps(dispatch) {
   return {

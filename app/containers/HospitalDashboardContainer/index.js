@@ -80,7 +80,6 @@ export class HospitalDashboardContainer extends React.Component {
 
     const basedomain = window.location.origin;
     const apiEndpoint = `${basedomain}/api/queuepatient`;
-    console.log(apiEndpoint);
     axios
       .post(apiEndpoint, {
         firstname: this.state.patientFirstName,
@@ -123,7 +122,7 @@ export class HospitalDashboardContainer extends React.Component {
 
   render() {
     const { open } = this.state;
-
+    const autohideDur = 8000;
     return (
       <React.Fragment>
         <HospitalDashboardNavbar />
@@ -134,7 +133,7 @@ export class HospitalDashboardContainer extends React.Component {
           } queue`}
           open={this.state.openSuccess}
           handleClose={this.handleSuccessClose}
-          autoHideDuration="8000"
+          autoHideDuration={autohideDur}
         />
         <Snackbar
           variant="error"
@@ -143,7 +142,7 @@ export class HospitalDashboardContainer extends React.Component {
           } queue`}
           open={this.state.openError}
           handleClose={this.handleErrorClose}
-          autoHideDuration="8000"
+          autoHideDuration={autohideDur}
         />
         <div className="hospitalDashCardContainer">
           {DashboardCardData.map(data => {

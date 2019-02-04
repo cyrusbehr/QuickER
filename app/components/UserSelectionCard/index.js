@@ -12,6 +12,7 @@ import Icon from '@material-ui/core/Icon';
 
 class UserSelectionCard extends React.Component {
   redirect() {
+    this.props.onClickFunc(true);
     this.props.history.push(this.props.redirectRoute);
   }
 

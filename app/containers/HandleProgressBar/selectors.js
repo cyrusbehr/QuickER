@@ -1,23 +1,19 @@
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
-/**
- * Direct selector to the handleProgressBar state domain
- */
-
+// Use this to get the global handleProgressBar state
 const selectHandleProgressBarDomain = state =>
   state.get('handleProgressBar', initialState);
 
-/**
- * Other specific selectors
- */
-
-/**
- * Default selector used by HandleProgressBar
- */
-
+// Now we can use these sub ones for getting the smaller substates
 const makeSelectHandleProgressBar = () =>
   createSelector(selectHandleProgressBarDomain, substate => substate.toJS());
+
+const makeSelectHangleProgressBarStatus = () => [
+  createSelector(makeSelectHangleProgressBarStatus, substate =>
+    substate.get('progressBarStatus'),
+  ),
+];
 
 export default makeSelectHandleProgressBar;
 export { selectHandleProgressBarDomain };
