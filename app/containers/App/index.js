@@ -13,12 +13,14 @@ import { Switch, Route } from 'react-router-dom';
 import HomePage from 'containers/HomePage/Loadable';
 import HospitalDashboardContainer from 'containers/HospitalDashboardContainer/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import HandleProgressBar from '../HandleProgressBar/index';
 
 import GlobalStyle from '../../global-styles';
 
 export default function App() {
   return (
     <div>
+      <HandleProgressBar />
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route
