@@ -43,7 +43,9 @@ export class ClinicRegistrationContainer extends React.Component {
   render() {
     return (
       <div>
-        <div>can put some sort of header here</div>
+        <div>
+          can put some sort of header nav bar here with icons / logos, ect
+        </div>
         <div>Can put some background images here or whatever</div>
         {this.state.formDataReady && (
           <ClinicRegistrationForm clinicData={this.state.clinicData} />
@@ -54,7 +56,6 @@ export class ClinicRegistrationContainer extends React.Component {
 }
 
 ClinicRegistrationContainer.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   onChangeLoadingStatus: PropTypes.func,
 };
 

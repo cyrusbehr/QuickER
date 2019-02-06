@@ -9,6 +9,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import PropTypes from 'prop-types';
 // import styled from 'styled-components';
@@ -18,17 +21,31 @@ import PropTypes from 'prop-types';
 class ClinicRegistrationForm extends React.PureComponent {
   state = {
     clinicName: '',
+    address: '',
+    id: '',
+    phone: 0,
+    username: '',
+    password: '',
+    passwordRepeat: '',
+  };
+
+  handleInputChange = param => event => {
+    this.setState({ [param]: event.target.value });
   };
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
+    const obj = this.props.clinicData.find(elem => {
+      return elem.name === event.target.value;
+    });
+    this.setState({ address: obj.address, id: obj._id });
   };
 
   render() {
     return (
       <div>
         <form autoComplete="off">
-          <FormControl className="clinic-registration-form-input">
+          <FormControl required className="clinic-registration-form-input">
             <InputLabel htmlFor="clinic-name-dropdown">Clinic Name</InputLabel>
             <Select
               value={this.state.clinicName}
@@ -51,6 +68,81 @@ class ClinicRegistrationForm extends React.PureComponent {
                 }
               })}
             </Select>
+          </FormControl>
+          <br />
+          <FormControl required className="clinic-registration-form-input">
+            <TextField
+              required
+              id="address"
+              label="Address"
+              type="text"
+              className=""
+              value={this.state.address}
+              onChange={this.handleInputChange('address')}
+              margin="normal"
+            />
+            <TextField
+              required
+              id="phone"
+              label="Clinic Phone Number"
+              type="number"
+              className=""
+              onChange={this.handleInputChange('phone')}
+              margin="normal"
+            />
+            <TextField
+              required
+              id="username"
+              label="Username"
+              type="text"
+              className=""
+              onChange={this.handleInputChange('username')}
+              margin="normal"
+            />
+            <TextField
+              required
+              id="password"
+              label="Password"
+              type="password"
+              className=""
+              onChange={this.handleInputChange('password')}
+              margin="normal"
+            />
+            <TextField
+              required
+              id="password-repeat"
+              label="Password Repeat"
+              type="password"
+              className=""
+              onChange={this.handleInputChange('passwordRepeat')}
+              margin="normal"
+            />
+            <input
+              accept="image/*"
+              style={{ display: 'none' }}
+              id="raised-button-file"
+              multiple
+              type="file"
+            />
+            <label htmlFor="raised-button-file">
+              <Tooltip
+                title="We require a document as proof that you work at
+               or are currently managing the clinic. This can be in the form
+                of a utility bill or bank statement which shows the address
+                 and clinic name"
+              >
+                <Button
+                  variant="raised"
+                  component="span"
+                  className="full-width"
+                >
+                  Upload Proof of Ownership
+                </Button>
+              </Tooltip>
+            </label>
+            <Button variant="contained" component="span">
+              Submit Registration
+            </Button>
           </FormControl>
         </form>
       </div>
