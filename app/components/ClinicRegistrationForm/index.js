@@ -136,7 +136,7 @@ class ClinicRegistrationForm extends React.PureComponent {
                   component="span"
                   className="full-width"
                 >
-                  Upload Proof of Ownership
+                  Upload
                 </Button>
               </Tooltip>
             </label>
