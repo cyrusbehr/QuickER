@@ -11,11 +11,12 @@ const clinicMainRoute = '/clinic';
 const clinicLoginRoute = clinicMainRoute.concat(loginRoute);
 const hospitalMainRoute = '/hospital';
 const hospitalLoginRout = hospitalMainRoute.concat(loginRoute);
+const HOSPITAL_REGISTRATION_ROUTE = '/register/hospital';
 
 const LoginCardData = [
   {
     title: 'Hospital',
-    redirectRoute: hospitalLoginRout,
+    redirectRoute: HOSPITAL_REGISTRATION_ROUTE,
   },
   {
     title: 'Clinic',

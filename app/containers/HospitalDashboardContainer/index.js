@@ -19,13 +19,13 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
-import Snackbar from '../../components/Snackbar/index';
 
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
+import Snackbar from '../../components/Snackbar/index';
 import { DashboardCardData, QUEUE_PATIENT_ROUTE } from './constants';
 import reducer from './reducer';
 import saga from './saga';

@@ -10,26 +10,45 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import axios from 'axios';
+import HospitalRegistrationForm from 'components/HospitalRegistrationForm/index';
+import { setProgressBar } from '../HandleProgressBar/actions';
 
 import injectReducer from 'utils/injectReducer';
+import { SCRAPED_CLINICS_ROUTE } from './constants';
 import makeSelectHospitalRegistrationContainer from './selectors';
 import reducer from './reducer';
 
 /* eslint-disable react/prefer-stateless-function */
 export class HospitalRegistrationContainer extends React.Component {
   componentDidMount() {
-    const basedomain = window.location.origin;
-    const apiEndpoint = `${basedomain}/api/getscrapedclinics`;
-    // Need to make call to our backend route to get all the clinics which can be registered
+    this.props.onChangeLoadingStatus(true);
+    axios.get(SCRAPED_CLINICS_ROUTE).then(r => {
+      if (r.error) {
+        // Handle the error
+      } else {
+        // Set the state and pass it to the registration form
+        this.props.onChangeLoadingStatus(false);
+      }
+    });
   }
 
   render() {
-    return <div />;
+    return (
+      <div>
+        <div>can have sort sort of title bar here </div>
+        <div>
+          Can put some images in the background (look at what other website have
+          as examples (like medimaps)) check to see how i added the background
+          to the splash page
+        </div>
+      </div>
+    );
   }
 }
 
 HospitalRegistrationContainer.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  //dispatch: PropTypes.func.isRequired,
+  onChangeLoadingStatus: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -38,7 +57,9 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    onChangeLoadingStatus: isOpen => {
+      dispatch(setProgressBar(isOpen));
+    },
   };
 }
 

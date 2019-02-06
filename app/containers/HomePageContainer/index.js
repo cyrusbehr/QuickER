@@ -12,7 +12,6 @@ import { compose } from 'redux';
 import UserSelectionCard from 'components/UserSelectionCard/index';
 import injectReducer from 'utils/injectReducer';
 import { LoginCardData } from './constants';
-import { setProgressBar } from '../HandleProgressBar/actions';
 
 import makeSelectHomePageContainer from './selectors';
 import reducer from './reducer';
@@ -41,7 +40,7 @@ export class HomePageContainer extends React.Component {
                 title={data.title}
                 redirectRoute={data.redirectRoute}
                 {...this.props}
-                onClickFunc={() => this.props.onChangeLoadingStatus(true)}
+                onClickFunc={() => console.log('Remove this')}
               />
             );
           })}
@@ -52,8 +51,7 @@ export class HomePageContainer extends React.Component {
 }
 
 HomePageContainer.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  onChangeLoadingStatus: PropTypes.func,
+  //dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -61,11 +59,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 function mapDispatchToProps(dispatch) {
-  return {
-    onChangeLoadingStatus: isOpen => {
-      dispatch(setProgressBar(isOpen));
-    },
-  };
+  return {};
 }
 
 const withConnect = connect(

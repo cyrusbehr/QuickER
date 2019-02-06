@@ -24,7 +24,6 @@ export class HandleProgressBar extends React.Component {
     const { progressBarStatus } = this.props.handleProgressBar;
 
     if (progressBarStatus) {
-      console.log('The progress bar should be rendereing here!');
       return <TopBarProgress />;
     }
     return '';
