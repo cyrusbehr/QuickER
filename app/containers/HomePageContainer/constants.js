@@ -6,12 +6,8 @@
 
 const DEFAULT_ACTION = 'app/HomePageContainer/DEFAULT_ACTION';
 
-const loginRoute = '/dashboard';
-const clinicMainRoute = '/clinic';
-const clinicLoginRoute = clinicMainRoute.concat(loginRoute);
-const hospitalMainRoute = '/hospital';
-const hospitalLoginRout = hospitalMainRoute.concat(loginRoute);
 const HOSPITAL_REGISTRATION_ROUTE = '/register/hospital';
+const CLINIC_REGISTRATION_ROUTE = '/register/clinic';
 
 const LoginCardData = [
   {
@@ -20,15 +16,11 @@ const LoginCardData = [
   },
   {
     title: 'Clinic',
-    redirectRoute: clinicLoginRoute,
+    redirectRoute: CLINIC_REGISTRATION_ROUTE,
   },
 ];
 
 module.exports = {
-  clinicMainRoute,
-  hospitalMainRoute,
-  clinicLoginRoute,
-  hospitalLoginRout,
   LoginCardData,
   DEFAULT_ACTION,
 };

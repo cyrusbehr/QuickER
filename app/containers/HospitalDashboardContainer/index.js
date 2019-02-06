@@ -25,6 +25,7 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
+import { setProgressBar } from '../HandleProgressBar/actions';
 import Snackbar from '../../components/Snackbar/index';
 import { DashboardCardData, QUEUE_PATIENT_ROUTE } from './constants';
 import reducer from './reducer';
@@ -44,6 +45,12 @@ export class HospitalDashboardContainer extends React.Component {
     openError: false,
     openSuccess: false,
   };
+
+  componentDidMount() {
+    this.props.onChangeLoadingStatus(true);
+    // Make call to our API here
+    this.props.onChangeLoadingStatus(false);
+  }
 
   handleErrorClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -87,7 +94,7 @@ export class HospitalDashboardContainer extends React.Component {
         DOB: this.state.patientDOB,
       })
       .then(r => {
-        if (r.error) {
+        if (r.data.error) {
           this.setState({ openError: true });
         } else {
           this.setState({ openSuccess: true });
@@ -234,6 +241,7 @@ export class HospitalDashboardContainer extends React.Component {
 
 HospitalDashboardContainer.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  onChangeLoadingStatus: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -242,7 +250,9 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    onChangeLoadingStatus: isOpen => {
+      dispatch(setProgressBar(isOpen));
+    },
   };
 }
 

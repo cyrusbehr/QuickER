@@ -14,7 +14,6 @@ import HospitalRegistrationForm from 'components/HospitalRegistrationForm/index'
 import { setProgressBar } from '../HandleProgressBar/actions';
 
 import injectReducer from 'utils/injectReducer';
-import { SCRAPED_CLINICS_ROUTE } from './constants';
 import makeSelectHospitalRegistrationContainer from './selectors';
 import reducer from './reducer';
 
@@ -22,14 +21,7 @@ import reducer from './reducer';
 export class HospitalRegistrationContainer extends React.Component {
   componentDidMount() {
     this.props.onChangeLoadingStatus(true);
-    axios.get(SCRAPED_CLINICS_ROUTE).then(r => {
-      if (r.error) {
-        // Handle the error
-      } else {
-        // Set the state and pass it to the registration form
-        this.props.onChangeLoadingStatus(false);
-      }
-    });
+    this.props.onChangeLoadingStatus(false);
   }
 
   render() {

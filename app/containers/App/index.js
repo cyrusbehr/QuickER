@@ -12,6 +12,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import HomePageContainer from 'containers/HomePageContainer/Loadable';
 import HospitalRegistrationContainer from 'containers/HospitalRegistrationContainer/Loadable';
+import ClinicRegistrationContainer from 'containers/ClinicRegistrationContainer/Loadable';
 import HospitalDashboardContainer from 'containers/HospitalDashboardContainer/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import HandleProgressBar from '../HandleProgressBar/Loadable';
@@ -28,6 +29,11 @@ export default function App() {
           exact
           path="/register/hospital"
           component={HospitalRegistrationContainer}
+        />
+        <Route
+          exact
+          path="/register/clinic"
+          component={ClinicRegistrationContainer}
         />
         <Route
           exact
