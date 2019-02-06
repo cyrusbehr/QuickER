@@ -11,6 +11,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import axios from 'axios';
 
+import ClinicRegistrationForm from 'components/ClinicRegistrationForm/index';
 import injectReducer from 'utils/injectReducer';
 import { setProgressBar } from '../HandleProgressBar/actions';
 import makeSelectClinicRegistrationContainer from './selectors';
@@ -18,6 +19,10 @@ import reducer from './reducer';
 import { SCRAPED_CLINICS_ROUTE } from './constants';
 /* eslint-disable react/prefer-stateless-function */
 export class ClinicRegistrationContainer extends React.Component {
+  state = {
+    formDataReady: false,
+  };
+
   componentDidMount() {
     this.props.onChangeLoadingStatus(true);
     axios
@@ -26,7 +31,8 @@ export class ClinicRegistrationContainer extends React.Component {
         if (r.data.error) {
           // Handle error here
         } else {
-          console.log(r.data.response);
+          this.setState({ clinicData: r.data.response });
+          this.setState({ formDataReady: true });
         }
       })
       .then(() => {
@@ -35,7 +41,15 @@ export class ClinicRegistrationContainer extends React.Component {
   }
 
   render() {
-    return <div />;
+    return (
+      <div>
+        <div>can put some sort of header here</div>
+        <div>Can put some background images here or whatever</div>
+        {this.state.formDataReady && (
+          <ClinicRegistrationForm clinicData={this.state.clinicData} />
+        )}
+      </div>
+    );
   }
 }
 

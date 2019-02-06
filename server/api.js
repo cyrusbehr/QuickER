@@ -16,6 +16,12 @@ api.get('/scrapedclinics', (req, res) => {
   // Connect to the ScrapedClinic db and obtain all the clinics which have the hasRegistered flag set to false
   // return array of clinics
   ScrapedClinic.find({ hasRegistered: false }).then(clinics => {
+    clinics.sort((a, b) => {
+      if (a.name < b.name) return -1;
+      if (a.name > b.name) return 1;
+      return 0;
+    });
+
     res.json({
       error: null,
       response: clinics,
