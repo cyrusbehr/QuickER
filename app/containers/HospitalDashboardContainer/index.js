@@ -26,7 +26,7 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import { DashboardCardData } from './constants';
+import { DashboardCardData, QUEUE_PATIENT_ROUTE } from './constants';
 import reducer from './reducer';
 import saga from './saga';
 import makeSelectHospitalDashboardContainer from './selectors';
@@ -78,10 +78,8 @@ export class HospitalDashboardContainer extends React.Component {
   handleConfirm = () => {
     this.setState({ open: false });
 
-    const basedomain = window.location.origin;
-    const apiEndpoint = `${basedomain}/api/queuepatient`;
     axios
-      .post(apiEndpoint, {
+      .post(QUEUE_PATIENT_ROUTE, {
         firstname: this.state.patientFirstName,
         lastname: this.state.patientLastName,
         phone: this.state.patientPhone,

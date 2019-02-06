@@ -3,6 +3,7 @@
  * HospitalDashboardContainer constants
  *
  */
+const QUEUE_PATIENT_ROUTE = `${window.location.origin}/api/queuepatient`;
 
 const DashboardCardData = [
   {
@@ -42,4 +43,5 @@ const DEFAULT_ACTION = 'app/HospitalDashboardContainer/DEFAULT_ACTION';
 module.exports = {
   DashboardCardData,
   DEFAULT_ACTION,
+  QUEUE_PATIENT_ROUTE,
 };

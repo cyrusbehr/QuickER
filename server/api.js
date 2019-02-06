@@ -12,7 +12,7 @@ api.post('/queuepatient', (req, res) => {
   });
 });
 
-api.get('/getscrapedclinics', (req, res) => {
+api.get('/scrapedclinics', (req, res) => {
   // Connect to the ScrapedClinic db and obtain all the clinics which have the hasRegistered flag set to false
   // return array of clinics
   ScrapedClinic.find({ hasRegistered: false }).then(clinics => {
