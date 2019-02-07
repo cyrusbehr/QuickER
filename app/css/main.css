@@ -32,7 +32,7 @@ DEMO: https://codepen.io/anon/pen/xMgRQq
 
 .card-1 {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .card-1:hover {
@@ -417,6 +417,43 @@ TODO need to add media query at 700px width to change backgroud image, one card 
 */
 
 /*
-TODO on home page the grey background does not extend all the way to the top
-there is a small sliver of white
+Used for CSSTransition from react-transition-group
+(these can potentially be put into another file)
+---------------------------------------------------------
+TODO we should really not be doing it as fade, fade1, fade2, ect
+
+*/
+
+.fade-appear {
+  opacity: 0;
+}
+
+.fade-appear.fade-appear-active {
+  opacity: 1;
+  transition: opacity 1000ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.fade2-appear {
+  opacity: 0;
+}
+
+.fade2-appear.fade2-appear-active {
+  opacity: 1;
+  transition: opacity 1000ms cubic-bezier(0.25, 0.1, 0.25, 1) 1000ms;
+}
+
+.fade3-appear {
+  opacity: 0;
+  transform: translateY(20%);
+}
+
+.fade3-appear.fade3-appear-active {
+  opacity: 1;
+  transition: transform 1200ms cubic-bezier(0.25, 0.1, 0.25, 1) 2000ms,
+    opacity 1200ms cubic-bezier(0.25, 0.1, 0.25, 1) 2000ms;
+  transform: translateY(0%);
+}
+
+/*
+---------------------------------------------------------
 */
