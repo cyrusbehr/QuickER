@@ -454,6 +454,17 @@ TODO we should really not be doing it as fade, fade1, fade2, ect
   transform: translateY(0%);
 }
 
+.fadeup-appear {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.fadeup-appear.fadeup-appear-active {
+  opacity: 1;
+  transition: transform 1200ms cubic-bezier(0.25, 0.1, 0.25, 1),
+    opacity 1200ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  transform: translateY(0px);
+}
 /*
 ---------------------------------------------------------
 */

@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import axios from 'axios';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import ClinicRegistrationForm from 'components/ClinicRegistrationForm/index';
 import injectReducer from 'utils/injectReducer';
@@ -48,7 +49,15 @@ export class ClinicRegistrationContainer extends React.Component {
         </div>
         <div>Can put some background images here or whatever</div>
         {this.state.formDataReady && (
-          <ClinicRegistrationForm clinicData={this.state.clinicData} />
+          <CSSTransition
+            in={this.state.formDataReady}
+            appear
+            classNames="fadeup"
+            children={
+              <ClinicRegistrationForm clinicData={this.state.clinicData} />
+            }
+            timeout={1200}
+          />
         )}
       </div>
     );
