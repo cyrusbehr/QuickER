@@ -8,6 +8,7 @@ const DEFAULT_ACTION = 'app/HomePageContainer/DEFAULT_ACTION';
 
 const HOSPITAL_REGISTRATION_ROUTE = '/register/hospital';
 const CLINIC_REGISTRATION_ROUTE = '/register/clinic';
+const CLINIC_LOGIN_ROUTE = '/login/clinic';
 
 const LoginCardData = [
   {
@@ -16,7 +17,7 @@ const LoginCardData = [
   },
   {
     title: 'Clinic',
-    redirectRoute: CLINIC_REGISTRATION_ROUTE,
+    redirectRoute: CLINIC_LOGIN_ROUTE,
   },
 ];
 
