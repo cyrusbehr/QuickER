@@ -27,7 +27,7 @@ import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { setProgressBar } from '../HandleProgressBar/actions';
 import Snackbar from '../../components/Snackbar/index';
-import { DashboardCardData, QUEUE_PATIENT_ROUTE } from './constants';
+import { QUEUE_PATIENT_ROUTE } from './constants';
 import reducer from './reducer';
 import saga from './saga';
 import makeSelectHospitalDashboardContainer from './selectors';
@@ -44,12 +44,21 @@ export class HospitalDashboardContainer extends React.Component {
     patientDOB: '',
     openError: false,
     openSuccess: false,
+    dashboardCardData: [],
   };
 
   componentDidMount() {
-    this.props.onChangeLoadingStatus(true);
-    // Make call to our API here
-    this.props.onChangeLoadingStatus(false);
+    // TODO need to send clinic ID as query parameter
+    axios.get('/api/clinics').then(r => {
+      if (r.data.error) {
+        console.log('Error : ', r.data.error);
+      } else {
+        this.setState({
+          dashboardCardData: r.data.response.dashboardCardData,
+        });
+        this.props.onChangeLoadingStatus(false);
+      }
+    });
   }
 
   handleErrorClose = (event, reason) => {
@@ -150,7 +159,7 @@ export class HospitalDashboardContainer extends React.Component {
           autoHideDuration={autohideDur}
         />
         <div className="hospitalDashCardContainer">
-          {DashboardCardData.map(data => {
+          {this.state.dashboardCardData.map(data => {
             return (
               <HospitalDashboardCard
                 key={data.clinicName}
@@ -253,6 +262,7 @@ function mapDispatchToProps(dispatch) {
     onChangeLoadingStatus: isOpen => {
       dispatch(setProgressBar(isOpen));
     },
+    dispatch,
   };
 }
 
