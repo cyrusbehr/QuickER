@@ -92,6 +92,7 @@ export class HospitalDashboardContainer extends React.Component {
   };
 
   handleConfirm = () => {
+    this.props.onChangeLoadingStatus(true);
     this.setState({ open: false });
 
     axios
@@ -108,9 +109,7 @@ export class HospitalDashboardContainer extends React.Component {
         } else {
           this.setState({ openSuccess: true });
         }
-      })
-      .catch(err => {
-        console.log('There was an error with the request : ', err);
+        this.props.onChangeLoadingStatus(false);
       });
   };
 
