@@ -72,12 +72,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
-app.get('*/*', (req, res) => {
-  res.json({
-    response: 'Website is under construction, please come back later',
-  });
-});
-
 app.use('/', auth(passport));
 app.use('/api', api);
 
