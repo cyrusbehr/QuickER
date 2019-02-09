@@ -16,6 +16,13 @@ module.exports = passport => {
     });
   });
 
+  router.post('/login/hospital', (req, res) => {
+    res.json({
+      error: null,
+      response: 'Success',
+    });
+  });
+
   router.post(
     '/register/clinic',
     [
