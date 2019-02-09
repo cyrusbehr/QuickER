@@ -9,7 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -32,12 +32,21 @@ class ClinicLoginForm extends React.PureComponent {
             className=""
             margin="normal"
           />
+          <Button
+            variant="contained"
+            className="full-width"
+            onClick={this.props.onLogin()}
+          >
+            Login
+          </Button>
         </FormControl>
       </div>
     );
   }
 }
 
-ClinicLoginForm.propTypes = {};
+ClinicLoginForm.propTypes = {
+  onLogin: PropTypes.func,
+};
 
 export default ClinicLoginForm;

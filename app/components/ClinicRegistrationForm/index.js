@@ -132,7 +132,7 @@ class ClinicRegistrationForm extends React.PureComponent {
                  and clinic name"
               >
                 <Button
-                  variant="raised"
+                  variant="contained"
                   component="span"
                   className="full-width"
                 >

@@ -15,6 +15,7 @@ import HospitalRegistrationContainer from 'containers/HospitalRegistrationContai
 import ClinicLoginContainer from 'containers/ClinicLoginContainer/Loadable';
 import ClinicRegistrationContainer from 'containers/ClinicRegistrationContainer/Loadable';
 import HospitalDashboardContainer from 'containers/HospitalDashboardContainer/Loadable';
+import ClinicDashboardContainer from 'containers/ClinicDashboardContainer/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import HandleProgressBar from '../HandleProgressBar/Loadable';
 
@@ -41,6 +42,11 @@ export default function App() {
           exact
           path="/hospital/dashboard"
           component={HospitalDashboardContainer}
+        />
+        <Route
+          exact
+          path="/clinic/dashboard"
+          component={ClinicDashboardContainer}
         />
         <Route component={NotFoundPage} />
       </Switch>

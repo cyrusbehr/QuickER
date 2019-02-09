@@ -8,8 +8,16 @@ const bcrypt = require('bcrypt');
 module.exports = passport => {
   // username, password, clinicName, address
   // List of clinics which can be registered is shows from those which are in the existing scraped database
+
+  router.post('/login/clinic', (req, res) => {
+    res.json({
+      error: null,
+      response: 'Success',
+    });
+  });
+
   router.post(
-    '/registerClinic',
+    '/register/clinic',
     [
       check('username')
         .isLength({ min: 1 })
@@ -43,7 +51,7 @@ module.exports = passport => {
             const saltRounds = 10;
             const hash = bcrypt.hashSync(req.body.password, saltRounds);
 
-            // 1) Search through the scraped clinics to find the one with the matching naem
+            // 1) Search through the scraped clinics to find the one with the matching name
             // 2) Change the hasRegistered flag to true
             // 3) Copy the clinic name, wait time, address from req to the new Clinic collection
             // 4) Create a new User, link the userReference to the new Clinic
