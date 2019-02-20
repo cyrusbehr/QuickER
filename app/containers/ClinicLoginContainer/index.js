@@ -19,27 +19,46 @@ import reducer from './reducer';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ClinicLoginContainer extends React.Component {
+  state = {
+    username: '',
+    password: '',
+  };
+
+  handleInputChange = param => event => {
+    this.setState({ [param]: event.target.value });
+  };
+
   handleRegisterNow = () => {
     this.props.history.push('/register/clinic');
   };
 
   handleLogin = () => {
     this.props.onChangeLoadingStatus(true);
-    axios.post('/login/clinic').then(r => {
-      if (r.data.error) {
-        console.log('Error : ', r.data.error);
-      } else {
-        // TODO do something with login deets, maybe put in redux
-        this.props.history.push('/clinic/dashboard');
-      }
-    });
+    axios
+      .post('/login/clinic', {
+        username: this.state.username,
+        password: this.state.password,
+      })
+      .then(r => {
+        if (r.data.error) {
+          this.props.onChangeLoadingStatus(false);
+          // TODO display the error message to the user, perhaps using a snackbar
+          console.log('Error : ', r.data.error);
+        } else {
+          // TODO do something with login deets, maybe put in redux
+          this.props.history.push('/clinic/dashboard');
+        }
+      });
   };
 
   render() {
     return (
       <div>
         can put some header stuff here like a navbar / ect
-        <ClinicLoginForm onLogin={() => this.handleLogin} />
+        <ClinicLoginForm
+          onLogin={() => this.handleLogin}
+          handleInputChange={data => this.handleInputChange(data)}
+        />
         <div>
           Don't have an account?
           <Button onClick={this.handleRegisterNow}>Register now!</Button>

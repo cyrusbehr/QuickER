@@ -55,8 +55,7 @@ export class ClinicRegistrationContainer extends React.Component {
             errorMessage: r.data.error,
             openError: true,
           });
-        }
-        if (r.data.errors) {
+        } else if (r.data.errors) {
           console.log(r.data.errors);
           let errorStr = 'Please fill the following fields:';
           let size = r.data.errors.length;
@@ -70,6 +69,8 @@ export class ClinicRegistrationContainer extends React.Component {
             errorMessage: errorStr,
             openError: true,
           });
+        } else {
+          this.props.history.push('/clinic/dashboard');
         }
       });
   };

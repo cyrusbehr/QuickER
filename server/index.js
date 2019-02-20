@@ -53,6 +53,7 @@ passport.deserializeUser((id, done) => {
 // http://www.passportjs.org/docs/authenticate/
 passport.use(
   new LocalStrategy((username, password, done) => {
+    // TODO take the userType as a param, can use that to seperate the users in db
     User.findOne({ username }, (err, user) => {
       if (err) {
         return done(err);

@@ -6,20 +6,31 @@ const { check, validationResult } = require('express-validator/check');
 const bcrypt = require('bcrypt');
 
 module.exports = passport => {
-  // username, password, clinicName, address
-  // List of clinics which can be registered is shows from those which are in the existing scraped database
+  router.post(
+    '/login/clinic',
+    passport.authenticate('local', {
+      failureRedirect: '/login/clinic/failure',
+    }),
+    (req, res) => {
+      // TODO only send back the required information
+      let responseUser = { ...req.user };
+      res.json({
+        error: null,
+        response: responseUser,
+      });
+    },
+  );
 
-  router.post('/login/clinic', (req, res) => {
+  router.get('/login/clinic/failure', (req, res) => {
     res.json({
-      error: null,
-      response: 'Success',
+      error: 'Incorrect username or password',
     });
   });
 
   router.post('/login/hospital', (req, res) => {
     res.json({
       error: null,
-      response: 'Success',
+      response: null,
     });
   });
 
