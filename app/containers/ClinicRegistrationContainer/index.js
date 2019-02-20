@@ -13,6 +13,7 @@ import axios from 'axios';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Button from '@material-ui/core/Button';
 
+import Snackbar from 'components/Snackbar/index';
 import ClinicRegistrationForm from 'components/ClinicRegistrationForm/index';
 import injectReducer from 'utils/injectReducer';
 import { setProgressBar } from '../HandleProgressBar/actions';
@@ -23,9 +24,19 @@ import { SCRAPED_CLINICS_ROUTE } from './constants';
 export class ClinicRegistrationContainer extends React.Component {
   state = {
     formDataReady: false,
+    openError: false,
+  };
+
+  handleErrorClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    this.setState({ openError: false });
   };
 
   handleRegisterClinic = formState => {
+    this.props.onChangeLoadingStatus(true);
     axios
       .post('/register/clinic', {
         id: formState.id,
@@ -37,7 +48,29 @@ export class ClinicRegistrationContainer extends React.Component {
         phone: formState.phone,
       })
       .then(r => {
+        this.props.onChangeLoadingStatus(false);
         console.log(r);
+        if (r.data.error) {
+          this.setState({
+            errorMessage: r.data.error,
+            openError: true,
+          });
+        }
+        if (r.data.errors) {
+          console.log(r.data.errors);
+          let errorStr = 'Please fill the following fields:';
+          let size = r.data.errors.length;
+          r.data.errors.map((error, idx) => {
+            errorStr += ` ${error.msg}`;
+            if (idx !== size - 1) {
+              errorStr += ',';
+            }
+          });
+          this.setState({
+            errorMessage: errorStr,
+            openError: true,
+          });
+        }
       });
   };
 
@@ -67,8 +100,16 @@ export class ClinicRegistrationContainer extends React.Component {
   }
 
   render() {
+    const autoHideDur = 100000; // 100 seconds
     return (
       <div>
+        <Snackbar
+          variant="error"
+          message={`Error: ${this.state.errorMessage}`}
+          open={this.state.openError}
+          handleClose={this.handleErrorClose}
+          autoHideDuration={autoHideDur}
+        />
         <div>
           can put some sort of header nav bar here with icons / logos, ect
         </div>

@@ -28,27 +28,37 @@ module.exports = passport => {
     [
       check('username')
         .isLength({ min: 1 })
-        .withMessage('Username is required.'),
+        .withMessage('Username'),
       check('password')
         .isLength({ min: 1 })
-        .withMessage('Password is required'),
+        .withMessage('Password'),
       check('passwordRepeat')
         .isLength({ min: 1 })
-        .withMessage('Password Repeat is required'),
+        .withMessage('Password Repeat'),
       check('clinicName')
         .isLength({ min: 1 })
-        .withMessage('Name is required'),
+        .withMessage('Clinic Name'),
       check('address')
         .isLength({ min: 1 })
-        .withMessage('Address is required'),
+        .withMessage('Clinic Address'),
       check('phone')
         .isLength({ min: 1 })
-        .withMessage('Phone is required'),
+        .withMessage('Clinic Phone'),
     ],
     (req, res) => {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        return res.status(422).json({ errors: errors.array() });
+        return res.json({
+          errors: errors.array(),
+          response: null,
+        });
+      }
+
+      if (req.body.password !== req.body.passwordRepeat) {
+        res.json({
+          response: null,
+          error: 'Password does not match',
+        });
       }
 
       // Check to see if we have already registered a user with that name.
@@ -56,12 +66,10 @@ module.exports = passport => {
         .then(foundClinic => {
           console.log('Found User: ', foundClinic);
           if (foundClinic) {
-            throw [
-              {
-                param: 'username',
-                msg: 'Username is taken',
-              },
-            ];
+            res.json({
+              error: 'Username is already taken',
+              response: null,
+            });
           } else {
             const saltRounds = 10;
             const hash = bcrypt.hashSync(req.body.password, saltRounds);

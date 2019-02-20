@@ -22,11 +22,11 @@ import axios from 'axios';
 
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import Snackbar from 'components/Snackbar/index';
 import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { setProgressBar } from '../HandleProgressBar/actions';
-import Snackbar from '../../components/Snackbar/index';
 import { QUEUE_PATIENT_ROUTE } from './constants';
 import reducer from './reducer';
 import saga from './saga';
