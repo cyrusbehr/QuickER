@@ -25,6 +25,22 @@ export class ClinicRegistrationContainer extends React.Component {
     formDataReady: false,
   };
 
+  handleRegisterClinic = formState => {
+    axios
+      .post('/register/clinic', {
+        id: formState.id,
+        username: formState.username,
+        password: formState.password,
+        passwordRepeat: formState.passwordRepeat,
+        clinicName: formState.clinicName,
+        address: formState.address,
+        phone: formState.phone,
+      })
+      .then(r => {
+        console.log(r);
+      });
+  };
+
   handleLoginNow = () => {
     this.props.history.push('/login/clinic');
   };
@@ -64,7 +80,10 @@ export class ClinicRegistrationContainer extends React.Component {
               appear
               classNames="fadeup"
               children={
-                <ClinicRegistrationForm clinicData={this.state.clinicData} />
+                <ClinicRegistrationForm
+                  clinicData={this.state.clinicData}
+                  onRegister={data => this.handleRegisterClinic(data)}
+                />
               }
               timeout={1200}
             />

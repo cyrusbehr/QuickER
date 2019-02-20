@@ -7,6 +7,7 @@ const ScrapedClinicSchema = mongoose.Schema({
   name: String,
   address: String,
   hasRegistered: Boolean,
+  phone: String,
 });
 
 const UserSchema = mongoose.Schema({

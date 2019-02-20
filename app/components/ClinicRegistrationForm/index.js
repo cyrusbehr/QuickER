@@ -41,10 +41,14 @@ class ClinicRegistrationForm extends React.PureComponent {
     this.setState({ address: obj.address, id: obj._id });
   };
 
+  testing = () => {
+    console.log('this function was called for some reason! ');
+  };
+
   render() {
     return (
       <div>
-        <form autoComplete="off">
+        <form autoComplete="on">
           <FormControl required className="clinic-registration-form-input">
             <InputLabel htmlFor="clinic-name-dropdown">Clinic Name</InputLabel>
             <Select
@@ -140,7 +144,11 @@ class ClinicRegistrationForm extends React.PureComponent {
                 </Button>
               </Tooltip>
             </label>
-            <Button variant="contained" component="span">
+            <Button
+              variant="contained"
+              component="span"
+              onClick={() => this.props.onRegister(this.state)}
+            >
               Submit Registration
             </Button>
           </FormControl>
