@@ -7,8 +7,7 @@ const bcrypt = require('bcrypt');
 
 module.exports = passport => {
   router.get('/checklogin/clinic', (req, res) => {
-    console.log('we made it to this backend route!');
-    console.log(req.user);
+    console.log('Req.user: ', req.user);
     let responseUser = null;
     if (req.user) {
       responseUser = Object.assign({}, req.user);

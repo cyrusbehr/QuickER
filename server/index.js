@@ -8,6 +8,8 @@ const logger = require('./logger');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 const { Clinic, Hospital, User } = require('../models/models');
 const bcrypt = require('bcrypt');
 
@@ -21,7 +23,14 @@ const ngrok =
     : false;
 const { resolve } = require('path');
 const app = express();
-
+app.use(
+  session({
+    secret: 'crypto kittens',
+    resave: false,
+    saveUninitialized: true,
+    // TODO set this to true for final realease cookie: { secure: true },
+  }),
+);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -32,13 +41,8 @@ mongoose.connection.on('connected', () => {
 
 // Do passport and session setup here
 
-app.use(
-  session({
-    secret: 'cryptocurrency',
-    resave: true,
-    saveUninitialized: true,
-  }),
-);
+app.use(bodyParser.json());
+app.use(cookieParser());
 
 passport.serializeUser((user, done) => {
   done(null, user._id);
