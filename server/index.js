@@ -80,6 +80,23 @@ app.use(passport.session());
 app.use('/', auth(passport));
 app.use('/api', api);
 
+// Ensure that the user is logged in before accessing the hospital and clinic pages
+app.get('/hospital/*', (req, res, next) => {
+  if (!req.user) {
+    res.redirect('/');
+  } else {
+    next();
+  }
+});
+
+app.get('/clinic/*', (req, res, next) => {
+  if (!req.user) {
+    res.redirect('/');
+  } else {
+    next();
+  }
+});
+
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {
   outputPath: resolve(process.cwd(), 'build'),
