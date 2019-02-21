@@ -82,18 +82,18 @@ app.use('/api', api);
 
 // Ensure that the user is logged in before accessing the hospital and clinic pages
 app.get('/hospital/*', (req, res, next) => {
-  if (!req.user) {
-    res.redirect('/');
-  } else {
+  if (req.user && req.user.usertype === 'hospital') {
     next();
+  } else {
+    res.redirect('/');
   }
 });
 
 app.get('/clinic/*', (req, res, next) => {
-  if (!req.user) {
-    res.redirect('/');
-  } else {
+  if (req.user && req.user.usertype === 'clinic') {
     next();
+  } else {
+    res.redirect('/');
   }
 });
 

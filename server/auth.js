@@ -7,16 +7,21 @@ const bcrypt = require('bcrypt');
 
 module.exports = passport => {
   router.get('/checklogin/clinic', (req, res) => {
-    console.log('Req.user: ', req.user);
-    let responseUser = null;
-    if (req.user) {
-      responseUser = Object.assign({}, req.user);
-      delete responseUser.password;
+    if (req.user && req.user.usertype === 'clinic') {
+      res.json({
+        loggedIn: true,
+        user: {
+          usertype: req.user.usertype,
+          userReference: req.user.userReference,
+          id: req.user._id,
+        },
+      });
+    } else {
+      res.json({
+        loggedIn: false,
+        user: null,
+      });
     }
-    res.json({
-      loggedIn: !!req.user,
-      user: responseUser,
-    });
   });
 
   router.post(
@@ -25,11 +30,13 @@ module.exports = passport => {
       failureRedirect: '/login/clinic/failure',
     }),
     (req, res) => {
-      // TODO only send back the required information
-      let responseUser = { ...req.user };
       res.json({
         error: null,
-        response: responseUser,
+        response: {
+          usertype: req.user.usertype,
+          userReference: req.user.userReference,
+          id: req.user._id,
+        },
       });
     },
   );
@@ -157,7 +164,11 @@ module.exports = passport => {
                     res.json({
                       // TODO we DO NOT want to send savedUser here b/c it contains the password, but can send back the userID
                       error: null,
-                      respone: savedUser,
+                      respone: {
+                        usertype: savedUser.usertype,
+                        userReference: savedUser.userReference,
+                        id: savedUser._id,
+                      },
                     });
                   }
                 });
