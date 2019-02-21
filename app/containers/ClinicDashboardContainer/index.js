@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import axios from 'axios';
 import injectReducer from 'utils/injectReducer';
 import { setProgressBar } from '../HandleProgressBar/actions';
 import makeSelectClinicDashboardContainer from './selectors';
@@ -19,6 +20,15 @@ import reducer from './reducer';
 export class ClinicDashboardContainer extends React.Component {
   componentDidMount() {
     this.props.onChangeLoadingStatus(false);
+
+    // Check that the user is loged in
+    axios.get('/checklogin/clinic').then(r => {
+      if (r.data.loggedIn) {
+        console.log(r.data.user);
+      } else {
+        this.props.history.push('/');
+      }
+    });
   }
 
   render() {

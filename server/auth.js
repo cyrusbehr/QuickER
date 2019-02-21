@@ -6,6 +6,20 @@ const { check, validationResult } = require('express-validator/check');
 const bcrypt = require('bcrypt');
 
 module.exports = passport => {
+  router.get('/checklogin/clinic', (req, res) => {
+    console.log('we made it to this backend route!');
+    console.log(req.user);
+    let responseUser = null;
+    if (req.user) {
+      responseUser = Object.assign({}, req.user);
+      delete responseUser.password;
+    }
+    res.json({
+      loggedIn: !!req.user,
+      user: responseUser,
+    });
+  });
+
   router.post(
     '/login/clinic',
     passport.authenticate('local', {
@@ -140,6 +154,7 @@ module.exports = passport => {
                       ],
                     });
                   } else {
+                    console.log('req.user: ', req.user);
                     res.json({
                       // TODO we DO NOT want to send savedUser here b/c it contains the password, but can send back the userID
                       error: null,
