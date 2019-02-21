@@ -8,16 +8,8 @@ import { initialState } from './reducer';
 const selectClinicLoginContainerDomain = state =>
   state.get('clinicLoginContainer', initialState);
 
-/**
- * Other specific selectors
- */
-
-/**
- * Default selector used by ClinicLoginContainer
- */
-
 const makeSelectClinicLoginContainer = () =>
-  createSelector(selectClinicLoginContainerDomain, substate => substate.toJS());
+  createSelector(selectClinicLoginContainerDomain, substate => substate);
 
 export default makeSelectClinicLoginContainer;
 export { selectClinicLoginContainerDomain };

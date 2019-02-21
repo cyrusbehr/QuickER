@@ -14,6 +14,7 @@ import injectReducer from 'utils/injectReducer';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import { setProgressBar } from '../HandleProgressBar/actions';
+import { setUserDetails } from './actions';
 import makeSelectClinicLoginContainer from './selectors';
 import reducer from './reducer';
 
@@ -45,7 +46,7 @@ export class ClinicLoginContainer extends React.Component {
           // TODO display the error message to the user, perhaps using a snackbar
           console.log('Error : ', r.data.error);
         } else {
-          // TODO do something with login deets, maybe put in redux
+          this.props.setUser(r.data.response);
           this.props.history.push('/clinic/dashboard');
         }
       });
@@ -81,6 +82,9 @@ function mapDispatchToProps(dispatch) {
   return {
     onChangeLoadingStatus: isOpen => {
       dispatch(setProgressBar(isOpen));
+    },
+    setUser: user => {
+      dispatch(setUserDetails(user));
     },
     dispatch,
   };
