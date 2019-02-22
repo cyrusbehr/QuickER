@@ -21,12 +21,18 @@ import reducer from './reducer';
 export class HomePageContainer extends React.Component {
   state = {
     appear: false,
+    allowClick: false,
   };
 
   componentDidMount() {
     this.setState({
       appear: true,
     });
+
+    // Only allow the cards to be clicked on after they have rended to the screen (takes 3200ms for animation to complete)
+    this.timeoutId = setTimeout(() => {
+      this.setState({ allowClick: true });
+    }, 3200);
   }
 
   render() {
@@ -75,6 +81,7 @@ export class HomePageContainer extends React.Component {
                   timeout={40000}
                   children={
                     <UserSelectionCard
+                      allowClick={this.state.allowClick}
                       key={data.title}
                       title={data.title}
                       redirectRoute={data.redirectRoute}
