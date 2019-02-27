@@ -54,6 +54,76 @@ module.exports = passport => {
     });
   });
 
+  // This backend route should only be hit by postman
+  // Only allow authorized users to register a new hospital
+  // Must provide token in env.sh to verify root access
+  router.post(
+    '/register/hospital',
+    [
+      check('username')
+        .isLength({ min: 1 })
+        .withMessage('Username'),
+      check('password')
+        .isLength({ min: 1 })
+        .withMessage('Password'),
+      check('hospitalName')
+        .isLength({ min: 1 })
+        .withMessage('Hospital Name'),
+      check('address')
+        .isLength({ min: 1 })
+        .withMessage('Clinic Address'),
+    ],
+    (req, res) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.json({
+          errors: errors.array(),
+          response: null,
+        });
+      }
+
+      if (req.body.token !== process.env.AUTH_TOKEN) {
+        return res.json({
+          error: 'Incorrect authentication token provided',
+          response: null,
+        });
+      }
+
+      // Create a new hospital
+
+      const NewHospital = new Hospital({
+        hospitalName: req.body.hospitalName,
+        address: req.body.address,
+      });
+
+      NewHospital.save()
+        .then(savedHospital => {
+          const saltRounds = 10;
+          const hash = bcrypt.hashSync(req.body.password, saltRounds);
+          const usertype = 'hospital';
+
+          const newUser = new User({
+            username: req.body.username,
+            password: hash,
+            usertype,
+            userReference: savedHospital._id,
+          });
+
+          return newUser.save();
+        })
+        .then(savedUser => {
+          res.json({
+            error: null,
+            respone: {
+              usertype: savedUser.usertype,
+              userReference: savedUser.userReference,
+              id: savedUser._id,
+            },
+          });
+        });
+    },
+  );
+
   router.post(
     '/register/clinic',
     [
