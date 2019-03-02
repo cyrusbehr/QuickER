@@ -39,6 +39,7 @@ export class ClinicLoginContainer extends React.Component {
       .post('/login/clinic', {
         username: this.state.username,
         password: this.state.password,
+        usertype: 'clinic',
       })
       .then(r => {
         if (r.data.error) {

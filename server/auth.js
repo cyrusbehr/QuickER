@@ -111,40 +111,39 @@ module.exports = passport => {
             error: 'Username already takend',
             response: null,
           });
-        } 
-
-          const NewHospital = new Hospital({
-            hospitalName: req.body.hospitalName,
-            address: req.body.address,
-          });
-
-          NewHospital.save()
-            .then(savedHospital => {
-              const saltRounds = 10;
-              const hash = bcrypt.hashSync(req.body.password, saltRounds);
-              const usertype = 'hospital';
-
-              const newUser = new User({
-                username: req.body.username,
-                password: hash,
-                usertype,
-                userReference: savedHospital._id,
-              });
-
-              return newUser.save();
-            })
-            .then(savedUser => {
-              res.json({
-                error: null,
-                respone: {
-                  usertype: savedUser.usertype,
-                  userReference: savedUser.userReference,
-                  id: savedUser._id,
-                },
-              });
-            });
         }
+        const NewHospital = new Hospital({
+          hospitalName: req.body.hospitalName,
+          address: req.body.address,
+        });
+
+        NewHospital.save()
+          .then(savedHospital => {
+            const saltRounds = 10;
+            const hash = bcrypt.hashSync(req.body.password, saltRounds);
+            const usertype = 'hospital';
+
+            const newUser = new User({
+              username: req.body.username,
+              password: hash,
+              usertype,
+              userReference: savedHospital._id,
+            });
+
+            return newUser.save();
+          })
+          .then(savedUser => {
+            res.json({
+              error: null,
+              respone: {
+                usertype: savedUser.usertype,
+                userReference: savedUser.userReference,
+                id: savedUser._id,
+              },
+            });
+          });
       });
+    },
   );
 
   router.post(

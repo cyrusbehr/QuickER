@@ -56,21 +56,27 @@ passport.deserializeUser((id, done) => {
 
 // http://www.passportjs.org/docs/authenticate/
 passport.use(
-  new LocalStrategy((username, password, done) => {
-    // TODO take the userType as a param, can use that to seperate the users in db
-    User.findOne({ username }, (err, user) => {
-      if (err) {
-        return done(err);
-      }
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
-      }
-      if (bcrypt.compareSync(password, user.password)) {
-        return done(null, user);
-      }
-      return done(null, false, { message: 'Incorrect password.' });
-    });
-  }),
+  new LocalStrategy(
+    { passReqToCallback: true },
+    (req, username, password, done) => {
+      // TODO take the userType as a param, can use that to seperate the users in db
+      User.findOne({ username }, (err, user) => {
+        if (err) {
+          return done(err);
+        }
+        if (!user) {
+          return done(null, false, { message: 'Incorrect username.' });
+        }
+        if (bcrypt.compareSync(password, user.password)) {
+          if (user.usertype !== req.body.usertype) {
+            return done(null, false, { message: 'Wrong usertype' });
+          }
+          return done(null, user);
+        }
+        return done(null, false, { message: 'Incorrect password.' });
+      });
+    },
+  ),
 );
 
 app.use(passport.initialize());
