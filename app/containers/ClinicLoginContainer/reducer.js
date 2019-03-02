@@ -16,6 +16,7 @@ export const initialState = fromJS({
 function clinicLoginContainerReducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER_ACTION:
+      console.log('test');
       return {
         ...state,
         usertype: action.usertype,

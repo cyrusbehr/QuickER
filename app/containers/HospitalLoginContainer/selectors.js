@@ -17,9 +17,7 @@ const selectHospitalLoginContainerDomain = state =>
  */
 
 const makeSelectHospitalLoginContainer = () =>
-  createSelector(selectHospitalLoginContainerDomain, substate =>
-    substate.toJS(),
-  );
+  createSelector(selectHospitalLoginContainerDomain, substate => substate);
 
 export default makeSelectHospitalLoginContainer;
 export { selectHospitalLoginContainerDomain };

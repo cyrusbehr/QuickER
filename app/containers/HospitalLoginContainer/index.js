@@ -14,6 +14,7 @@ import HospitalLoginForm from 'components/HospitalLoginForm/index';
 import injectReducer from 'utils/injectReducer';
 import axios from 'axios';
 import { setProgressBar } from '../HandleProgressBar/actions';
+import { setUserDetails } from './actions';
 import makeSelectHospitalLoginContainer from './selectors';
 import reducer from './reducer';
 
@@ -42,6 +43,8 @@ export class HospitalLoginContainer extends React.Component {
           // TODO display error to the user
           console.log('There was an error : ', r.data.error);
         } else {
+          console.log(r.data.response);
+          this.props.setUser(r.data.response);
           this.props.history.push('/hospital/dashboard');
         }
       });
@@ -73,6 +76,9 @@ function mapDispatchToProps(dispatch) {
   return {
     onChangeLoadingStatus: isOpen => {
       dispatch(setProgressBar(isOpen));
+    },
+    setUser: user => {
+      dispatch(setUserDetails(user));
     },
     dispatch,
   };
