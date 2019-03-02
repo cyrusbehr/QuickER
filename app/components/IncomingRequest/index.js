@@ -14,7 +14,7 @@ import Icon from '@material-ui/core/Icon';
 class IncomingRequest extends React.PureComponent {
   render() {
     return (
-      <div className="card-1">
+      <div className="card-2">
         <div>
           <span>John Doe</span>
           <span>from Saint Pauls</span>

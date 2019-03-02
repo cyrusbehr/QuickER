@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+import AcceptedRequest from 'components/AcceptedRequest/index';
 import injectReducer from 'utils/injectReducer';
 import makeSelectAcceptedRequestContainer from './selectors';
 import reducer from './reducer';
@@ -17,7 +18,12 @@ import reducer from './reducer';
 /* eslint-disable react/prefer-stateless-function */
 export class AcceptedRequestContainer extends React.Component {
   render() {
-    return <div />;
+    return (
+      <div>
+        <AcceptedRequest />
+        <AcceptedRequest />
+      </div>
+    );
   }
 }
 

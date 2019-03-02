@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import IncomingRequestContainer from 'containers/IncomingRequestContainer/Loadable';
+import AcceptedRequestContainer from 'containers/AcceptedRequestContainer/Loadable';
 import axios from 'axios';
 import injectReducer from 'utils/injectReducer';
 import { setProgressBar } from '../HandleProgressBar/actions';
@@ -39,6 +40,7 @@ export class ClinicDashboardContainer extends React.Component {
       <div>
         <ClinicDashboardNavbar />
         <IncomingRequestContainer />
+        <AcceptedRequestContainer />
       </div>
     );
   }

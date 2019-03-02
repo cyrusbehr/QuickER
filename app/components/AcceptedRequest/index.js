@@ -11,7 +11,13 @@ import React from 'react';
 /* eslint-disable react/prefer-stateless-function */
 class AcceptedRequest extends React.PureComponent {
   render() {
-    return <div />;
+    return (
+      <div>
+        <span>1</span>
+        <span>Jane Doe</span>
+        TODO put a button here they can click to get more details
+      </div>
+    );
   }
 }
 

@@ -20,6 +20,7 @@ export class IncomingRequestContainer extends React.Component {
     return (
       <div>
         <IncomingRequest />
+        <IncomingRequest />
       </div>
     );
   }
