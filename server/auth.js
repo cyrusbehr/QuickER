@@ -24,6 +24,24 @@ module.exports = passport => {
     }
   });
 
+  router.get('/checklogin/hospital', (req, res) => {
+    if (req.user && req.user.usertype === 'hospital') {
+      res.json({
+        loggedIn: true,
+        user: {
+          usertype: req.user.usertype,
+          userReference: req.user.userReference,
+          id: req.user._id,
+        },
+      });
+    } else {
+      res.json({
+        loggedIn: false,
+        user: null,
+      });
+    }
+  });
+
   router.post(
     '/login/clinic',
     passport.authenticate('local', {

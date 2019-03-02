@@ -28,8 +28,11 @@ import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { setProgressBar } from '../HandleProgressBar/actions';
 import { QUEUE_PATIENT_ROUTE } from './constants';
+import makeSelectHospitalLoginContainer from '../HospitalLoginContainer/selectors';
 import reducer from './reducer';
 import saga from './saga';
+import { setUserDetails } from '../HospitalLoginContainer/actions';
+
 import makeSelectHospitalDashboardContainer from './selectors';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -48,15 +51,26 @@ export class HospitalDashboardContainer extends React.Component {
   };
 
   componentDidMount() {
-    // TODO need to send clinic ID as query parameter
-    axios.get('/api/clinics').then(r => {
-      if (r.data.error) {
-        console.log('Error : ', r.data.error);
+    axios.get('/checklogin/hospital').then(r => {
+      if (r.data.loggedIn) {
+        this.props.setUser(r.data.user);
+        axios
+          .get('/api/clinics', {
+            hospitalID: this.props.hospitalDashboardContainer.userReference,
+          })
+          .then(r => {
+            if (r.data.error) {
+              console.log('Error : ', r.data.error);
+            } else {
+              this.setState({
+                dashboardCardData: r.data.response.dashboardCardData,
+              });
+              this.props.onChangeLoadingStatus(false);
+            }
+          });
       } else {
-        this.setState({
-          dashboardCardData: r.data.response.dashboardCardData,
-        });
-        this.props.onChangeLoadingStatus(false);
+        this.props.history.push('/');
+        return;
       }
     });
   }
@@ -253,13 +267,16 @@ HospitalDashboardContainer.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  hospitalDashboardContainer: makeSelectHospitalDashboardContainer(),
+  hospitalDashboardContainer: makeSelectHospitalLoginContainer(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     onChangeLoadingStatus: isOpen => {
       dispatch(setProgressBar(isOpen));
+    },
+    setUser: user => {
+      dispatch(setUserDetails(user));
     },
     dispatch,
   };

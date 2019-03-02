@@ -15,6 +15,7 @@ import injectReducer from 'utils/injectReducer';
 import { setProgressBar } from '../HandleProgressBar/actions';
 import makeSelectClinicDashboardContainer from './selectors';
 import reducer from './reducer';
+import { setUserDetails } from '../ClinicLoginContainer/actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ClinicDashboardContainer extends React.Component {
@@ -24,6 +25,7 @@ export class ClinicDashboardContainer extends React.Component {
     // Check that the user is loged in
     axios.get('/checklogin/clinic').then(r => {
       if (r.data.loggedIn) {
+        this.props.setUser(r.data.user);
         console.log(r.data.user);
       } else {
         this.props.history.push('/');
@@ -53,6 +55,9 @@ function mapDispatchToProps(dispatch) {
   return {
     onChangeLoadingStatus: isOpen => {
       dispatch(setProgressBar(isOpen));
+    },
+    setUser: user => {
+      dispatch(setUserDetails(user));
     },
     dispatch,
   };
