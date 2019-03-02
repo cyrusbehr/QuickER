@@ -47,10 +47,26 @@ module.exports = passport => {
     });
   });
 
-  router.post('/login/hospital', (req, res) => {
+  router.post(
+    '/login/hospital',
+    passport.authenticate('local', {
+      failureRedirect: '/login/hospital/failure',
+    }),
+    (req, res) => {
+      res.json({
+        error: null,
+        response: {
+          usertype: req.user.usertype,
+          userReference: req.user.userReference,
+          id: req.user._id,
+        },
+      });
+    },
+  );
+
+  router.get('/login/hospital/failure', (req, res) => {
     res.json({
-      error: null,
-      response: null,
+      error: 'Incorrect username or password',
     });
   });
 
@@ -89,39 +105,46 @@ module.exports = passport => {
         });
       }
 
-      // Create a new hospital
+      User.findOne({ username: req.body.username }).then(foundUser => {
+        if (foundUser) {
+          return res.json({
+            error: 'Username already takend',
+            response: null,
+          });
+        } 
 
-      const NewHospital = new Hospital({
-        hospitalName: req.body.hospitalName,
-        address: req.body.address,
+          const NewHospital = new Hospital({
+            hospitalName: req.body.hospitalName,
+            address: req.body.address,
+          });
+
+          NewHospital.save()
+            .then(savedHospital => {
+              const saltRounds = 10;
+              const hash = bcrypt.hashSync(req.body.password, saltRounds);
+              const usertype = 'hospital';
+
+              const newUser = new User({
+                username: req.body.username,
+                password: hash,
+                usertype,
+                userReference: savedHospital._id,
+              });
+
+              return newUser.save();
+            })
+            .then(savedUser => {
+              res.json({
+                error: null,
+                respone: {
+                  usertype: savedUser.usertype,
+                  userReference: savedUser.userReference,
+                  id: savedUser._id,
+                },
+              });
+            });
+        }
       });
-
-      NewHospital.save()
-        .then(savedHospital => {
-          const saltRounds = 10;
-          const hash = bcrypt.hashSync(req.body.password, saltRounds);
-          const usertype = 'hospital';
-
-          const newUser = new User({
-            username: req.body.username,
-            password: hash,
-            usertype,
-            userReference: savedHospital._id,
-          });
-
-          return newUser.save();
-        })
-        .then(savedUser => {
-          res.json({
-            error: null,
-            respone: {
-              usertype: savedUser.usertype,
-              userReference: savedUser.userReference,
-              id: savedUser._id,
-            },
-          });
-        });
-    },
   );
 
   router.post(

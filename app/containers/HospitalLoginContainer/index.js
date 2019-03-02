@@ -19,22 +19,41 @@ import reducer from './reducer';
 
 /* eslint-disable react/prefer-stateless-function */
 export class HospitalLoginContainer extends React.Component {
+  state = {
+    username: '',
+    password: '',
+  };
+
+  handleInputChange = param => event => {
+    this.setState({ [param]: event.target.value });
+  };
+
   handleLogin = () => {
     this.props.onChangeLoadingStatus(true);
-    axios.post('/login/hospital').then(r => {
-      if (r.data.error) {
-        console.log('There was an error : ', r.data.error);
-      } else {
-        this.props.history.push('/hospital/dashboard');
-      }
-    });
+    axios
+      .post('/login/hospital', {
+        username: this.state.username,
+        password: this.state.password,
+      })
+      .then(r => {
+        if (r.data.error) {
+          this.props.onChangeLoadingStatus(false);
+          // TODO display error to the user
+          console.log('There was an error : ', r.data.error);
+        } else {
+          this.props.history.push('/hospital/dashboard');
+        }
+      });
   };
 
   render() {
     return (
       <div>
         This is the hospital Login HospitalLoginContainer
-        <HospitalLoginForm onLogin={() => this.handleLogin} />
+        <HospitalLoginForm
+          onLogin={() => this.handleLogin}
+          handleInputChange={data => this.handleInputChange(data)}
+        />
       </div>
     );
   }
