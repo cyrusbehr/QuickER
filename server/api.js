@@ -1,12 +1,12 @@
 const express = require('express');
 const api = express.Router();
 const mongoose = require('mongoose');
-const { Clinic, Hospital, User, ScrapedClinic } = require('../models/models');
 const { check, validationResult } = require('express-validator/check');
 const bcrypt = require('bcrypt');
+const { Clinic, Hospital, User, ScrapedClinic } = require('../models/models');
 
 // TODO remove the dashboardCardData array
-let DashboardCardData = [
+const DashboardCardData = [
   {
     waitTime: 60,
     waitUnit: 'mins',
@@ -160,22 +160,21 @@ api.get('/scrapedclinics', (req, res) => {
 api.get('/clinics', (req, res) => {
   console.log(DashboardCardData);
   ScrapedClinic.find({ hasRegistered: true }).then(clinics => {
-    clinics = DashboardCardData; /// TODO remove this
+    clinics = DashboardCardData; // / TODO remove this
     // new array with weighted scores
-    let sortedClinics = clinics.map((clinic)=>{ 
+    const sortedClinics = clinics.map(clinic => {
       // calculate weighted score
-      let score = clinic.waitTime * 0.8 + clinic.waitTime * 0.2;
+      const score = clinic.waitTime * 0.8 + clinic.waitTime * 0.2;
       // assign key name to value
       clinic.score = score;
       return clinic;
-    })
-
+    });
 
     sortedClinics.sort((a, b) => {
       if (a.score < b.score) return -1;
       if (a.score > b.score) return 1;
       return 0;
-    })
+    });
 
     res.json({
       error: null,
@@ -183,10 +182,9 @@ api.get('/clinics', (req, res) => {
         dashboardCardData: sortedClinics,
       },
     });
-    });
-      
-  // Hospital.findById(req.body.id).then(hospital => {});  
+  });
 
+  // Hospital.findById(req.body.id).then(hospital => {});
 
   /*
   add more clinics to DashboardCardData manually so you have data to sort. manually change the parameters of interest
@@ -237,8 +235,6 @@ api.get('/clinics', (req, res) => {
     response: sortedArrayOfClinicObjects
   })
     */
-
-
 });
 
 module.exports = {
