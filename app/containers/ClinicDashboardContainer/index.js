@@ -30,6 +30,28 @@ export class ClinicDashboardContainer extends React.Component {
     checkinRequests: null,
   };
 
+  checkInPatient = patientId => {
+    const movePatient = this.state.acceptedRequests.find(
+      x => x._id === patientId,
+    );
+
+    const newAcceptedRequests = this.state.acceptedRequests.filter(
+      obj => obj._id !== patientId,
+    );
+
+    const newCheckInRequest = [...this.state.checkinRequests, movePatient];
+
+    this.setState({
+      acceptedRequests: newAcceptedRequests,
+      checkinRequests: newCheckInRequest,
+    });
+
+    axios.post('/api/accepted/accept', {
+      patientId,
+      clinicId: this.props.user.userReference,
+    });
+  };
+
   acceptPatient = patientId => {
     const movePatient = this.state.incomingRequests.find(
       x => x._id === patientId,
@@ -113,6 +135,7 @@ export class ClinicDashboardContainer extends React.Component {
         <AcceptedRequestContainer
           acceptedRequests={this.state.acceptedRequests}
           deletePatient={data => this.deletePatient(data)}
+          checkInPatient={patientId => this.checkInPatient(patientId)}
         />
         <CheckedInContainer checkinRequests={this.state.checkinRequests} />
       </div>

@@ -32,7 +32,10 @@ class AcceptedRequest extends React.PureComponent {
         <span>{this.props.idx + 1} </span>
         <span>{fullname}</span>
         <Tooltip title="Patient has arrived">
-          <IconButton color="secondary">
+          <IconButton
+            color="secondary"
+            onClick={() => this.props.checkInPatient(this.props.id)}
+          >
             <Icon>done</Icon>
           </IconButton>
         </Tooltip>

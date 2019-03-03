@@ -76,6 +76,9 @@ export class AcceptedRequestContainer extends React.Component {
                 hospitalName={request.hospitalName}
                 showModalFunc={data => this.showModal(data)}
                 id={request._id}
+                checkInPatient={patientId =>
+                  this.props.checkInPatient(patientId)
+                }
               />
             );
           })
