@@ -212,8 +212,8 @@ api.get('/clinics', (req, res) => {
     });
 
     sortedClinics.sort((a, b) => {
-      if (a.score < b.score) return 1;
-      if (a.score > b.score) return -1;
+      if (a.score < b.score) return -1;
+      if (a.score > b.score) return 1;
       return 0;
     });
 
