@@ -110,7 +110,7 @@ export class HospitalDashboardContainer extends React.Component {
     this.setState({ open: false });
 
     axios
-      .post(QUEUE_PATIENT_ROUTE, {
+      .post('/api/patient', {
         firstname: this.state.patientFirstName,
         lastname: this.state.patientLastName,
         phone: this.state.patientPhone,

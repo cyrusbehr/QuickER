@@ -16,24 +16,39 @@ import reducer from './reducer';
 
 /* eslint-disable react/prefer-stateless-function */
 export class IncomingRequestContainer extends React.Component {
+  deleteIncomingRequest = patientId => {
+    this.props.deletePatient({
+      patientId,
+      route: 'incoming',
+    });
+  };
+
   render() {
     return (
       <div>
         Incoming Requests
-        {this.props.incomingRequests &&
+        {this.props.incomingRequests && this.props.incomingRequests.length ? (
           this.props.incomingRequests.map(request => {
             const key = `${request.firstname}${request.lastname}`;
             return (
               <IncomingRequest
+                deleteIncomingRequest={patientId =>
+                  this.deleteIncomingRequest(patientId)
+                }
                 firstname={request.firstname}
                 lastname={request.lastname}
                 phone={request.phone}
                 DOB={request.DOB}
                 hospitalName={request.hospitalName}
                 key={key}
+                id={request._id}
+                acceptPatient={patientId => this.props.acceptPatient(patientId)}
               />
             );
-          })}
+          })
+        ) : (
+          <div>None</div>
+        )}
       </div>
     );
   }

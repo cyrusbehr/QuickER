@@ -8,6 +8,32 @@ const ScrapedClinicSchema = mongoose.Schema({
   address: String,
   hasRegistered: Boolean,
   phone: String,
+  incomingRequests: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Patient',
+    },
+  ],
+  acceptedRequests: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Patient',
+    },
+  ],
+  checkedInRequests: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Patient',
+    },
+  ],
+});
+
+const PatientSchema = mongoose.Schema({
+  firstname: String,
+  lastname: String,
+  DOB: String,
+  phone: String,
+  hospitalName: String,
 });
 
 const UserSchema = mongoose.Schema({
@@ -37,6 +63,7 @@ const HospitalSchema = mongoose.Schema({
 });
 
 const Clinic = mongoose.model('Clinic', ClinicSchema);
+const Patient = mongoose.model('Patient', PatientSchema);
 const Hospital = mongoose.model('Hospital', HospitalSchema);
 const User = mongoose.model('User', UserSchema);
 const ScrapedClinic = mongoose.model(
@@ -50,4 +77,5 @@ module.exports = {
   Hospital,
   User,
   ScrapedClinic,
+  Patient,
 };

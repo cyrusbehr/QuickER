@@ -1,9 +1,15 @@
 const express = require('express');
 const api = express.Router();
 const mongoose = require('mongoose');
+const {
+  Clinic,
+  Hospital,
+  User,
+  ScrapedClinic,
+  Patient,
+} = require('../models/models');
 const { check, validationResult } = require('express-validator/check');
 const bcrypt = require('bcrypt');
-const { Clinic, Hospital, User, ScrapedClinic } = require('../models/models');
 
 // TODO remove the dashboardCardData array
 const DashboardCardData = [
@@ -15,7 +21,7 @@ const DashboardCardData = [
     driveTime: 4,
     clinicName: 'Wesbrook Clinic',
     address: '2545 Birney Ave.',
-    id: 1,
+    id: '5c7b6a18da53f96abc0c2e8d',
     active: true,
   },
   {
@@ -26,7 +32,7 @@ const DashboardCardData = [
     driveTime: 4,
     clinicName: 'Wesbrook Clinic',
     address: '2545 Birney Ave.',
-    id: 1,
+    id: '5c7b6a18da53f96abc0c2e8d',
     active: true,
   },
   {
@@ -37,7 +43,7 @@ const DashboardCardData = [
     driveTime: 4,
     clinicName: 'Wesbrook Clinic',
     address: '2545 Birney Ave.',
-    id: 1,
+    id: '5c7b6a18da53f96abc0c2e8d',
     active: true,
   },
   {
@@ -48,7 +54,7 @@ const DashboardCardData = [
     driveTime: 4,
     clinicName: 'Wesbrook Clinic',
     address: '2545 Birney Ave.',
-    id: 1,
+    id: '5c7b6a18da53f96abc0c2e8d',
     active: true,
   },
   {
@@ -70,67 +76,135 @@ const DashboardCardData = [
     driveTime: 8,
     clinicName: 'Wesbrook Clinic',
     address: '2545 Birney Ave.',
-    id: 1,
+    id: '5c7b6a18da53f96abc0c2e8d',
     active: true,
   },
-];
-
-const IncomingPatients = [
   {
-    firstname: 'John',
-    lastname: 'Doe',
-    phone: '7783175140',
-    DOB: 'Aug 15 1996',
-    hospitalName: 'Saint Pauls Hospital',
+    waitTime: 1,
+    waitUnit: 'hr',
+    walkTime: 25,
+    driveTime: 10,
+    clinicName: 'Point Grey Clinic',
+    address: '212 W Broadway',
+    id: '5c7b6a18da53f96abc0c2e8d',
+    active: true,
   },
   {
-    firstname: 'James',
-    lastname: 'Dane',
-    phone: '1234567890',
-    DOB: 'Aug 15 1996',
-    hospitalName: 'Saint Pauls Hospital',
-  },
-  {
-    firstname: 'Mesi',
-    lastname: 'Mope',
-    phone: '6047204608',
-    DOB: 'Aug 15 1996',
-    hospitalName: 'VGH',
+    waitTime: 8,
+    waitUnit: 'AM',
+    walkTime: 2,
+    driveTime: 0,
+    clinicName: 'Student Clinic',
+    address: '412 Wesbrook Mall',
+    id: '5c7b6a18da53f96abc0c2e8d',
+    active: false,
   },
 ];
 
-const AcceptedPatients = [
-  {
-    firstname: 'John',
-    lastname: 'Doe',
-    phone: '7783175140',
-    DOB: 'Aug 15 1996',
-    hospitalName: 'Saint Pauls Hospital',
-  },
-  {
-    firstname: 'James',
-    lastname: 'Dane',
-    phone: '1234567890',
-    DOB: 'Aug 15 1996',
-    hospitalName: 'Saint Pauls Hospital',
-  },
-  {
-    firstname: 'Mesi',
-    lastname: 'Mope',
-    phone: '6047204608',
-    DOB: 'Aug 15 1996',
-    hospitalName: 'VGH',
-  },
-];
-
-api.get('/patientRequests', (req, res) => {
-  res.json({
-    error: null,
-    response: {
-      incomingRequests: IncomingPatients,
-      acceptedRequests: AcceptedPatients,
-    },
+api.post('/incoming/delete', (req, res) => {
+  Patient.findByIdAndRemove(req.body.patientId).then(() => {
+    ScrapedClinic.update(
+      { incomingRequests: req.body.patientId, _id: req.body.clinicId },
+      { $pull: { incomingRequests: req.body.patientId } },
+    ).then(() => {
+      res.json({
+        error: null,
+        response: 'Success',
+      });
+    });
   });
+});
+
+api.post('/accepted/delete', (req, res) => {
+  Patient.findByIdAndRemove(req.body.patientId).then(() => {
+    ScrapedClinic.update(
+      { acceptedRequests: req.body.patientId, _id: req.body.clinicId },
+      { $pull: { acceptedRequests: req.body.patientId } },
+    ).then(() => {
+      res.json({
+        error: null,
+        response: 'Success',
+      });
+    });
+  });
+});
+
+api.post('/incoming/accept', (req, res) => {
+  ScrapedClinic.update(
+    { incomingRequests: req.body.patientId, _id: req.body.clinicId },
+    {
+      $pull: { incomingRequests: req.body.patientId },
+      $push: { acceptedRequests: req.body.patientId },
+    },
+  ).then(() => {
+    res.json({
+      error: null,
+      response: '',
+    });
+  });
+});
+
+api.post('/accepted/accept', (req, res) => {
+  ScrapedClinic.update(
+    { acceptedRequests: req.body.patientId, _id: req.body.clinicId },
+    {
+      $pull: { acceptedRequests: req.body.patientId },
+      $push: { checkedInRequests: req.body.patientId },
+    },
+  ).then(() => {
+    res.json({
+      error: null,
+      response: '',
+    });
+  });
+});
+
+api.post('/patient', (req, res) => {
+  const newPatient = new Patient({
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    DOB: req.body.DOB,
+    phone: req.body.phone,
+    hospitalName: req.body.hospitalName,
+  });
+  newPatient.save().then(savedUser => {
+    ScrapedClinic.update(
+      { _id: req.body.clinicId },
+      {
+        $push: { incomingRequests: savedUser._id },
+      },
+    ).then(updatedClinic => {
+      res.json({
+        error: null,
+        response: updatedClinic,
+      });
+    });
+  });
+});
+
+api.get('/patients', (req, res) => {
+  ScrapedClinic.findById(req.query.id)
+    .populate('incomingRequests')
+    .populate('acceptedRequests')
+    .populate('checkedInRequests')
+    .exec()
+    .then(foundClinic => {
+      if (!foundClinic) {
+        return res.json({
+          error: 'Unable to find clinic',
+          response: null,
+        });
+      }
+
+      res.json({
+        error: null,
+        response: {
+          incomingRequests: foundClinic.incomingRequests,
+          acceptedRequests: foundClinic.acceptedRequests,
+          checkinRequests: foundClinic.checkedInRequests,
+        },
+      });
+    });
 });
 
 api.post('/queuepatient', (req, res) => {

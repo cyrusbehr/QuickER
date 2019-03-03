@@ -12,10 +12,13 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import IncomingRequestContainer from 'containers/IncomingRequestContainer/Loadable';
 import AcceptedRequestContainer from 'containers/AcceptedRequestContainer/Loadable';
+import CheckedInContainer from 'containers/CheckedInContainer/Loadable';
 import axios from 'axios';
 import injectReducer from 'utils/injectReducer';
 import { setProgressBar } from '../HandleProgressBar/actions';
 import makeSelectClinicDashboardContainer from './selectors';
+import makeSelectClinicLoginContainer from '../ClinicLoginContainer/selectors';
+
 import reducer from './reducer';
 import { setUserDetails } from '../ClinicLoginContainer/actions';
 
@@ -24,6 +27,73 @@ export class ClinicDashboardContainer extends React.Component {
   state = {
     incomingRequests: null,
     acceptedRequests: null,
+    checkinRequests: null,
+  };
+
+  checkInPatient = patientId => {
+    const movePatient = this.state.acceptedRequests.find(
+      x => x._id === patientId,
+    );
+
+    const newAcceptedRequests = this.state.acceptedRequests.filter(
+      obj => obj._id !== patientId,
+    );
+
+    const newCheckInRequest = [...this.state.checkinRequests, movePatient];
+
+    this.setState({
+      acceptedRequests: newAcceptedRequests,
+      checkinRequests: newCheckInRequest,
+    });
+
+    axios.post('/api/accepted/accept', {
+      patientId,
+      clinicId: this.props.user.userReference,
+    });
+  };
+
+  acceptPatient = patientId => {
+    const movePatient = this.state.incomingRequests.find(
+      x => x._id === patientId,
+    );
+
+    const newIncomingRequest = this.state.incomingRequests.filter(obj => {
+      return obj._id !== patientId;
+    });
+
+    const newAcceptedRequests = [...this.state.acceptedRequests, movePatient];
+
+    this.setState({
+      incomingRequests: newIncomingRequest,
+      acceptedRequests: newAcceptedRequests,
+    });
+
+    axios.post('/api/incoming/accept', {
+      patientId,
+      clinicId: this.props.user.userReference,
+    });
+  };
+
+  deletePatient = data => {
+    if (data.route === 'incoming') {
+      const newIncomingRequest = this.state.incomingRequests.filter(obj => {
+        return obj._id !== data.patientId;
+      });
+      this.setState({
+        incomingRequests: newIncomingRequest,
+      });
+    } else {
+      const newAcceptedRequests = this.state.acceptedRequests.filter(obj => {
+        return obj._id !== data.patientId;
+      });
+      this.setState({
+        acceptedRequests: newAcceptedRequests,
+      });
+    }
+    axios.post(`/api/${data.route}/delete`, {
+      patientId: data.patientId,
+      clinicId: this.props.user.userReference,
+    });
   };
 
   componentDidMount() {
@@ -31,17 +101,22 @@ export class ClinicDashboardContainer extends React.Component {
     axios.get('/checklogin/clinic').then(r => {
       if (r.data.loggedIn) {
         this.props.setUser(r.data.user);
-        axios.get('/api/patientRequests').then(r => {
-          if (r.data.error) {
-            console.log('There was an error');
-          } else {
-            this.setState({
-              incomingRequests: r.data.response.incomingRequests,
-              acceptedRequests: r.data.response.acceptedRequests,
-            });
-          }
-          this.props.onChangeLoadingStatus(false);
-        });
+        axios
+          .get(`/api/patients?id=${r.data.user.userReference}`, null, {
+            params: { id: r.data.user.id },
+          })
+          .then(r => {
+            if (r.data.error) {
+              console.log('There was an error');
+            } else {
+              this.setState({
+                incomingRequests: r.data.response.incomingRequests,
+                acceptedRequests: r.data.response.acceptedRequests,
+                checkinRequests: r.data.response.checkinRequests,
+              });
+            }
+            this.props.onChangeLoadingStatus(false);
+          });
       } else {
         this.props.history.push('/');
       }
@@ -54,10 +129,15 @@ export class ClinicDashboardContainer extends React.Component {
         <ClinicDashboardNavbar />
         <IncomingRequestContainer
           incomingRequests={this.state.incomingRequests}
+          deletePatient={data => this.deletePatient(data)}
+          acceptPatient={patientId => this.acceptPatient(patientId)}
         />
         <AcceptedRequestContainer
           acceptedRequests={this.state.acceptedRequests}
+          deletePatient={data => this.deletePatient(data)}
+          checkInPatient={patientId => this.checkInPatient(patientId)}
         />
+        <CheckedInContainer checkinRequests={this.state.checkinRequests} />
       </div>
     );
   }
@@ -70,6 +150,7 @@ ClinicDashboardContainer.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   clinicDashboardContainer: makeSelectClinicDashboardContainer(),
+  user: makeSelectClinicLoginContainer(),
 });
 
 function mapDispatchToProps(dispatch) {
