@@ -38,7 +38,7 @@ const DashboardCardData = [
     active: true,
   },
   {
-   // longer waittime
+    // longer waittime
     waitTime: 80,
     waitUnit: 'mins',
     // TODO use bing maps API to get real time walking time
@@ -62,7 +62,7 @@ const DashboardCardData = [
     active: true,
   },
   {
-    //longer waittime but shorter walktime
+    // longer waittime but shorter walktime
     waitTime: 120,
     waitUnit: 'mins',
     // TODO use bing maps API to get real time walking time
