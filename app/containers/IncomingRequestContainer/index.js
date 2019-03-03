@@ -19,8 +19,21 @@ export class IncomingRequestContainer extends React.Component {
   render() {
     return (
       <div>
-        <IncomingRequest />
-        <IncomingRequest />
+        Incoming Requests
+        {this.props.incomingRequests &&
+          this.props.incomingRequests.map(request => {
+            const key = `${request.firstname}${request.lastname}`;
+            return (
+              <IncomingRequest
+                firstname={request.firstname}
+                lastname={request.lastname}
+                phone={request.phone}
+                DOB={request.DOB}
+                hospitalName={request.hospitalName}
+                key={key}
+              />
+            );
+          })}
       </div>
     );
   }

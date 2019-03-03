@@ -21,14 +21,27 @@ import { setUserDetails } from '../ClinicLoginContainer/actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ClinicDashboardContainer extends React.Component {
-  componentDidMount() {
-    this.props.onChangeLoadingStatus(false);
+  state = {
+    incomingRequests: null,
+    acceptedRequests: null,
+  };
 
+  componentDidMount() {
     // Check that the user is loged in
     axios.get('/checklogin/clinic').then(r => {
       if (r.data.loggedIn) {
         this.props.setUser(r.data.user);
-        console.log(r.data.user);
+        axios.get('/api/patientRequests').then(r => {
+          if (r.data.error) {
+            console.log('There was an error');
+          } else {
+            this.setState({
+              incomingRequests: r.data.response.incomingRequests,
+              acceptedRequests: r.data.response.acceptedRequests,
+            });
+          }
+          this.props.onChangeLoadingStatus(false);
+        });
       } else {
         this.props.history.push('/');
       }
@@ -39,8 +52,12 @@ export class ClinicDashboardContainer extends React.Component {
     return (
       <div>
         <ClinicDashboardNavbar />
-        <IncomingRequestContainer />
-        <AcceptedRequestContainer />
+        <IncomingRequestContainer
+          incomingRequests={this.state.incomingRequests}
+        />
+        <AcceptedRequestContainer
+          acceptedRequests={this.state.acceptedRequests}
+        />
       </div>
     );
   }

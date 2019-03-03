@@ -116,6 +116,7 @@ export class HospitalDashboardContainer extends React.Component {
         phone: this.state.patientPhone,
         clinicID: this.state.id,
         DOB: this.state.patientDOB,
+        hospitalName: 'TODO hospital name',
       })
       .then(r => {
         if (r.data.error) {

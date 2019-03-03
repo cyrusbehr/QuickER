@@ -17,11 +17,35 @@ import reducer from './reducer';
 
 /* eslint-disable react/prefer-stateless-function */
 export class AcceptedRequestContainer extends React.Component {
+  state = {
+    open: false,
+  };
+
+  handleSuccessClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    this.setState({ openSuccess: false });
+  };
+
   render() {
     return (
       <div>
-        <AcceptedRequest />
-        <AcceptedRequest />
+        {this.props.acceptedRequests &&
+          this.props.acceptedRequests.map((request, idx) => {
+            const key = `${request.firstname}${request.lastname}`;
+            return (
+              <AcceptedRequest
+                key={key}
+                firstname={request.firstname}
+                lastname={request.lastname}
+                DOB={request.DOB}
+                phone={request.phone}
+                idx={idx}
+                hospitalName={request.hospitalName}
+              />
+            );
+          })}
       </div>
     );
   }
