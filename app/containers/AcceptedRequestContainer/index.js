@@ -57,7 +57,7 @@ export class AcceptedRequestContainer extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="flex-child ">
         <div className="sub-container-title cBlue-Text cFontItalics">
           Accepted Requests
         </div>

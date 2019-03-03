@@ -7,6 +7,8 @@
 import React from 'react';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
+import Card from '@material-ui/core/Card';
+
 // import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 
@@ -26,13 +28,17 @@ class CheckedIn extends React.PureComponent {
   render() {
     const fullname = `${this.props.firstname} ${this.props.lastname}`;
     return (
-      <div className="card-1">
-        <span>{this.props.idx + 1} </span>
-        <span>{fullname}</span>
-        <IconButton color="primary" onClick={this.onPress}>
-          <Icon>help</Icon>
-        </IconButton>
-      </div>
+      <Card className="checked-in-card flex-parent-vertical-align">
+        <div className="center-vertical">
+          <span className="cFont card-number ">{this.props.idx + 1} </span>
+          <span className="cFont cBlue-Text patient-name">{fullname}</span>
+          <span className="align-right">
+            <IconButton color="primary" onClick={this.onPress}>
+              <Icon>help</Icon>
+            </IconButton>
+          </span>
+        </div>
+      </Card>
     );
   }
 }

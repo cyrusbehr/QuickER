@@ -34,6 +34,48 @@
   font-size: 17px;
 }
 
+.flex-parent {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.flex-child {
+  flex-grow: 1;
+  flex-basis: 0;
+  padding: 10px 20px;
+}
+
+/*
+center in div
+*/
+.checked-in-card {
+  min-height: 80px;
+  margin: 10px 0;
+}
+
+.center-vertical {
+  padding: 0px 13px;
+}
+
+.card-number {
+  color: #6c7a89;
+  font-size: 22px;
+}
+
+.card-sub-details {
+}
+
+.patient-name {
+  font-size: 25px;
+}
+
+.from-hospital {
+  font-size: 25px;
+  font-weight: lighter;
+}
+
 /*
 Custom cards
 DEMO: https://codepen.io/anon/pen/xMgRQq
@@ -147,6 +189,19 @@ DEMO: https://codepen.io/anon/pen/xMgRQq
 .cFontItalics {
   font-family: 'Open Sans', sans-serif;
   font-style: italic;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.padding-right {
+  padding-right: 5px;
+}
+
+.card-subtext {
+  padding-top: 5px;
+  font-size: 16px;
 }
 
 .title-margin {

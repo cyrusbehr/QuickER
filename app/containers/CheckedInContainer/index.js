@@ -51,7 +51,7 @@ export class CheckedInContainer extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="flex-child">
         <div className="sub-container-title cBlue-Text cFontItalics">
           Checked In
         </div>

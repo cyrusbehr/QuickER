@@ -132,17 +132,19 @@ export class ClinicDashboardContainer extends React.Component {
     return (
       <div>
         <ClinicDashboardNavbar clinicName={this.state.clinicName} />
-        <IncomingRequestContainer
-          incomingRequests={this.state.incomingRequests}
-          deletePatient={data => this.deletePatient(data)}
-          acceptPatient={patientId => this.acceptPatient(patientId)}
-        />
-        <AcceptedRequestContainer
-          acceptedRequests={this.state.acceptedRequests}
-          deletePatient={data => this.deletePatient(data)}
-          checkInPatient={patientId => this.checkInPatient(patientId)}
-        />
-        <CheckedInContainer checkinRequests={this.state.checkinRequests} />
+        <div className="flex-parent">
+          <IncomingRequestContainer
+            incomingRequests={this.state.incomingRequests}
+            deletePatient={data => this.deletePatient(data)}
+            acceptPatient={patientId => this.acceptPatient(patientId)}
+          />
+          <AcceptedRequestContainer
+            acceptedRequests={this.state.acceptedRequests}
+            deletePatient={data => this.deletePatient(data)}
+            checkInPatient={patientId => this.checkInPatient(patientId)}
+          />
+          <CheckedInContainer checkinRequests={this.state.checkinRequests} />
+        </div>
       </div>
     );
   }

@@ -9,6 +9,7 @@ import Fab from '@material-ui/core/Fab';
 import Icon from '@material-ui/core/Icon';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
+import Card from '@material-ui/core/Card';
 
 // import PropTypes from 'prop-types';
 // import styled from 'styled-components';
@@ -18,31 +19,36 @@ class IncomingRequest extends React.PureComponent {
   render() {
     const fullName = `${this.props.firstname} ${this.props.lastname}`;
     return (
-      <div className="card-1">
-        <div>
-          <span>{fullName}</span>
-          <span>{this.props.hospitalName}</span>
+      <Card className="checked-in-card cFont">
+        <div className="center-vertical">
+          <div>
+            <span className="cBlue-Text patient-name">{fullName}</span>
+            <span className="from-hospital cBlue-Text">
+              {` from UBC hospital` /* TODO return this this.props.hospitalName*/}
+            </span>
+          </div>
+          <div className="cBlue-Text card-subtext">
+            <span className="bold padding-right ">{this.props.DOB}</span>
+            <span>{this.props.phone}</span>
+          </div>
+          <Tooltip title="Add patient to queue">
+            <IconButton
+              color="secondary"
+              onClick={() => this.props.acceptPatient(this.props.id)}
+            >
+              <Icon>done</Icon>
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Reject request">
+            <IconButton
+              color="secondary"
+              onClick={() => this.props.deleteIncomingRequest(this.props.id)}
+            >
+              <Icon>close</Icon>
+            </IconButton>
+          </Tooltip>
         </div>
-        <div>{this.props.DOB}</div>
-        <div>{this.props.phone}</div>
-        <div>add to queue</div>
-        <Tooltip title="Add patient to queue">
-          <IconButton
-            color="secondary"
-            onClick={() => this.props.acceptPatient(this.props.id)}
-          >
-            <Icon>done</Icon>
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Reject request">
-          <IconButton
-            color="secondary"
-            onClick={() => this.props.deleteIncomingRequest(this.props.id)}
-          >
-            <Icon>close</Icon>
-          </IconButton>
-        </Tooltip>
-      </div>
+      </Card>
     );
   }
 }

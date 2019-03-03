@@ -25,7 +25,7 @@ export class IncomingRequestContainer extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="flex-child">
         <div className="sub-container-title cBlue-Text cFontItalics">
           Incoming Requests
         </div>
