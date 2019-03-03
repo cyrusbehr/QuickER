@@ -70,7 +70,6 @@ export class HospitalDashboardContainer extends React.Component {
           });
       } else {
         this.props.history.push('/');
-        return;
       }
     });
   }
@@ -173,22 +172,20 @@ export class HospitalDashboardContainer extends React.Component {
           autoHideDuration={autohideDur}
         />
         <div className="hospitalDashCardContainer">
-          {this.state.dashboardCardData.map(data => {
-            return (
-              <HospitalDashboardCard
-                key={data.clinicName}
-                clinicName={data.clinicName}
-                waitTime={data.waitTime}
-                walkTime={data.walkTime}
-                waitUnit={data.waitUnit}
-                driveTime={data.driveTime}
-                address={data.address}
-                active={data.active}
-                id={data.id}
-                onButtonPress={data => this.handleClickOpen(data)}
-              />
-            );
-          })}
+          {this.state.dashboardCardData.map(data => (
+            <HospitalDashboardCard
+              key={data.clinicName}
+              clinicName={data.clinicName}
+              waitTime={data.waitTime}
+              walkTime={data.walkTime}
+              waitUnit={data.waitUnit}
+              driveTime={data.driveTime}
+              address={data.address}
+              active={data.active}
+              id={data.id}
+              onButtonPress={data => this.handleClickOpen(data)}
+            />
+          ))}
         </div>
 
         <Dialog
@@ -202,7 +199,7 @@ export class HospitalDashboardContainer extends React.Component {
             {this.state.clinicName}
           </DialogTitle>
           <DialogContent>
-            <DialogContentText>{/*this.state.clinicName*/}</DialogContentText>
+            <DialogContentText>{/* this.state.clinicName */}</DialogContentText>
             <div className="modal-form-content">
               <TextField
                 required
