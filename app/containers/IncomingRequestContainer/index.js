@@ -24,10 +24,11 @@ export class IncomingRequestContainer extends React.Component {
   };
 
   render() {
+    console.log('Incoming requestion: ', this.props.incomingRequests);
     return (
       <div>
         Incoming Requests
-        {this.props.incomingRequests ? (
+        {this.props.incomingRequests && this.props.incomingRequests.length ? (
           this.props.incomingRequests.map(request => {
             const key = `${request.firstname}${request.lastname}`;
             return (

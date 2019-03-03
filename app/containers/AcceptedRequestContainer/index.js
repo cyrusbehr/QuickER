@@ -59,7 +59,7 @@ export class AcceptedRequestContainer extends React.Component {
     return (
       <div>
         Accepted Requests
-        {this.props.acceptedRequests ? (
+        {this.props.acceptedRequests && this.props.acceptedRequests.length ? (
           this.props.acceptedRequests.map((request, idx) => {
             const key = `${request.firstname}${request.lastname}`;
             return (

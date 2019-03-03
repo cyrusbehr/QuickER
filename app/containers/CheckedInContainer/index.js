@@ -53,7 +53,7 @@ export class CheckedInContainer extends React.Component {
     return (
       <div>
         Checked In
-        {this.props.checkinRequests ? (
+        {this.props.checkinRequests && this.props.checkinRequests.length ? (
           this.props.checkinRequests.map((patient, idx) => {
             const key = `${patient.firstname}${patient.lastname}`;
             return (

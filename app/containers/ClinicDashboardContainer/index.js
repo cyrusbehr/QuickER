@@ -32,6 +32,23 @@ export class ClinicDashboardContainer extends React.Component {
 
   deletePatient = data => {
     this.props.onChangeLoadingStatus(true);
+    console.log(this.state);
+    if (data.route === 'incoming') {
+      const newIncomingRequest = this.state.incomingRequests.filter(obj => {
+        return obj._id !== data.patientId;
+      });
+      this.setState({
+        incomingRequests: newIncomingRequest,
+      });
+    } else {
+      const newAcceptedRequests = this.state.acceptedRequests.filter(obj => {
+        return obj._id !== data.patientId;
+      });
+      this.setState({
+        incomingRequests: newAcceptedRequests,
+      });
+    }
+    console.log(this.state);
     axios
       .post(`/api/${data.route}/delete`, {
         patientId: data.patientId,
