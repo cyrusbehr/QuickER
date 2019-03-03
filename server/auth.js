@@ -8,13 +8,16 @@ const bcrypt = require('bcrypt');
 module.exports = passport => {
   router.get('/checklogin/clinic', (req, res) => {
     if (req.user && req.user.usertype === 'clinic') {
-      res.json({
-        loggedIn: true,
-        user: {
-          usertype: req.user.usertype,
-          userReference: req.user.userReference,
-          id: req.user._id,
-        },
+      ScrapedClinic.findById(req.user.userReference).then(clinic => {
+        res.json({
+          loggedIn: true,
+          user: {
+            usertype: req.user.usertype,
+            userReference: req.user.userReference,
+            id: req.user._id,
+          },
+          name: clinic.name,
+        });
       });
     } else {
       res.json({
