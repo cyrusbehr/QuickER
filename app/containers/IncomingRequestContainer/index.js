@@ -24,7 +24,6 @@ export class IncomingRequestContainer extends React.Component {
   };
 
   render() {
-    console.log('Incoming requestion: ', this.props.incomingRequests);
     return (
       <div>
         Incoming Requests
@@ -43,6 +42,7 @@ export class IncomingRequestContainer extends React.Component {
                 hospitalName={request.hospitalName}
                 key={key}
                 id={request._id}
+                acceptPatient={patientId => this.props.acceptPatient(patientId)}
               />
             );
           })

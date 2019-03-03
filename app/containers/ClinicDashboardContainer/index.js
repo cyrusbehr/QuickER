@@ -30,9 +30,29 @@ export class ClinicDashboardContainer extends React.Component {
     checkinRequests: null,
   };
 
+  acceptPatient = patientId => {
+    const movePatient = this.state.incomingRequests.find(
+      x => x._id === patientId,
+    );
+
+    const newIncomingRequest = this.state.incomingRequests.filter(obj => {
+      return obj._id !== patientId;
+    });
+
+    const newAcceptedRequests = [...this.state.acceptedRequests, movePatient];
+
+    this.setState({
+      incomingRequests: newIncomingRequest,
+      acceptedRequests: newAcceptedRequests,
+    });
+
+    axios.post('/api/incoming/accept', {
+      patientId,
+      clinicId: this.props.user.userReference,
+    });
+  };
+
   deletePatient = data => {
-    this.props.onChangeLoadingStatus(true);
-    console.log(this.state);
     if (data.route === 'incoming') {
       const newIncomingRequest = this.state.incomingRequests.filter(obj => {
         return obj._id !== data.patientId;
@@ -45,18 +65,13 @@ export class ClinicDashboardContainer extends React.Component {
         return obj._id !== data.patientId;
       });
       this.setState({
-        incomingRequests: newAcceptedRequests,
+        acceptedRequests: newAcceptedRequests,
       });
     }
-    console.log(this.state);
-    axios
-      .post(`/api/${data.route}/delete`, {
-        patientId: data.patientId,
-        clinicId: this.props.user.userReference,
-      })
-      .then(r => {
-        this.props.onChangeLoadingStatus(false);
-      });
+    axios.post(`/api/${data.route}/delete`, {
+      patientId: data.patientId,
+      clinicId: this.props.user.userReference,
+    });
   };
 
   componentDidMount() {
@@ -93,6 +108,7 @@ export class ClinicDashboardContainer extends React.Component {
         <IncomingRequestContainer
           incomingRequests={this.state.incomingRequests}
           deletePatient={data => this.deletePatient(data)}
+          acceptPatient={patientId => this.acceptPatient(patientId)}
         />
         <AcceptedRequestContainer
           acceptedRequests={this.state.acceptedRequests}

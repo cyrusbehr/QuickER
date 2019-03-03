@@ -27,7 +27,10 @@ class IncomingRequest extends React.PureComponent {
         <div>{this.props.phone}</div>
         <div>add to queue</div>
         <Tooltip title="Add patient to queue">
-          <IconButton color="secondary">
+          <IconButton
+            color="secondary"
+            onClick={() => this.props.acceptPatient(this.props.id)}
+          >
             <Icon>done</Icon>
           </IconButton>
         </Tooltip>
