@@ -16,37 +16,37 @@ const {
 const DashboardCardData = [
   {
     // base
-    waitTime: 60,
+    waitTime: 5,
     waitUnit: 'mins',
     // TODO use bing maps API to get real time walking time
-    walkTime: 12,
-    driveTime: 4,
-    clinicName: 'Wesbrook Clinic',
-    address: '2545 Birney Ave.',
+    walkTime: 5,
+    driveTime: 1,
+    clinicName: 'University Village Medical Clinic',
+    address: '2155 Allison Road, Vancouver',
     id: '5c7b6a18da53f96abc0c2e8d',
     active: true,
   },
   {
     // longer walktime
-    waitTime: 60,
+    waitTime: 20,
     waitUnit: 'mins',
     // TODO use bing maps API to get real time walking time
     walkTime: 16,
-    driveTime: 6,
-    clinicName: 'Wesbrook Clinic',
-    address: '2545 Birney Ave.',
+    driveTime: 3,
+    clinicName: 'Careville Clinic',
+    address: '3317 Wesbrook Mall, Vancouver',
     id: '5c7b6a18da53f96abc0c2e8d',
     active: true,
   },
   {
     // longer waittime
-    waitTime: 80,
+    waitTime: 45,
     waitUnit: 'mins',
     // TODO use bing maps API to get real time walking time
-    walkTime: 12,
+    walkTime: 16,
     driveTime: 4,
-    clinicName: 'Wesbrook Clinic',
-    address: '2545 Birney Ave.',
+    clinicName: 'University Village Medical Clinic - Birney Ave',
+    address: '5933 Birney Ave, Vancouver',
     id: '5c7b6a18da53f96abc0c2e8d',
     active: true,
   },
@@ -57,20 +57,20 @@ const DashboardCardData = [
     // TODO use bing maps API to get real time walking time
     walkTime: 16,
     driveTime: 6,
-    clinicName: 'Wesbrook Clinic',
-    address: '2545 Birney Ave.',
+    clinicName: 'Point Grey Medical Clinic',
+    address: '4448 W 10th Ave, Vancouver',
     id: 1,
-    active: true,
+    active: false,
   },
   {
     // longer waittime but shorter walktime
-    waitTime: 120,
-    waitUnit: 'mins',
+    waitTime: 1,
+    waitUnit: 'hr',
     // TODO use bing maps API to get real time walking time
     walkTime: 8,
     driveTime: 4,
-    clinicName: 'Wesbrook Clinic',
-    address: '2545 Birney Ave.',
+    clinicName: 'Khatsahlano Medical Clinic',
+    address: '2685 W Broadway, Vancouver',
     id: '5c7b6a18da53f96abc0c2e8d',
     active: true,
   },
