@@ -20,7 +20,7 @@ export class IncomingRequestContainer extends React.Component {
     return (
       <div>
         Incoming Requests
-        {this.props.incomingRequests &&
+        {this.props.incomingRequests ? (
           this.props.incomingRequests.map(request => {
             const key = `${request.firstname}${request.lastname}`;
             return (
@@ -33,7 +33,10 @@ export class IncomingRequestContainer extends React.Component {
                 key={key}
               />
             );
-          })}
+          })
+        ) : (
+          <div>None</div>
+        )}
       </div>
     );
   }

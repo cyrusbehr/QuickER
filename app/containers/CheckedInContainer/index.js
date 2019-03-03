@@ -1,6 +1,6 @@
 /**
  *
- * AcceptedRequestContainer
+ * CheckedInContainer
  *
  */
 
@@ -9,19 +9,20 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import CheckedIn from 'components/CheckedIn/index';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import AcceptedRequest from 'components/AcceptedRequest/index';
+
 import injectReducer from 'utils/injectReducer';
-import makeSelectAcceptedRequestContainer from './selectors';
+import makeSelectCheckedInContainer from './selectors';
 import reducer from './reducer';
 
 /* eslint-disable react/prefer-stateless-function */
-export class AcceptedRequestContainer extends React.Component {
+export class CheckedInContainer extends React.Component {
   state = {
     open: false,
     firstname: '',
@@ -51,19 +52,19 @@ export class AcceptedRequestContainer extends React.Component {
   render() {
     return (
       <div>
-        Accepted Requests
-        {this.props.acceptedRequests ? (
-          this.props.acceptedRequests.map((request, idx) => {
-            const key = `${request.firstname}${request.lastname}`;
+        Checked In
+        {this.props.checkinRequests ? (
+          this.props.checkinRequests.map((patient, idx) => {
+            const key = `${patient.firstname}${patient.lastname}`;
             return (
-              <AcceptedRequest
+              <CheckedIn
+                firstname={patient.firstname}
+                lastname={patient.lastname}
+                DOB={patient.DOB}
+                phone={patient.phone}
+                hospitalName={patient.hospitalName}
                 key={key}
-                firstname={request.firstname}
-                lastname={request.lastname}
-                DOB={request.DOB}
-                phone={request.phone}
                 idx={idx}
-                hospitalName={request.hospitalName}
                 showModalFunc={data => this.showModal(data)}
               />
             );
@@ -100,12 +101,12 @@ export class AcceptedRequestContainer extends React.Component {
   }
 }
 
-AcceptedRequestContainer.propTypes = {
+CheckedInContainer.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  acceptedRequestContainer: makeSelectAcceptedRequestContainer(),
+  checkedInContainer: makeSelectCheckedInContainer(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -119,9 +120,9 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-const withReducer = injectReducer({ key: 'acceptedRequestContainer', reducer });
+const withReducer = injectReducer({ key: 'checkedInContainer', reducer });
 
 export default compose(
   withReducer,
   withConnect,
-)(AcceptedRequestContainer);
+)(CheckedInContainer);

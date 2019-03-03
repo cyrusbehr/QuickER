@@ -1,7 +1,13 @@
 const express = require('express');
 const api = express.Router();
 const mongoose = require('mongoose');
-const { Clinic, Hospital, User, ScrapedClinic } = require('../models/models');
+const {
+  Clinic,
+  Hospital,
+  User,
+  ScrapedClinic,
+  Patient,
+} = require('../models/models');
 const { check, validationResult } = require('express-validator/check');
 const bcrypt = require('bcrypt');
 
@@ -83,7 +89,6 @@ let DashboardCardData = [
     id: 2,
     active: true,
   },
-
   {
     waitTime: 8,
     waitUnit: 'AM',
@@ -96,62 +101,77 @@ let DashboardCardData = [
   },
 ];
 
-const IncomingPatients = [
-  {
-    firstname: 'John',
-    lastname: 'Doe',
-    phone: '7783175140',
-    DOB: 'Aug 15 1996',
-    hospitalName: 'Saint Pauls Hospital',
-  },
-  {
-    firstname: 'James',
-    lastname: 'Dane',
-    phone: '1234567890',
-    DOB: 'Aug 15 1996',
-    hospitalName: 'Saint Pauls Hospital',
-  },
-  {
-    firstname: 'Mesi',
-    lastname: 'Mope',
-    phone: '6047204608',
-    DOB: 'Aug 15 1996',
-    hospitalName: 'VGH',
-  },
-];
-
-const AcceptedPatients = [
-  {
-    firstname: 'John',
-    lastname: 'Doe',
-    phone: '7783175140',
-    DOB: 'Aug 15 1996',
-    hospitalName: 'Saint Pauls Hospital',
-  },
-  {
-    firstname: 'James',
-    lastname: 'Dane',
-    phone: '1234567890',
-    DOB: 'Aug 15 1996',
-    hospitalName: 'Saint Pauls Hospital',
-  },
-  {
-    firstname: 'Mesi',
-    lastname: 'Mope',
-    phone: '6047204608',
-    DOB: 'Aug 15 1996',
-    hospitalName: 'VGH',
-  },
-];
-
-api.get('/patientRequests', (req, res) => {
-  res.json({
-    error: null,
-    response: {
-      incomingRequests: IncomingPatients,
-      acceptedRequests: AcceptedPatients,
-    },
+api.post('/incoming/delete', (req, res) => {
+  Patient.findByIdAndRemove(req.body.patientId).then(() => {
+    ScrapedClinic.update(
+      { incomingRequests: req.body.patientId, _id: req.body.clinicId },
+      { $pull: { incomingRequests: req.body.patientId } },
+    ).then(() => {
+      res.json({
+        error: null,
+        response: 'Success',
+      });
+    });
   });
+});
+
+api.post('/incoming/accept', (req, res) => {
+  ScrapedClinic.update(
+    { incomingRequests: req.body.patientId, _id: req.body.clinicId },
+    {
+      $pull: { incomingRequests: req.body.patientId },
+      $push: { acceptedRequests: req.body.patientId },
+    },
+  );
+});
+
+api.post('/patient', (req, res) => {
+  const newPatient = new Patient({
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    DOB: req.body.DOB,
+    phone: req.body.phone,
+    hospitalName: req.body.hospitalName,
+  });
+
+  newPatient.save().then(savedUser => {
+    ScrapedClinic.update(
+      { _id: req.body.clinicId },
+      {
+        $push: { incomingRequests: savedUser._id },
+      },
+    ).then(updatedClinic => {
+      res.json({
+        error: null,
+        response: updatedClinic,
+      });
+    });
+  });
+});
+
+api.get('/patients', (req, res) => {
+  ScrapedClinic.findById(req.body.id)
+    .populate('incomingRequests')
+    .populate('acceptedRequests')
+    .populate('checkedInRequests')
+    .exec()
+    .then(foundClinic => {
+      if (!foundClinic) {
+        return res.json({
+          error: 'Unable to find clinic',
+          response: null,
+        });
+      }
+
+      res.json({
+        error: null,
+        response: {
+          incomingRequests: foundClinic.incomingRequests,
+          acceptedRequests: foundClinic.acceptedRequests,
+          checkinRequests: foundClinic.checkedInRequests,
+        },
+      });
+    });
 });
 
 api.post('/queuepatient', (req, res) => {

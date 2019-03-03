@@ -12,6 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import IncomingRequestContainer from 'containers/IncomingRequestContainer/Loadable';
 import AcceptedRequestContainer from 'containers/AcceptedRequestContainer/Loadable';
+import CheckedInContainer from 'containers/CheckedInContainer/Loadable';
 import axios from 'axios';
 import injectReducer from 'utils/injectReducer';
 import { setProgressBar } from '../HandleProgressBar/actions';
@@ -24,6 +25,7 @@ export class ClinicDashboardContainer extends React.Component {
   state = {
     incomingRequests: null,
     acceptedRequests: null,
+    checkinRequests: null,
   };
 
   componentDidMount() {
@@ -31,13 +33,14 @@ export class ClinicDashboardContainer extends React.Component {
     axios.get('/checklogin/clinic').then(r => {
       if (r.data.loggedIn) {
         this.props.setUser(r.data.user);
-        axios.get('/api/patientRequests').then(r => {
+        axios.get('/api/patients', { id: r.data.user.id }).then(r => {
           if (r.data.error) {
             console.log('There was an error');
           } else {
             this.setState({
               incomingRequests: r.data.response.incomingRequests,
               acceptedRequests: r.data.response.acceptedRequests,
+              checkinRequests: r.data.response.checkinRequests,
             });
           }
           this.props.onChangeLoadingStatus(false);
@@ -58,6 +61,7 @@ export class ClinicDashboardContainer extends React.Component {
         <AcceptedRequestContainer
           acceptedRequests={this.state.acceptedRequests}
         />
+        <CheckedInContainer checkinRequests={this.state.checkinRequests} />
       </div>
     );
   }

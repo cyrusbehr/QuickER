@@ -1,19 +1,17 @@
 /**
  *
- * AcceptedRequest
+ * CheckedIn
  *
  */
 
 import React from 'react';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-
 // import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 
 /* eslint-disable react/prefer-stateless-function */
-class AcceptedRequest extends React.PureComponent {
+class CheckedIn extends React.PureComponent {
   onPress = () => {
     const data = {
       firstname: this.props.firstname,
@@ -31,21 +29,7 @@ class AcceptedRequest extends React.PureComponent {
       <div className="card-1">
         <span>{this.props.idx + 1} </span>
         <span>{fullname}</span>
-        <Tooltip title="Patient has arrived">
-          <IconButton color="secondary">
-            <Icon>done</Icon>
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Remove patient">
-          <IconButton color="secondary">
-            <Icon>close</Icon>
-          </IconButton>
-        </Tooltip>
-        <IconButton
-          color="primary"
-          aria-label="Add an alarm"
-          onClick={this.onPress}
-        >
+        <IconButton color="primary" onClick={this.onPress}>
           <Icon>help</Icon>
         </IconButton>
       </div>
@@ -53,6 +37,6 @@ class AcceptedRequest extends React.PureComponent {
   }
 }
 
-AcceptedRequest.propTypes = {};
+CheckedIn.propTypes = {};
 
-export default AcceptedRequest;
+export default CheckedIn;
