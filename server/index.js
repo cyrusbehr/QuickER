@@ -23,6 +23,8 @@ const ngrok =
     : false;
 const { resolve } = require('path');
 const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
 app.use(
   session({
     secret: 'crypto kittens',
@@ -79,6 +81,23 @@ passport.use(
   ),
 );
 
+io.on('connection', client => {
+  client.on('join', clinic => {
+    client.join(clinic);
+    client.currentRoom = clinic;
+  });
+
+  client.on('disconnect', () => {
+    client.leave(client.currentRoom);
+  });
+
+  client.on('forwardPatient', data => {
+    // TODO add to the database here
+    console.log('The socket was hit');
+    client.broadcase.to(client.currentRoom).emit('forwardPatient', data);
+  });
+});
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -122,7 +141,7 @@ app.get('*.js', (req, res, next) => {
 });
 
 // Start your app.
-app.listen(port, host, async err => {
+server.listen(port, host, async err => {
   if (err) {
     return logger.error(err.message);
   }
