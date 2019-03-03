@@ -114,7 +114,7 @@ export class HospitalDashboardContainer extends React.Component {
         firstname: this.state.patientFirstName,
         lastname: this.state.patientLastName,
         phone: this.state.patientPhone,
-        clinicID: this.state.id,
+        clinicId: this.state.id,
         DOB: this.state.patientDOB,
         hospitalName: 'TODO hospital name',
       })

@@ -87,7 +87,7 @@ export class CheckedInContainer extends React.Component {
               <br />
               {this.state.phone}
               <br />
-              Send from {this.state.hospital}
+              Sent from {this.state.hospital}
             </div>
           </DialogContent>
           <DialogActions>

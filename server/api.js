@@ -167,6 +167,7 @@ api.post('/patient', (req, res) => {
     phone: req.body.phone,
     hospitalName: req.body.hospitalName,
   });
+
   newPatient.save().then(savedUser => {
     ScrapedClinic.update(
       { _id: req.body.clinicId },
@@ -207,13 +208,6 @@ api.get('/patients', (req, res) => {
     });
 });
 
-api.post('/queuepatient', (req, res) => {
-  res.json({
-    error: null,
-    response: 'success',
-  });
-});
-
 api.get('/scrapedclinics', (req, res) => {
   // Connect to the ScrapedClinic db and obtain all the clinics which have the hasRegistered flag set to false
   // return array of clinics
@@ -232,7 +226,6 @@ api.get('/scrapedclinics', (req, res) => {
 });
 
 api.get('/clinics', (req, res) => {
-  console.log(DashboardCardData);
   /*
   add more clinics to DashboardCardData manually so you have data to sort. manually change the parameters of interest
   sort the DashboardCardData
