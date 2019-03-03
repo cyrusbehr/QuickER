@@ -126,6 +126,7 @@ api.post('/incoming/accept', (req, res) => {
 });
 
 api.post('/patient', (req, res) => {
+  console.log('why only one print statement');
   const newPatient = new Patient({
     firstname: req.body.firstname,
     lastname: req.body.lastname,
@@ -150,7 +151,7 @@ api.post('/patient', (req, res) => {
 });
 
 api.get('/patients', (req, res) => {
-  ScrapedClinic.findById(req.body.id)
+  ScrapedClinic.findById(req.query.id)
     .populate('incomingRequests')
     .populate('acceptedRequests')
     .populate('checkedInRequests')

@@ -48,14 +48,15 @@ export class ClinicRegistrationContainer extends React.Component {
         phone: formState.phone,
       })
       .then(r => {
-        this.props.onChangeLoadingStatus(false);
         console.log(r);
         if (r.data.error) {
+          this.props.onChangeLoadingStatus(false);
           this.setState({
             errorMessage: r.data.error,
             openError: true,
           });
         } else if (r.data.errors) {
+          this.props.onChangeLoadingStatus(false);
           console.log(r.data.errors);
           let errorStr = 'Please fill the following fields:';
           let size = r.data.errors.length;

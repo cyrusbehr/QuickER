@@ -33,18 +33,22 @@ export class ClinicDashboardContainer extends React.Component {
     axios.get('/checklogin/clinic').then(r => {
       if (r.data.loggedIn) {
         this.props.setUser(r.data.user);
-        axios.get('/api/patients', { id: r.data.user.id }).then(r => {
-          if (r.data.error) {
-            console.log('There was an error');
-          } else {
-            this.setState({
-              incomingRequests: r.data.response.incomingRequests,
-              acceptedRequests: r.data.response.acceptedRequests,
-              checkinRequests: r.data.response.checkinRequests,
-            });
-          }
-          this.props.onChangeLoadingStatus(false);
-        });
+        axios
+          .get(`/api/patients?id=${r.data.user.userReference}`, null, {
+            params: { id: r.data.user.id },
+          })
+          .then(r => {
+            if (r.data.error) {
+              console.log('There was an error');
+            } else {
+              this.setState({
+                incomingRequests: r.data.response.incomingRequests,
+                acceptedRequests: r.data.response.acceptedRequests,
+                checkinRequests: r.data.response.checkinRequests,
+              });
+            }
+            this.props.onChangeLoadingStatus(false);
+          });
       } else {
         this.props.history.push('/');
       }
