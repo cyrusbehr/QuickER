@@ -10,7 +10,7 @@ let DashboardCardData = [
   {
     waitTime: 60,
     waitUnit: 'mins',
-    // TODO use google maps API to get real time walking time
+    // TODO use bing maps API to get real time walking time
     walkTime: 12,
     driveTime: 4,
     clinicName: 'Wesbrook Clinic',
@@ -19,11 +19,44 @@ let DashboardCardData = [
     active: true,
   },
   {
-    waitTime: 10,
+    waitTime: 70,
     waitUnit: 'mins',
-    // TODO use google maps API to get real time walking time
-    walkTime: 100,
-    driveTime: 50,
+    // TODO use bing maps API to get real time walking time
+    walkTime: 12,
+    driveTime: 4,
+    clinicName: 'Wesbrook Clinic',
+    address: '2545 Birney Ave.',
+    id: 1,
+    active: true,
+  },
+  {
+    waitTime: 80,
+    waitUnit: 'mins',
+    // TODO use bing maps API to get real time walking time
+    walkTime: 12,
+    driveTime: 4,
+    clinicName: 'Wesbrook Clinic',
+    address: '2545 Birney Ave.',
+    id: 1,
+    active: true,
+  },
+  {
+    waitTime: 90,
+    waitUnit: 'mins',
+    // TODO use bing maps API to get real time walking time
+    walkTime: 12,
+    driveTime: 4,
+    clinicName: 'Wesbrook Clinic',
+    address: '2545 Birney Ave.',
+    id: 1,
+    active: true,
+  },
+  {
+    waitTime: 100,
+    waitUnit: 'mins',
+    // TODO use bing maps API to get real time walking time
+    walkTime: 12,
+    driveTime: 4,
     clinicName: 'Wesbrook Clinic',
     address: '2545 Birney Ave.',
     id: 1,
@@ -32,67 +65,13 @@ let DashboardCardData = [
   {
     waitTime: 60,
     waitUnit: 'mins',
-    // TODO use google maps API to get real time walking time
-    walkTime: 12,
-    driveTime: 4,
+    // TODO use bing maps API to get real time walking time
+    walkTime: 16,
+    driveTime: 8,
     clinicName: 'Wesbrook Clinic',
     address: '2545 Birney Ave.',
     id: 1,
     active: true,
-  },
-  {
-    waitTime: 60,
-    waitUnit: 'mins',
-    // TODO use google maps API to get real time walking time
-    walkTime: 12,
-    driveTime: 4,
-    clinicName: 'Wesbrook Clinic',
-    address: '2545 Birney Ave.',
-    id: 1,
-    active: true,
-  },
-  {
-    waitTime: 60,
-    waitUnit: 'mins',
-    // TODO use google maps API to get real time walking time
-    walkTime: 12,
-    driveTime: 4,
-    clinicName: 'Wesbrook Clinic',
-    address: '2545 Birney Ave.',
-    id: 1,
-    active: true,
-  },
-  {
-    waitTime: 60,
-    waitUnit: 'mins',
-    // TODO use google maps API to get real time walking time
-    walkTime: 12,
-    driveTime: 4,
-    clinicName: 'Wesbrook Clinic',
-    address: '2545 Birney Ave.',
-    id: 1,
-    active: true,
-  },
-  {
-    waitTime: 1,
-    waitUnit: 'hr',
-    walkTime: 25,
-    driveTime: 10,
-    clinicName: 'Point Grey Clinic',
-    address: '212 W Broadway',
-    id: 2,
-    active: true,
-  },
-
-  {
-    waitTime: 8,
-    waitUnit: 'AM',
-    walkTime: 2,
-    driveTime: 0,
-    clinicName: 'Student Clinic',
-    address: '412 Wesbrook Mall',
-    id: 3,
-    active: false,
   },
 ];
 
@@ -180,6 +159,35 @@ api.get('/scrapedclinics', (req, res) => {
 
 api.get('/clinics', (req, res) => {
   console.log(DashboardCardData);
+  ScrapedClinic.find({ hasRegistered: true }).then(clinics => {
+    clinics = DashboardCardData; /// TODO remove this
+    // new array with weighted scores
+    let sortedClinics = clinics.map((clinic)=>{ 
+      // calculate weighted score
+      let score = clinic.waitTime * 0.8 + clinic.waitTime * 0.2;
+      // assign key name to value
+      clinic.score = score;
+      return clinic;
+    })
+
+
+    sortedClinics.sort((a, b) => {
+      if (a.score < b.score) return -1;
+      if (a.score > b.score) return 1;
+      return 0;
+    })
+
+    res.json({
+      error: null,
+      response: {
+        dashboardCardData: sortedClinics,
+      },
+    });
+    });
+      
+  // Hospital.findById(req.body.id).then(hospital => {});  
+
+
   /*
   add more clinics to DashboardCardData manually so you have data to sort. manually change the parameters of interest
   sort the DashboardCardData
@@ -197,7 +205,7 @@ api.get('/clinics', (req, res) => {
     Hospital.findById(req.body.id).then(hospital => {
       // Now we have our hospital
 
-      // Now we need to do google maps calls here
+      // Now we need to do bing maps calls here
 
       // sorting here ANDREW'S ALGORITHM!!
 
@@ -210,9 +218,9 @@ api.get('/clinics', (req, res) => {
    Andrew your code goes here
   1) query mongodb and obtain all the clinics that are regsitered --> check the isRegsitered flag (hint I do something similar)
   ScrapedClinic.find({ hasRegistered: true }).then(clinics => {
-  2) create a google API account --> need to put credit card, so be sure to set limits for request
+  2) create a bing API account --> need to put credit card, so be sure to set limits for request
     --> put API key into env.sh variable
-  3) use the address from each clinic and call the google API to get the walk and drive time
+  3) use the address from each clinic and call the bing API to get the walk and drive time
   --> endpoint is clinic address which you have in the clinics array object, you will recieve an id in the req parameters which you can
   access via req.body.id
   Hospital.findById(req.body.id).then(foundHospital => {
@@ -230,12 +238,7 @@ api.get('/clinics', (req, res) => {
   })
     */
 
-  res.json({
-    error: null,
-    response: {
-      dashboardCardData: DashboardCardData,
-    },
-  });
+
 });
 
 module.exports = {
