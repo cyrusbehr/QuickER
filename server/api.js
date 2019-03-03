@@ -126,7 +126,6 @@ api.post('/incoming/accept', (req, res) => {
 });
 
 api.post('/patient', (req, res) => {
-  console.log('why only one print statement');
   const newPatient = new Patient({
     firstname: req.body.firstname,
     lastname: req.body.lastname,
