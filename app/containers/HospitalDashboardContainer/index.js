@@ -38,6 +38,7 @@ import makeSelectHospitalDashboardContainer from './selectors';
 /* eslint-disable react/prefer-stateless-function */
 export class HospitalDashboardContainer extends React.Component {
   state = {
+    hospitalName: '',
     open: false,
     id: '',
     clinicName: '',
@@ -54,6 +55,9 @@ export class HospitalDashboardContainer extends React.Component {
     axios.get('/checklogin/hospital').then(r => {
       if (r.data.loggedIn) {
         this.props.setUser(r.data.user);
+        this.setState({
+          hospitalName: r.data.hospitalName,
+        });
         axios
           .get('/api/clinics', {
             hospitalID: this.props.hospitalDashboardContainer.userReference,
@@ -152,7 +156,7 @@ export class HospitalDashboardContainer extends React.Component {
     const autohideDur = 8000;
     return (
       <React.Fragment>
-        <HospitalDashboardNavbar />
+        <HospitalDashboardNavbar hospitalName={this.state.hospitalName} />
         <Snackbar
           variant="success"
           message={`${this.state.patientFirstName} was successfully added to ${
