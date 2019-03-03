@@ -21,7 +21,9 @@ class ClinicDashboardNavbar extends React.PureComponent {
               <span className="cRed-Text cFontItalics lighter ">Quick</span>
               <span className="cFontItalics cRed-Text bolder">ER</span>
             </span>
-            <span className="cFontItalics cBlue-Text">Clinic Dashboard</span>
+            <span className="cFontItalics cBlue-Text">
+              {this.props.clinicName} Dashboard
+            </span>
           </span>
         </Toolbar>
       </AppBar>

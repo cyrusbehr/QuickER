@@ -28,6 +28,7 @@ export class ClinicDashboardContainer extends React.Component {
     incomingRequests: null,
     acceptedRequests: null,
     checkinRequests: null,
+    clinicName: '',
   };
 
   checkInPatient = patientId => {
@@ -101,6 +102,10 @@ export class ClinicDashboardContainer extends React.Component {
     axios.get('/checklogin/clinic').then(r => {
       if (r.data.loggedIn) {
         this.props.setUser(r.data.user);
+        console.log(r.data);
+        this.setState({
+          clinicName: r.data.name,
+        });
         axios
           .get(`/api/patients?id=${r.data.user.userReference}`, null, {
             params: { id: r.data.user.id },
@@ -126,7 +131,7 @@ export class ClinicDashboardContainer extends React.Component {
   render() {
     return (
       <div>
-        <ClinicDashboardNavbar />
+        <ClinicDashboardNavbar clinicName={this.state.clinicName} />
         <IncomingRequestContainer
           incomingRequests={this.state.incomingRequests}
           deletePatient={data => this.deletePatient(data)}
