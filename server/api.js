@@ -21,7 +21,7 @@ let DashboardCardData = [
     driveTime: 4,
     clinicName: 'Wesbrook Clinic',
     address: '2545 Birney Ave.',
-    id: 1,
+    id: '5c7b6a18da53f96abc0c2e8d',
     active: true,
   },
   {
@@ -32,7 +32,29 @@ let DashboardCardData = [
     driveTime: 50,
     clinicName: 'Wesbrook Clinic',
     address: '2545 Birney Ave.',
-    id: 1,
+    id: '5c7b6a18da53f96abc0c2e8d',
+    active: true,
+  },
+  {
+    waitTime: 60,
+    waitUnit: 'mins',
+    // TODO use google maps API to get real time walking time
+    walkTime: 12,
+    driveTime: 4,
+    clinicName: 'Wesbrook Clinic',
+    address: '2545 Birney Ave.',
+    id: '5c7b6a18da53f96abc0c2e8d',
+    active: true,
+  },
+  {
+    waitTime: 60,
+    waitUnit: 'mins',
+    // TODO use google maps API to get real time walking time
+    walkTime: 12,
+    driveTime: 4,
+    clinicName: 'Wesbrook Clinic',
+    address: '2545 Birney Ave.',
+    id: '5c7b6a18da53f96abc0c2e8d',
     active: true,
   },
   {
@@ -54,29 +76,7 @@ let DashboardCardData = [
     driveTime: 4,
     clinicName: 'Wesbrook Clinic',
     address: '2545 Birney Ave.',
-    id: 1,
-    active: true,
-  },
-  {
-    waitTime: 60,
-    waitUnit: 'mins',
-    // TODO use google maps API to get real time walking time
-    walkTime: 12,
-    driveTime: 4,
-    clinicName: 'Wesbrook Clinic',
-    address: '2545 Birney Ave.',
-    id: 1,
-    active: true,
-  },
-  {
-    waitTime: 60,
-    waitUnit: 'mins',
-    // TODO use google maps API to get real time walking time
-    walkTime: 12,
-    driveTime: 4,
-    clinicName: 'Wesbrook Clinic',
-    address: '2545 Birney Ave.',
-    id: 1,
+    id: '5c7b6a18da53f96abc0c2e8d',
     active: true,
   },
   {
@@ -86,7 +86,7 @@ let DashboardCardData = [
     driveTime: 10,
     clinicName: 'Point Grey Clinic',
     address: '212 W Broadway',
-    id: 2,
+    id: '5c7b6a18da53f96abc0c2e8d',
     active: true,
   },
   {
@@ -96,7 +96,7 @@ let DashboardCardData = [
     driveTime: 0,
     clinicName: 'Student Clinic',
     address: '412 Wesbrook Mall',
-    id: 3,
+    id: '5c7b6a18da53f96abc0c2e8d',
     active: false,
   },
 ];
