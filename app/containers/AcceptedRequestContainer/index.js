@@ -58,7 +58,9 @@ export class AcceptedRequestContainer extends React.Component {
   render() {
     return (
       <div>
-        Accepted Requests
+        <div className="sub-container-title cBlue-Text cFontItalics">
+          Accepted Requests
+        </div>
         {this.props.acceptedRequests && this.props.acceptedRequests.length ? (
           this.props.acceptedRequests.map((request, idx) => {
             const key = `${request.firstname}${request.lastname}`;
@@ -83,7 +85,7 @@ export class AcceptedRequestContainer extends React.Component {
             );
           })
         ) : (
-          <div>None</div>
+          <div className="cFont none-text">None</div>
         )}
         <Dialog
           open={this.state.open}

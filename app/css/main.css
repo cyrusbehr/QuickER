@@ -25,6 +25,15 @@
   background-color: #213a8e;
 }
 
+.sub-container-title {
+  font-size: 20px;
+}
+
+.none-text {
+  color: #95a5a6;
+  font-size: 17px;
+}
+
 /*
 Custom cards
 DEMO: https://codepen.io/anon/pen/xMgRQq

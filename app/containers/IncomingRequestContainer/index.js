@@ -26,7 +26,9 @@ export class IncomingRequestContainer extends React.Component {
   render() {
     return (
       <div>
-        Incoming Requests
+        <div className="sub-container-title cBlue-Text cFontItalics">
+          Incoming Requests
+        </div>
         {this.props.incomingRequests && this.props.incomingRequests.length ? (
           this.props.incomingRequests.map(request => {
             const key = `${request.firstname}${request.lastname}`;
@@ -47,7 +49,7 @@ export class IncomingRequestContainer extends React.Component {
             );
           })
         ) : (
-          <div>None</div>
+          <div className="cFont none-text">None</div>
         )}
       </div>
     );

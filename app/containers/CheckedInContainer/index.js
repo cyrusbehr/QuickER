@@ -52,7 +52,9 @@ export class CheckedInContainer extends React.Component {
   render() {
     return (
       <div>
-        Checked In
+        <div className="sub-container-title cBlue-Text cFontItalics">
+          Checked In
+        </div>
         {this.props.checkinRequests && this.props.checkinRequests.length ? (
           this.props.checkinRequests.map((patient, idx) => {
             const key = `${patient.firstname}${patient.lastname}`;
@@ -70,7 +72,7 @@ export class CheckedInContainer extends React.Component {
             );
           })
         ) : (
-          <div>None</div>
+          <div className="none-text cFont">None</div>
         )}
         <Dialog
           open={this.state.open}
