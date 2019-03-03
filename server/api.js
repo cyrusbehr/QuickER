@@ -3,6 +3,7 @@ const api = express.Router();
 const mongoose = require('mongoose');
 const { check, validationResult } = require('express-validator/check');
 const bcrypt = require('bcrypt');
+
 const {
   Clinic,
   Hospital,
