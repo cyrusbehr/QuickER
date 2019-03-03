@@ -59,7 +59,7 @@ export class ClinicRegistrationContainer extends React.Component {
           this.props.onChangeLoadingStatus(false);
           console.log(r.data.errors);
           let errorStr = 'Please fill the following fields:';
-          let size = r.data.errors.length;
+          const size = r.data.errors.length;
           r.data.errors.map((error, idx) => {
             errorStr += ` ${error.msg}`;
             if (idx !== size - 1) {

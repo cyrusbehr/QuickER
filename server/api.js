@@ -1,6 +1,8 @@
 const express = require('express');
 const api = express.Router();
 const mongoose = require('mongoose');
+const { check, validationResult } = require('express-validator/check');
+const bcrypt = require('bcrypt');
 const {
   Clinic,
   Hospital,
@@ -8,12 +10,11 @@ const {
   ScrapedClinic,
   Patient,
 } = require('../models/models');
-const { check, validationResult } = require('express-validator/check');
-const bcrypt = require('bcrypt');
 
 // TODO remove the dashboardCardData array
 const DashboardCardData = [
   {
+    // base
     waitTime: 60,
     waitUnit: 'mins',
     // TODO use bing maps API to get real time walking time
@@ -25,17 +26,19 @@ const DashboardCardData = [
     active: true,
   },
   {
-    waitTime: 70,
+    // longer walktime
+    waitTime: 60,
     waitUnit: 'mins',
     // TODO use bing maps API to get real time walking time
-    walkTime: 12,
-    driveTime: 4,
+    walkTime: 16,
+    driveTime: 6,
     clinicName: 'Wesbrook Clinic',
     address: '2545 Birney Ave.',
     id: '5c7b6a18da53f96abc0c2e8d',
     active: true,
   },
   {
+    // longer waittime
     waitTime: 80,
     waitUnit: 'mins',
     // TODO use bing maps API to get real time walking time
@@ -47,57 +50,28 @@ const DashboardCardData = [
     active: true,
   },
   {
-    waitTime: 90,
+    // longer walktime but shorter waittime
+    waitTime: 40,
     waitUnit: 'mins',
     // TODO use bing maps API to get real time walking time
-    walkTime: 12,
-    driveTime: 4,
-    clinicName: 'Wesbrook Clinic',
-    address: '2545 Birney Ave.',
-    id: '5c7b6a18da53f96abc0c2e8d',
-    active: true,
-  },
-  {
-    waitTime: 100,
-    waitUnit: 'mins',
-    // TODO use bing maps API to get real time walking time
-    walkTime: 12,
-    driveTime: 4,
+    walkTime: 16,
+    driveTime: 6,
     clinicName: 'Wesbrook Clinic',
     address: '2545 Birney Ave.',
     id: 1,
     active: true,
   },
   {
-    waitTime: 60,
+    // longer waittime but shorter walktime
+    waitTime: 120,
     waitUnit: 'mins',
     // TODO use bing maps API to get real time walking time
-    walkTime: 16,
-    driveTime: 8,
+    walkTime: 8,
+    driveTime: 4,
     clinicName: 'Wesbrook Clinic',
     address: '2545 Birney Ave.',
     id: '5c7b6a18da53f96abc0c2e8d',
     active: true,
-  },
-  {
-    waitTime: 1,
-    waitUnit: 'hr',
-    walkTime: 25,
-    driveTime: 10,
-    clinicName: 'Point Grey Clinic',
-    address: '212 W Broadway',
-    id: '5c7b6a18da53f96abc0c2e8d',
-    active: true,
-  },
-  {
-    waitTime: 8,
-    waitUnit: 'AM',
-    walkTime: 2,
-    driveTime: 0,
-    clinicName: 'Student Clinic',
-    address: '412 Wesbrook Mall',
-    id: '5c7b6a18da53f96abc0c2e8d',
-    active: false,
   },
 ];
 
@@ -230,16 +204,16 @@ api.get('/clinics', (req, res) => {
     clinics = DashboardCardData; // / TODO remove this
     // new array with weighted scores
     const sortedClinics = clinics.map(clinic => {
-      // calculate weighted score
-      const score = clinic.waitTime * 0.8 + clinic.waitTime * 0.2;
+      // calculate weighted score, lower scores are better
+      const score = clinic.waitTime * 0.1 * 0.8 + clinic.walkTime * 0.5;
       // assign key name to value
       clinic.score = score;
       return clinic;
     });
 
     sortedClinics.sort((a, b) => {
-      if (a.score < b.score) return -1;
-      if (a.score > b.score) return 1;
+      if (a.score < b.score) return 1;
+      if (a.score > b.score) return -1;
       return 0;
     });
 

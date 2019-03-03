@@ -58,9 +58,9 @@ export class ClinicDashboardContainer extends React.Component {
       x => x._id === patientId,
     );
 
-    const newIncomingRequest = this.state.incomingRequests.filter(obj => {
-      return obj._id !== patientId;
-    });
+    const newIncomingRequest = this.state.incomingRequests.filter(
+      obj => obj._id !== patientId,
+    );
 
     const newAcceptedRequests = [...this.state.acceptedRequests, movePatient];
 
@@ -77,16 +77,16 @@ export class ClinicDashboardContainer extends React.Component {
 
   deletePatient = data => {
     if (data.route === 'incoming') {
-      const newIncomingRequest = this.state.incomingRequests.filter(obj => {
-        return obj._id !== data.patientId;
-      });
+      const newIncomingRequest = this.state.incomingRequests.filter(
+        obj => obj._id !== data.patientId,
+      );
       this.setState({
         incomingRequests: newIncomingRequest,
       });
     } else {
-      const newAcceptedRequests = this.state.acceptedRequests.filter(obj => {
-        return obj._id !== data.patientId;
-      });
+      const newAcceptedRequests = this.state.acceptedRequests.filter(
+        obj => obj._id !== data.patientId,
+      );
       this.setState({
         acceptedRequests: newAcceptedRequests,
       });
