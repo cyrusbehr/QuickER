@@ -37,7 +37,10 @@ class AcceptedRequest extends React.PureComponent {
           </IconButton>
         </Tooltip>
         <Tooltip title="Remove patient">
-          <IconButton color="secondary">
+          <IconButton
+            color="secondary"
+            onClick={() => this.props.deleteAcceptedRequest(this.props.id)}
+          >
             <Icon>close</Icon>
           </IconButton>
         </Tooltip>

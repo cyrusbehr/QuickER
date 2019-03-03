@@ -31,6 +31,13 @@ export class AcceptedRequestContainer extends React.Component {
     hospital: '',
   };
 
+  deleteAcceptedRequest = patientId => {
+    this.props.deletePatient({
+      patientId,
+      route: 'accepted',
+    });
+  };
+
   showModal = data => {
     this.setState({
       open: true,
@@ -57,6 +64,9 @@ export class AcceptedRequestContainer extends React.Component {
             const key = `${request.firstname}${request.lastname}`;
             return (
               <AcceptedRequest
+                deleteAcceptedRequest={patientId => {
+                  this.deleteAcceptedRequest(patientId);
+                }}
                 key={key}
                 firstname={request.firstname}
                 lastname={request.lastname}
@@ -65,6 +75,7 @@ export class AcceptedRequestContainer extends React.Component {
                 idx={idx}
                 hospitalName={request.hospitalName}
                 showModalFunc={data => this.showModal(data)}
+                id={request._id}
               />
             );
           })

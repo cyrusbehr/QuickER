@@ -17,6 +17,8 @@ import axios from 'axios';
 import injectReducer from 'utils/injectReducer';
 import { setProgressBar } from '../HandleProgressBar/actions';
 import makeSelectClinicDashboardContainer from './selectors';
+import makeSelectClinicLoginContainer from '../ClinicLoginContainer/selectors';
+
 import reducer from './reducer';
 import { setUserDetails } from '../ClinicLoginContainer/actions';
 
@@ -26,6 +28,18 @@ export class ClinicDashboardContainer extends React.Component {
     incomingRequests: null,
     acceptedRequests: null,
     checkinRequests: null,
+  };
+
+  deletePatient = data => {
+    this.props.onChangeLoadingStatus(true);
+    axios
+      .post(`/api/${data.route}/delete`, {
+        patientId: data.patientId,
+        clinicId: this.props.user.userReference,
+      })
+      .then(r => {
+        this.props.onChangeLoadingStatus(false);
+      });
   };
 
   componentDidMount() {
@@ -61,9 +75,11 @@ export class ClinicDashboardContainer extends React.Component {
         <ClinicDashboardNavbar />
         <IncomingRequestContainer
           incomingRequests={this.state.incomingRequests}
+          deletePatient={data => this.deletePatient(data)}
         />
         <AcceptedRequestContainer
           acceptedRequests={this.state.acceptedRequests}
+          deletePatient={data => this.deletePatient(data)}
         />
         <CheckedInContainer checkinRequests={this.state.checkinRequests} />
       </div>
@@ -78,6 +94,7 @@ ClinicDashboardContainer.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   clinicDashboardContainer: makeSelectClinicDashboardContainer(),
+  user: makeSelectClinicLoginContainer(),
 });
 
 function mapDispatchToProps(dispatch) {

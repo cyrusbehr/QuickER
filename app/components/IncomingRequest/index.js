@@ -32,7 +32,10 @@ class IncomingRequest extends React.PureComponent {
           </IconButton>
         </Tooltip>
         <Tooltip title="Reject request">
-          <IconButton color="secondary">
+          <IconButton
+            color="secondary"
+            onClick={() => this.props.deleteIncomingRequest(this.props.id)}
+          >
             <Icon>close</Icon>
           </IconButton>
         </Tooltip>
