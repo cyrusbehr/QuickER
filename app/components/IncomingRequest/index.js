@@ -7,6 +7,9 @@
 import React from 'react';
 import Fab from '@material-ui/core/Fab';
 import Icon from '@material-ui/core/Icon';
+import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton';
+
 // import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 
@@ -23,9 +26,16 @@ class IncomingRequest extends React.PureComponent {
         <div>{this.props.DOB}</div>
         <div>{this.props.phone}</div>
         <div>add to queue</div>
-        <Fab color="default">
-          <Icon className="icon-color">navigate_next</Icon>
-        </Fab>
+        <Tooltip title="Add patient to queue">
+          <IconButton color="secondary">
+            <Icon>done</Icon>
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Reject request">
+          <IconButton color="secondary">
+            <Icon>close</Icon>
+          </IconButton>
+        </Tooltip>
       </div>
     );
   }

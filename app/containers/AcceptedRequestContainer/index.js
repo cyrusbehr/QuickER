@@ -9,7 +9,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import AcceptedRequest from 'components/AcceptedRequest/index';
 import injectReducer from 'utils/injectReducer';
 import makeSelectAcceptedRequestContainer from './selectors';
@@ -19,13 +24,28 @@ import reducer from './reducer';
 export class AcceptedRequestContainer extends React.Component {
   state = {
     open: false,
+    firstname: '',
+    lastname: '',
+    DOB: '',
+    phone: '',
+    hospital: '',
   };
 
-  handleSuccessClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    this.setState({ openSuccess: false });
+  showModal = data => {
+    this.setState({
+      open: true,
+      firstname: data.firstname,
+      lastname: data.lastname,
+      DOB: data.DOB,
+      phone: data.phone,
+      hospital: data.hospitalName,
+    });
+  };
+
+  closeModal = () => {
+    this.setState({
+      open: false,
+    });
   };
 
   render() {
@@ -43,9 +63,34 @@ export class AcceptedRequestContainer extends React.Component {
                 phone={request.phone}
                 idx={idx}
                 hospitalName={request.hospitalName}
+                showModalFunc={data => this.showModal(data)}
               />
             );
           })}
+        <Dialog
+          open={this.state.open}
+          onClose={this.closeModal}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogContent>
+            <div className="modal-form-content">
+              <span>
+                {this.state.firstname} {this.state.lastname}
+              </span>
+              <br />
+              {this.state.DOB}
+              <br />
+              {this.state.phone}
+              <br />
+              Send from {this.state.hospital}
+            </div>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.closeModal} color="primary">
+              Dismiss
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }

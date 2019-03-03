@@ -244,7 +244,7 @@ TODO need to fix and split up CSS below
   align-items: flex-start;
   justify-content: flex-start;
   border-radius: 0px;
-  margin-bottom: 60px;
+  margin-bottom: 50px;
 }
 
 .hospitalDashCardsDisabled {
@@ -376,7 +376,7 @@ TODO need to fix and split up CSS below
   font-style: italic;
   font-weight: bold;
   padding: 30px 10px;
-  height: 120px;
+  height: 80px;
 }
 
 .closedTxt {
@@ -397,7 +397,7 @@ TODO need to fix and split up CSS below
   font-style: italic;
   font-weight: bold;
   padding: 30px 10px;
-  height: 120px;
+  height: 80px;
 }
 
 .addToQueueTxt {
