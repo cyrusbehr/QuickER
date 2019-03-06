@@ -14,6 +14,7 @@ import IncomingRequestContainer from 'containers/IncomingRequestContainer/Loadab
 import AcceptedRequestContainer from 'containers/AcceptedRequestContainer/Loadable';
 import CheckedInContainer from 'containers/CheckedInContainer/Loadable';
 import io from 'socket.io-client';
+import Notify from 'notifyjs';
 import axios from 'axios';
 import injectReducer from 'utils/injectReducer';
 import { setProgressBar } from '../HandleProgressBar/actions';
@@ -33,6 +34,8 @@ export class ClinicDashboardContainer extends React.Component {
     acceptedRequests: null,
     checkinRequests: null,
     clinicName: '',
+    newPatientName: '',
+    newPatientHospital: '',
   };
 
   checkInPatient = patientId => {
@@ -101,6 +104,46 @@ export class ClinicDashboardContainer extends React.Component {
     });
   };
 
+  onShowNotification = () => {
+    console.log('notification was shown!');
+  };
+
+  onCloseNotification = () => {
+    console.log('notification is closed');
+  };
+
+  onClickNotification = () => {
+    console.log('notification clicked');
+  };
+
+  onErrorNotification = () => {
+    console.error(
+      'Error showing notification. You may need to request permission.',
+    );
+  };
+
+  onPermissionGranted = () => {
+    console.log('Permission has been granted by the user');
+    this.doNotification();
+  };
+
+  onPermissionDenied = () => {
+    console.warn('Permission has been denied by the user');
+  };
+
+  doNotification = () => {
+    console.log(this.state);
+    let myNotification = new Notify('New Patient', {
+      body: this.state.newPatientName,
+      notifyShow: this.onShowNotification,
+      notifyClose: this.onCloseNotification,
+      notifyClick: this.onClickNotification,
+      notifyError: this.onErrorNotification,
+      timeout: 4,
+    });
+    myNotification.show();
+  };
+
   componentDidMount() {
     // Check that the user is loged in
     axios.get('/checklogin/clinic').then(r => {
@@ -119,7 +162,17 @@ export class ClinicDashboardContainer extends React.Component {
           ];
           this.setState({
             incomingRequests: newIncomingRequest,
+            newPatientName: `${newPatient.firstname} ${newPatient.lastname}`,
+            newPatientHospital: newPatient.hospitalName,
           });
+          if (!Notify.needsPermission) {
+            this.doNotification();
+          } else if (Notify.isSupported()) {
+            Notify.requestPermission(
+              this.onPermissionGranted,
+              this.onPermissionDenied,
+            );
+          }
         });
 
         console.log(r.data);

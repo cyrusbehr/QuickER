@@ -4,7 +4,7 @@
  *
  */
 
-import { DEFAULT_ACTION, SET_SOCKET } from './constants';
+import { DEFAULT_ACTION } from './constants';
 
 export function defaultAction() {
   return {
@@ -12,7 +12,3 @@ export function defaultAction() {
   };
 }
 
-export const setSocket = socket => ({
-  type: SET_SOCKET,
-  socket,
-});
