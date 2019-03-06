@@ -4,6 +4,8 @@
  *
  */
 
+const SET_SOCKET = 'app/HomePageContainer/SET_SOCKET';
+
 const DEFAULT_ACTION = 'app/HomePageContainer/DEFAULT_ACTION';
 
 const HOSPITAL_REGISTRATION_ROUTE = '/register/hospital';
@@ -23,6 +25,7 @@ const LoginCardData = [
 ];
 
 module.exports = {
+  SET_SOCKET,
   LoginCardData,
   DEFAULT_ACTION,
 };

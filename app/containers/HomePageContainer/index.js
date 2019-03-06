@@ -9,12 +9,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import io from 'socket.io-client';
 import UserSelectionCard from 'components/UserSelectionCard/index';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import injectReducer from 'utils/injectReducer';
 import { LoginCardData } from './constants';
+import { setSocket } from './actions';
 
-import makeSelectHomePageContainer from './selectors';
+import makeSelectHomePageContainer, { makeSelectSocket } from './selectors';
 import reducer from './reducer';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -25,6 +27,13 @@ export class HomePageContainer extends React.Component {
   };
 
   componentDidMount() {
+    // Create and set the socket object
+    // TODO this should really be done in the app container,
+    // but the app is a functional component and was unable to turn it into
+    // a react class
+    this.socket = io();
+    this.props.setIO(this.socket);
+
     this.setState({
       appear: true,
     });
@@ -109,7 +118,10 @@ const mapStateToProps = createStructuredSelector({
 });
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    setIO: socket => dispatch(setSocket(socket)),
+    dispatch,
+  };
 }
 
 const withConnect = connect(
