@@ -327,6 +327,7 @@ TODO need to fix and split up CSS below
 
 .hospitalDashCardsPad {
   padding: 10px;
+  min-height: 240px;
 }
 
 .hospitalDashCardContainer {

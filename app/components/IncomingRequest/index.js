@@ -4,12 +4,11 @@
  *
  */
 
-import React from 'react';
-import Fab from '@material-ui/core/Fab';
-import Icon from '@material-ui/core/Icon';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
 import Card from '@material-ui/core/Card';
+import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import React from 'react';
 
 // import PropTypes from 'prop-types';
 // import styled from 'styled-components';
@@ -24,7 +23,7 @@ class IncomingRequest extends React.PureComponent {
           <div>
             <span className="cBlue-Text patient-name">{fullName}</span>
             <span className="from-hospital cBlue-Text">
-              {` from UBC hospital` /* TODO return this this.props.hospitalName*/}
+              {this.props.hospitalName}
             </span>
           </div>
           <div className="cBlue-Text card-subtext">

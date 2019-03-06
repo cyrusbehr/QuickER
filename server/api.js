@@ -23,7 +23,7 @@ const DashboardCardData = [
     driveTime: 1,
     clinicName: 'University Village Medical Clinic',
     address: '2155 Allison Road, Vancouver',
-    id: '5c7b6a18da53f96abc0c2e8d',
+    id: '5c7b6a11da53f96abc0c2e60',
     active: true,
   },
   {
@@ -52,8 +52,8 @@ const DashboardCardData = [
   },
   {
     // longer walktime but shorter waittime
-    waitTime: 40,
-    waitUnit: 'mins',
+    waitTime: 10,
+    waitUnit: 'AM',
     // TODO use bing maps API to get real time walking time
     walkTime: 16,
     driveTime: 6,
@@ -67,8 +67,8 @@ const DashboardCardData = [
     waitTime: 1,
     waitUnit: 'hr',
     // TODO use bing maps API to get real time walking time
-    walkTime: 8,
-    driveTime: 4,
+    walkTime: 72,
+    driveTime: 12,
     clinicName: 'Khatsahlano Medical Clinic',
     address: '2685 W Broadway, Vancouver',
     id: '5c7b6a18da53f96abc0c2e8d',
