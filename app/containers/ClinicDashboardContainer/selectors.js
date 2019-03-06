@@ -21,5 +21,10 @@ const makeSelectClinicDashboardContainer = () =>
     substate.toJS(),
   );
 
+const makeSelectSocket = () =>
+  createSelector(selectClinicDashboardContainerDomain, substate =>
+    substate.get('socket'),
+  );
+
 export default makeSelectClinicDashboardContainer;
-export { selectClinicDashboardContainerDomain };
+export { selectClinicDashboardContainerDomain, makeSelectSocket };

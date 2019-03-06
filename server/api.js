@@ -59,7 +59,7 @@ const DashboardCardData = [
     driveTime: 6,
     clinicName: 'Point Grey Medical Clinic',
     address: '4448 W 10th Ave, Vancouver',
-    id: 1,
+    id: '1',
     active: false,
   },
   {
@@ -130,30 +130,6 @@ api.post('/accepted/accept', (req, res) => {
     res.json({
       error: null,
       response: '',
-    });
-  });
-});
-
-api.post('/patient', (req, res) => {
-  const newPatient = new Patient({
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    DOB: req.body.DOB,
-    phone: req.body.phone,
-    hospitalName: req.body.hospitalName,
-  });
-
-  newPatient.save().then(savedUser => {
-    ScrapedClinic.update(
-      { _id: req.body.clinicId },
-      {
-        $push: { incomingRequests: savedUser._id },
-      },
-    ).then(updatedClinic => {
-      res.json({
-        error: null,
-        response: updatedClinic,
-      });
     });
   });
 });

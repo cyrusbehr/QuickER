@@ -118,7 +118,7 @@ HospitalDashboardCard.propTypes = {
   address: PropTypes.string,
   clinicName: PropTypes.string,
   onButtonPress: PropTypes.func,
-  id: PropTypes.number,
+  id: PropTypes.string,
 };
 
 export default HospitalDashboardCard;

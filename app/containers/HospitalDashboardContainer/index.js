@@ -113,7 +113,7 @@ export class HospitalDashboardContainer extends React.Component {
     this.setState({ open: false });
 
     axios
-      .post('/api/patient', {
+      .post('/patient', {
         firstname: this.state.patientFirstName,
         lastname: this.state.patientLastName,
         phone: this.state.patientPhone,

@@ -17,7 +17,9 @@ import io from 'socket.io-client';
 import axios from 'axios';
 import injectReducer from 'utils/injectReducer';
 import { setProgressBar } from '../HandleProgressBar/actions';
-import makeSelectClinicDashboardContainer from './selectors';
+import makeSelectClinicDashboardContainer, {
+  makeSelectSocket,
+} from './selectors';
 import makeSelectClinicLoginContainer from '../ClinicLoginContainer/selectors';
 import { setSocket } from './actions';
 
@@ -107,7 +109,12 @@ export class ClinicDashboardContainer extends React.Component {
 
         // Create the socket connection
         this.socket = io();
+        this.socket.emit('join', r.data.user.userReference);
         this.props.setIO(this.socket);
+
+        this.props.socket.on('forwardPatient', newPatient => {
+          console.log(newPatient);
+        });
 
         console.log(r.data);
         this.setState({
@@ -165,6 +172,7 @@ ClinicDashboardContainer.propTypes = {
 const mapStateToProps = createStructuredSelector({
   clinicDashboardContainer: makeSelectClinicDashboardContainer(),
   user: makeSelectClinicLoginContainer(),
+  socket: makeSelectSocket(),
 });
 
 function mapDispatchToProps(dispatch) {

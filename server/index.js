@@ -10,7 +10,13 @@ const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const { Clinic, Hospital, User } = require('../models/models');
+const {
+  Clinic,
+  Hospital,
+  User,
+  ScrapedClinic,
+  Patient,
+} = require('../models/models');
 const bcrypt = require('bcrypt');
 
 const argv = require('./argv');
@@ -92,9 +98,37 @@ io.on('connection', client => {
   });
 
   client.on('forwardPatient', data => {
-    // TODO add to the database here
-    console.log('The socket was hit');
     client.broadcase.to(client.currentRoom).emit('forwardPatient', data);
+  });
+});
+
+// Attach the io instance to the app
+app.io = io;
+
+app.post('/patient', (req, res) => {
+  const newPatient = new Patient({
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    DOB: req.body.DOB,
+    phone: req.body.phone,
+    hospitalName: req.body.hospitalName,
+  });
+
+  newPatient.save().then(savedUser => {
+    ScrapedClinic.update(
+      { _id: req.body.clinicId },
+      {
+        $push: { incomingRequests: savedUser._id },
+      },
+    ).then(updatedClinic => {
+      // Forward the new patient to the clinic via socket
+      req.app.io.to(req.body.clinicId).emit('forwardPatient', savedUser);
+
+      res.json({
+        error: null,
+        response: updatedClinic,
+      });
+    });
   });
 });
 
