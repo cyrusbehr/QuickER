@@ -113,7 +113,13 @@ export class ClinicDashboardContainer extends React.Component {
         this.props.setIO(this.socket);
 
         this.props.socket.on('forwardPatient', newPatient => {
-          console.log(newPatient);
+          const newIncomingRequest = [
+            ...this.state.incomingRequests,
+            newPatient,
+          ];
+          this.setState({
+            incomingRequests: newIncomingRequest,
+          });
         });
 
         console.log(r.data);
