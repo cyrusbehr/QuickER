@@ -13,11 +13,13 @@ import { compose } from 'redux';
 import IncomingRequestContainer from 'containers/IncomingRequestContainer/Loadable';
 import AcceptedRequestContainer from 'containers/AcceptedRequestContainer/Loadable';
 import CheckedInContainer from 'containers/CheckedInContainer/Loadable';
+import io from 'socket.io-client';
 import axios from 'axios';
 import injectReducer from 'utils/injectReducer';
 import { setProgressBar } from '../HandleProgressBar/actions';
 import makeSelectClinicDashboardContainer from './selectors';
 import makeSelectClinicLoginContainer from '../ClinicLoginContainer/selectors';
+import { setSocket } from './actions';
 
 import reducer from './reducer';
 import { setUserDetails } from '../ClinicLoginContainer/actions';
@@ -102,6 +104,11 @@ export class ClinicDashboardContainer extends React.Component {
     axios.get('/checklogin/clinic').then(r => {
       if (r.data.loggedIn) {
         this.props.setUser(r.data.user);
+
+        // Create the socket connection
+        this.socket = io();
+        this.props.setIO(this.socket);
+
         console.log(r.data);
         this.setState({
           clinicName: r.data.name,
@@ -168,6 +175,7 @@ function mapDispatchToProps(dispatch) {
     setUser: user => {
       dispatch(setUserDetails(user));
     },
+    setIO: socket => dispatch(setSocket(socket)),
     dispatch,
   };
 }

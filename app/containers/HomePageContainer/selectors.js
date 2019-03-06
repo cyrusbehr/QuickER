@@ -19,10 +19,5 @@ const selectHomePageContainerDomain = state =>
 const makeSelectHomePageContainer = () =>
   createSelector(selectHomePageContainerDomain, substate => substate.toJS());
 
-const makeSelectSocket = () =>
-  createSelector(selectHomePageContainerDomain, substate =>
-    substate.get('socket'),
-  );
-
 export default makeSelectHomePageContainer;
-export { selectHomePageContainerDomain, makeSelectSocket };
+export { selectHomePageContainerDomain };
