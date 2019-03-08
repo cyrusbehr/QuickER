@@ -36,6 +36,8 @@ const PatientSchema = mongoose.Schema({
   DOB: String,
   phone: String,
   hospitalName: String,
+  lattitude: Number,
+  longitude: Number,
 });
 
 const UserSchema = mongoose.Schema({

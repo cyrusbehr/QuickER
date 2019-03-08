@@ -139,6 +139,8 @@ module.exports = passport => {
         const NewHospital = new Hospital({
           hospitalName: req.body.hospitalName,
           address: req.body.address,
+          lattitude: req.body.lattitude,
+          longitude: req.body.longitude,
         });
 
         NewHospital.save()
