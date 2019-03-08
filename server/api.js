@@ -24,7 +24,7 @@ const DashboardCardData = [
     driveTime: 1,
     clinicName: 'University Village Medical Clinic',
     address: '2155 Allison Road, Vancouver',
-    id: '5c7b6a11da53f96abc0c2e60',
+    id: '5c82c47551274440c4852da9',
     active: true,
   },
   {
@@ -36,7 +36,7 @@ const DashboardCardData = [
     driveTime: 3,
     clinicName: 'Careville Clinic',
     address: '3317 Wesbrook Mall, Vancouver',
-    id: '5c7b6a18da53f96abc0c2e8d',
+    id: '5c82c47551274440c4852da9',
     active: true,
   },
   {
@@ -48,7 +48,7 @@ const DashboardCardData = [
     driveTime: 4,
     clinicName: 'University Village Medical Clinic - Birney Ave',
     address: '5933 Birney Ave, Vancouver',
-    id: '5c7b6a18da53f96abc0c2e8d',
+    id: '5c82c47551274440c4852da9',
     active: true,
   },
   {
@@ -60,7 +60,7 @@ const DashboardCardData = [
     driveTime: 6,
     clinicName: 'Point Grey Medical Clinic',
     address: '4448 W 10th Ave, Vancouver',
-    id: '1',
+    id: '5c82c47551274440c4852da9',
     active: false,
   },
   {
@@ -72,7 +72,7 @@ const DashboardCardData = [
     driveTime: 12,
     clinicName: 'Khatsahlano Medical Clinic',
     address: '2685 W Broadway, Vancouver',
-    id: '5c7b6a18da53f96abc0c2e8d',
+    id: '5c82c47551274440c4852da9',
     active: true,
   },
 ];
@@ -197,7 +197,8 @@ api.get('/clinics', (req, res) => {
 
     // Checks if lattitude and longitude have previously been computed for the clinic
     // If not, use bing to get lat / long and update mongoDB
-    /*let promises = clinics.map(clinic => {
+    /*
+    let promises = clinics.map(clinic => {
       if (clinic.lattitude) {
         return clinic;
       }
