@@ -202,9 +202,10 @@ export class ClinicDashboardContainer extends React.Component {
   }
 
   render() {
+    const dashMessage = `${this.state.clinicName} Dashboard`;
     return (
       <div>
-        <ClinicDashboardNavbar clinicName={this.state.clinicName} />
+        <ClinicDashboardNavbar message={dashMessage} />
         <div className="flex-parent">
           <IncomingRequestContainer
             incomingRequests={this.state.incomingRequests}

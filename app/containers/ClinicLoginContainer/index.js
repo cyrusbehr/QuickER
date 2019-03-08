@@ -4,6 +4,7 @@
  *
  */
 
+import ClinicDashboardNavbar from 'components/ClinicDashboardNavbar/index';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -54,17 +55,15 @@ export class ClinicLoginContainer extends React.Component {
   };
 
   render() {
+    const dashMessage = 'Clinic Login';
     return (
       <div>
-        can put some header stuff here like a navbar / ect
+        <ClinicDashboardNavbar message={dashMessage} />
         <ClinicLoginForm
           onLogin={() => this.handleLogin}
           handleInputChange={data => this.handleInputChange(data)}
+          handleRegisterNow={this.handleRegisterNow}
         />
-        <div>
-          Don't have an account?
-          <Button onClick={this.handleRegisterNow}>Register now!</Button>
-        </div>
       </div>
     );
   }

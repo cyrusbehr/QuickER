@@ -132,6 +132,35 @@ DEMO: https://codepen.io/anon/pen/xMgRQq
   transform: scale3d(1.02, 1.02, 1);
 }
 
+.register-now {
+  margin: auto;
+  margin-top: 15px;
+}
+
+.login-button {
+  margin-top: 30px !important;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+.register-seperator {
+  margin-top: 60px;
+}
+
+.card-login {
+  padding: 20px;
+  width: 445px;
+  margin: auto;
+  margin-top: 50px;
+}
+
 .login-card-contianer {
   display: flex;
   justify-content: center;

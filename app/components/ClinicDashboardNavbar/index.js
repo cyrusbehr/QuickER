@@ -22,7 +22,7 @@ class ClinicDashboardNavbar extends React.PureComponent {
               <span className="cFontItalics cRed-Text bolder">ER</span>
             </span>
             <span className="cFontItalics cBlue-Text">
-              {this.props.clinicName} Dashboard
+              {this.props.message}
             </span>
           </span>
         </Toolbar>

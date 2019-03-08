@@ -8,6 +8,7 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
+import Card from '@material-ui/core/Card';
 
 import PropTypes from 'prop-types';
 // import styled from 'styled-components';
@@ -16,7 +17,7 @@ import PropTypes from 'prop-types';
 class ClinicLoginForm extends React.PureComponent {
   render() {
     return (
-      <div>
+      <Card className="card-login">
         <FormControl required className="clinic-login-form-input">
           <TextField
             id="username"
@@ -36,13 +37,20 @@ class ClinicLoginForm extends React.PureComponent {
           />
           <Button
             variant="contained"
-            className="full-width"
+            className="full-width login-button"
             onClick={this.props.onLogin()}
           >
             Login
           </Button>
+          <hr className="register-seperator" />
+          <div className="register-now">
+            Don't have an account?
+            <Button onClick={this.props.handleRegisterNow}>
+              Register now!
+            </Button>
+          </div>
         </FormControl>
-      </div>
+      </Card>
     );
   }
 }
