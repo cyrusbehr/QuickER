@@ -36,6 +36,7 @@ export class ClinicDashboardContainer extends React.Component {
     clinicName: '',
     newPatientName: '',
     newPatientHospital: '',
+    userReference: null,
   };
 
   checkInPatient = patientId => {
@@ -56,7 +57,7 @@ export class ClinicDashboardContainer extends React.Component {
 
     axios.post('/api/accepted/accept', {
       patientId,
-      clinicId: this.props.user.userReference,
+      clinicId: this.state.userReference,
     });
   };
 
@@ -78,7 +79,7 @@ export class ClinicDashboardContainer extends React.Component {
 
     axios.post('/api/incoming/accept', {
       patientId,
-      clinicId: this.props.user.userReference,
+      clinicId: this.state.userReference,
     });
   };
 
@@ -98,9 +99,10 @@ export class ClinicDashboardContainer extends React.Component {
         acceptedRequests: newAcceptedRequests,
       });
     }
+
     axios.post(`/api/${data.route}/delete`, {
       patientId: data.patientId,
-      clinicId: this.props.user.userReference,
+      clinicId: this.state.userReference,
     });
   };
 
@@ -148,7 +150,13 @@ export class ClinicDashboardContainer extends React.Component {
     // Check that the user is loged in
     axios.get('/checklogin/clinic').then(r => {
       if (r.data.loggedIn) {
+        // TODO this dispatch is not getting called since it is another container
         this.props.setUser(r.data.user);
+
+        // TODO remove the following once the setUser works
+        this.setState({
+          userReference: r.data.user.userReference,
+        });
 
         // Create the socket connection
         this.socket = io();
@@ -175,7 +183,6 @@ export class ClinicDashboardContainer extends React.Component {
           }
         });
 
-        console.log(r.data);
         this.setState({
           clinicName: r.data.name,
         });

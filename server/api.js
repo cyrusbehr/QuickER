@@ -81,8 +81,7 @@ api.post('/incoming/delete', (req, res) => {
     ScrapedClinic.update(
       { _id: req.body.clinicId },
       { $pull: { incomingRequests: req.body.patientId } },
-    ).then(response => {
-      console.log(response);
+    ).then(() => {
       res.json({
         error: null,
         response: 'Success',
@@ -94,7 +93,7 @@ api.post('/incoming/delete', (req, res) => {
 api.post('/accepted/delete', (req, res) => {
   Patient.findByIdAndRemove(req.body.patientId).then(() => {
     ScrapedClinic.update(
-      { acceptedRequests: req.body.patientId, _id: req.body.clinicId },
+      { _id: req.body.clinicId },
       { $pull: { acceptedRequests: req.body.patientId } },
     ).then(() => {
       res.json({
@@ -107,7 +106,7 @@ api.post('/accepted/delete', (req, res) => {
 
 api.post('/incoming/accept', (req, res) => {
   ScrapedClinic.update(
-    { incomingRequests: req.body.patientId, _id: req.body.clinicId },
+    { _id: req.body.clinicId },
     {
       $pull: { incomingRequests: req.body.patientId },
       $push: { acceptedRequests: req.body.patientId },
@@ -122,7 +121,7 @@ api.post('/incoming/accept', (req, res) => {
 
 api.post('/accepted/accept', (req, res) => {
   ScrapedClinic.update(
-    { acceptedRequests: req.body.patientId, _id: req.body.clinicId },
+    { _id: req.body.clinicId },
     {
       $pull: { acceptedRequests: req.body.patientId },
       $push: { checkedInRequests: req.body.patientId },

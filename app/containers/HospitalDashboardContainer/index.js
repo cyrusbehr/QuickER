@@ -112,6 +112,8 @@ export class HospitalDashboardContainer extends React.Component {
     this.props.onChangeLoadingStatus(true);
     this.setState({ open: false });
 
+    console.log('ID:', this.state.id);
+
     axios
       .post('/patient', {
         firstname: this.state.patientFirstName,
