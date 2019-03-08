@@ -197,7 +197,7 @@ api.get('/clinics', (req, res) => {
 
     // Checks if lattitude and longitude have previously been computed for the clinic
     // If not, use bing to get lat / long and update mongoDB
-    let promises = clinics.map(clinic => {
+    /*let promises = clinics.map(clinic => {
       if (clinic.lattitude) {
         return clinic;
       }
@@ -226,7 +226,7 @@ api.get('/clinics', (req, res) => {
       .catch(e => {
         console.error(e);
       });
-
+*/
     clinics = DashboardCardData; // / TODO remove this
     // new array with weighted scores
     const sortedClinics = clinics.map(clinic => {
