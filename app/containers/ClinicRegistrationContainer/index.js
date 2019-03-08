@@ -104,7 +104,7 @@ export class ClinicRegistrationContainer extends React.Component {
 
   render() {
     const dashMessage = 'Clinic Registration';
-    const autoHideDur = 100000; // 100 seconds
+    const autoHideDur = 10000; // 10 seconds
     return (
       <div>
         <ClinicDashboardNavbar message={dashMessage} />

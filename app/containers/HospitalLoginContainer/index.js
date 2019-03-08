@@ -11,6 +11,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import HospitalLoginForm from 'components/HospitalLoginForm/index';
 import ClinicDashboardNavbar from 'components/ClinicDashboardNavbar/index';
+import Snackbar from 'components/Snackbar/index';
 
 import injectReducer from 'utils/injectReducer';
 import axios from 'axios';
@@ -24,6 +25,15 @@ export class HospitalLoginContainer extends React.Component {
   state = {
     username: '',
     password: '',
+    openError: false,
+  };
+
+  handleErrorClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    this.setState({ openError: false });
   };
 
   handleInputChange = param => event => {
@@ -41,8 +51,10 @@ export class HospitalLoginContainer extends React.Component {
       .then(r => {
         if (r.data.error) {
           this.props.onChangeLoadingStatus(false);
-          // TODO display error to the user
-          console.log('There was an error : ', r.data.error);
+          this.setState({
+            errorMessage: r.data.error,
+            openError: true,
+          });
         } else {
           console.log(r.data.response);
           this.props.setUser(r.data.response);
@@ -59,6 +71,8 @@ export class HospitalLoginContainer extends React.Component {
 
   render() {
     const dashMessage = 'Hospital Login';
+    const autoHideDur = 10000; // 10 seconds
+
     return (
       <div>
         <ClinicDashboardNavbar message={dashMessage} />
@@ -66,6 +80,13 @@ export class HospitalLoginContainer extends React.Component {
           onLogin={() => this.handleLogin}
           handleInputChange={data => this.handleInputChange(data)}
           onKeyPressFunc={this.keyPress}
+        />
+        <Snackbar
+          variant="error"
+          message={`Error: ${this.state.errorMessage}`}
+          open={this.state.openError}
+          handleClose={this.handleErrorClose}
+          autoHideDuration={autoHideDur}
         />
       </div>
     );
