@@ -179,9 +179,15 @@ api.get('/scrapedclinics', (req, res) => {
 
 function getCoordinates(endpoint) {
   return new Promise((resolve, reject) => {
-    axios.get(endpoint).then(response => {
-      resolve(response.data.resourceSets[0].resources[0].point.coordinates);
-    });
+    axios
+      .get(endpoint)
+      .then(response => {
+        console.log(response.data.resourceSets[0]);
+        resolve(response.data.resourceSets[0].resources[0].point.coordinates);
+      })
+      .catch(e => {
+        console.log(e);
+      });
   });
 }
 
@@ -195,10 +201,10 @@ api.get('/clinics', (req, res) => {
       if (clinic.lattitude) {
         return clinic;
       }
-      return getCoordinates(
-        /*TODO need to make this endpoint based on the clinic adddress */
-        `http://dev.virtualearth.net/REST/v1/Locations/US/WA/98052/Redmond/1%20Microsoft%20Way?o=json&key=${bingToken} `,
-      ).then(resp => {
+      const address = clinic.address.replace(/ /g, '%');
+      const queryString = `http://dev.virtualearth.net/REST/v1/Locations?CountryRegion=CA&adminDistrict=BC&locality=Vancouver&addressLine=${address}&o=json&key=${bingToken}`;
+      console.log(queryString);
+      return getCoordinates(queryString).then(resp => {
         const lattitude = resp[0];
         const longitude = resp[1];
         clinic.lattitude = lattitude;
@@ -215,7 +221,7 @@ api.get('/clinics', (req, res) => {
 
     Promise.all(promises)
       .then(results => {
-        console.log('TODO continue from here');
+        console.log(results);
       })
       .catch(e => {
         console.error(e);
