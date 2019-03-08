@@ -3,6 +3,7 @@ const api = express.Router();
 const mongoose = require('mongoose');
 const { check, validationResult } = require('express-validator/check');
 const bcrypt = require('bcrypt');
+const axios = require('axios');
 
 const {
   Clinic,
@@ -176,8 +177,50 @@ api.get('/scrapedclinics', (req, res) => {
   });
 });
 
+function getCoordinates(endpoint) {
+  return new Promise((resolve, reject) => {
+    axios.get(endpoint).then(response => {
+      resolve(response.data.resourceSets[0].resources[0].point.coordinates);
+    });
+  });
+}
+
 api.get('/clinics', (req, res) => {
   ScrapedClinic.find({ hasRegistered: true }).then(clinics => {
+    const bingToken = process.env.BING_TOKEN;
+
+    // Checks if lattitude and longitude have previously been computed for the clinic
+    // If not, use bing to get lat / long and update mongoDB
+    let promises = clinics.map(clinic => {
+      if (clinic.lattitude) {
+        return clinic;
+      }
+      return getCoordinates(
+        /*TODO need to make this endpoint based on the clinic adddress */
+        `http://dev.virtualearth.net/REST/v1/Locations/US/WA/98052/Redmond/1%20Microsoft%20Way?o=json&key=${bingToken} `,
+      ).then(resp => {
+        const lattitude = resp[0];
+        const longitude = resp[1];
+        clinic.lattitude = lattitude;
+        clinic.longitude = longitude;
+
+        return ScrapedClinic.findByIdAndUpdate(clinic._id, {
+          lattitude,
+          longitude,
+        }).then(() => {
+          return clinic;
+        });
+      });
+    });
+
+    Promise.all(promises)
+      .then(results => {
+        console.log('TODO continue from here');
+      })
+      .catch(e => {
+        console.error(e);
+      });
+
     clinics = DashboardCardData; // / TODO remove this
     // new array with weighted scores
     const sortedClinics = clinics.map(clinic => {

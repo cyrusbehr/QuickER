@@ -8,6 +8,8 @@ const ScrapedClinicSchema = mongoose.Schema({
   address: String,
   hasRegistered: Boolean,
   phone: String,
+  lattitude: Number,
+  longitude: Number,
   incomingRequests: [
     {
       type: mongoose.Schema.ObjectId,
