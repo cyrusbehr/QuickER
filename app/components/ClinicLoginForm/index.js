@@ -25,6 +25,7 @@ class ClinicLoginForm extends React.PureComponent {
             type="text"
             className=""
             margin="normal"
+            onKeyDown={this.props.onKeyPressFunc}
             onChange={this.props.handleInputChange('username')}
           />
           <TextField
@@ -33,6 +34,7 @@ class ClinicLoginForm extends React.PureComponent {
             type="password"
             className=""
             margin="normal"
+            onKeyDown={this.props.onKeyPressFunc}
             onChange={this.props.handleInputChange('password')}
           />
           <Button

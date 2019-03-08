@@ -134,11 +134,6 @@ DEMO: https://codepen.io/anon/pen/xMgRQq
 
 .register-now {
   margin: auto;
-  margin-top: 15px;
-}
-
-.login-button {
-  margin-top: 30px !important;
 }
 
 hr {
@@ -151,7 +146,14 @@ hr {
 }
 
 .register-seperator {
-  margin-top: 60px;
+  margin-top: 30px;
+}
+
+.clinic-register-card {
+  padding: 20px;
+  width: 445px;
+  margin: auto;
+  margin-top: 50px;
 }
 
 .card-login {

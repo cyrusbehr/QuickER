@@ -54,6 +54,12 @@ export class ClinicLoginContainer extends React.Component {
       });
   };
 
+  keyPress = e => {
+    if (e.keyCode === 13) {
+      this.handleLogin();
+    }
+  };
+
   render() {
     const dashMessage = 'Clinic Login';
     return (
@@ -63,6 +69,7 @@ export class ClinicLoginContainer extends React.Component {
           onLogin={() => this.handleLogin}
           handleInputChange={data => this.handleInputChange(data)}
           handleRegisterNow={this.handleRegisterNow}
+          onKeyPressFunc={this.keyPress}
         />
       </div>
     );

@@ -6,6 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import ClinicDashboardNavbar from 'components/ClinicDashboardNavbar/index';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -102,9 +103,12 @@ export class ClinicRegistrationContainer extends React.Component {
   }
 
   render() {
+    let dashMessage = 'Clinic Registration';
     const autoHideDur = 100000; // 100 seconds
     return (
       <div>
+        <ClinicDashboardNavbar message={dashMessage} />
+
         <Snackbar
           variant="error"
           message={`Error: ${this.state.errorMessage}`}
@@ -112,10 +116,6 @@ export class ClinicRegistrationContainer extends React.Component {
           handleClose={this.handleErrorClose}
           autoHideDuration={autoHideDur}
         />
-        <div>
-          can put some sort of header nav bar here with icons / logos, ect
-        </div>
-        <div>Can put some background images here or whatever</div>
         {this.state.formDataReady && (
           <div>
             <CSSTransition
@@ -126,20 +126,12 @@ export class ClinicRegistrationContainer extends React.Component {
                 <ClinicRegistrationForm
                   clinicData={this.state.clinicData}
                   onRegister={data => this.handleRegisterClinic(data)}
+                  handleLoginNow={this.handleLoginNow}
+                  handleRequestClinic={this.handleRequestClinic}
                 />
               }
               timeout={1200}
             />
-            <div>
-              Already have an account?
-              <Button onClick={this.handleLoginNow}>Log in</Button>
-            </div>
-            <div>
-              Don't see you clinic listed?
-              <Button onClick={this.handleRequestClinic}>
-                Request a new clinic
-              </Button>
-            </div>
           </div>
         )}
       </div>

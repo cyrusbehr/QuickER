@@ -11,7 +11,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
+import Card from '@material-ui/core/Card';
 
 import PropTypes from 'prop-types';
 // import styled from 'styled-components';
@@ -47,7 +47,7 @@ class ClinicRegistrationForm extends React.PureComponent {
 
   render() {
     return (
-      <div>
+      <Card className="clinic-register-card">
         <form autoComplete="on">
           <FormControl required className="clinic-registration-form-input">
             <InputLabel htmlFor="clinic-name-dropdown">Clinic Name</InputLabel>
@@ -128,22 +128,6 @@ class ClinicRegistrationForm extends React.PureComponent {
               multiple
               type="file"
             />
-            <label htmlFor="raised-button-file">
-              <Tooltip
-                title="We require a document as proof that you work at
-               or are currently managing the clinic. This can be in the form
-                of a utility bill or bank statement which shows the address
-                 and clinic name"
-              >
-                <Button
-                  variant="contained"
-                  component="span"
-                  className="full-width"
-                >
-                  Upload
-                </Button>
-              </Tooltip>
-            </label>
             <Button
               variant="contained"
               component="span"
@@ -151,9 +135,20 @@ class ClinicRegistrationForm extends React.PureComponent {
             >
               Submit Registration
             </Button>
+            <hr className="register-seperator" />
+            <div className="register-now">
+              Already have an account?
+              <Button onClick={this.props.handleLoginNow}>Log in</Button>
+            </div>
+            <div className="register-now">
+              Don't see you clinic listed?
+              <Button onClick={this.props.handleRequestClinic}>
+                Request a new clinic
+              </Button>
+            </div>
           </FormControl>
         </form>
-      </div>
+      </Card>
     );
   }
 }
