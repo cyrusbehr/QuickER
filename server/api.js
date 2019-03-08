@@ -79,9 +79,10 @@ const DashboardCardData = [
 api.post('/incoming/delete', (req, res) => {
   Patient.findByIdAndRemove(req.body.patientId).then(() => {
     ScrapedClinic.update(
-      { incomingRequests: req.body.patientId, _id: req.body.clinicId },
+      { _id: req.body.clinicId },
       { $pull: { incomingRequests: req.body.patientId } },
-    ).then(() => {
+    ).then(response => {
+      console.log(response);
       res.json({
         error: null,
         response: 'Success',
