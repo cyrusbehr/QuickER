@@ -93,16 +93,24 @@ export class AcceptedRequestContainer extends React.Component {
           aria-labelledby="form-dialog-title"
         >
           <DialogContent>
-            <div className="modal-form-content">
-              <span>
+            <div className="modal-form-content cBlue-Text">
+              <div className="patient-name">
                 {this.state.firstname} {this.state.lastname}
-              </span>
-              <br />
-              {this.state.DOB}
-              <br />
-              {this.state.phone}
-              <br />
-              Sent from {this.state.hospital}
+              </div>
+              <hr />
+              <div className="modal-body">
+                <div className="padding-bottom">DOB: {this.state.DOB}</div>
+                {!this.state.phone || this.state.phone == 0 ? (
+                  ''
+                ) : (
+                  <div className="padding-bottom">
+                    Phone: {this.state.phone}
+                  </div>
+                )}
+                <div className="padding-bottom">
+                  Sent from: {this.state.hospital}
+                </div>
+              </div>
             </div>
           </DialogContent>
           <DialogActions>

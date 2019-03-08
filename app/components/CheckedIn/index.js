@@ -28,12 +28,16 @@ class CheckedIn extends React.PureComponent {
   render() {
     const fullname = `${this.props.firstname} ${this.props.lastname}`;
     return (
-      <Card className="checked-in-card flex-parent-vertical-align">
+      <Card className="checked-in-card check-in-card-padding">
         <div className="center-vertical">
           <span className="cFont card-number ">{this.props.idx + 1} </span>
           <span className="cFont cBlue-Text patient-name">{fullname}</span>
           <span className="align-right">
-            <IconButton color="primary" onClick={this.onPress}>
+            <IconButton
+              color="primary"
+              onClick={this.onPress}
+              className="help-button"
+            >
               <Icon>help</Icon>
             </IconButton>
           </span>

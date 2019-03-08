@@ -16,15 +16,14 @@ import React from 'react';
 /* eslint-disable react/prefer-stateless-function */
 class IncomingRequest extends React.PureComponent {
   render() {
+    const hospitalStr = ` from ${this.props.hospitalName}`;
     const fullName = `${this.props.firstname} ${this.props.lastname}`;
     return (
       <Card className="checked-in-card cFont">
         <div className="center-vertical">
           <div>
             <span className="cBlue-Text patient-name">{fullName}</span>
-            <span className="from-hospital cBlue-Text">
-              {this.props.hospitalName}
-            </span>
+            <span className="from-hospital cBlue-Text">{hospitalStr}</span>
           </div>
           <div className="cBlue-Text card-subtext">
             <span className="bold padding-right ">{this.props.DOB}</span>
