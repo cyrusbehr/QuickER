@@ -51,6 +51,12 @@ export class HospitalLoginContainer extends React.Component {
       });
   };
 
+  keyPress = e => {
+    if (e.keyCode === 13) {
+      this.handleLogin();
+    }
+  };
+
   render() {
     const dashMessage = 'Hospital Login';
     return (
@@ -59,6 +65,7 @@ export class HospitalLoginContainer extends React.Component {
         <HospitalLoginForm
           onLogin={() => this.handleLogin}
           handleInputChange={data => this.handleInputChange(data)}
+          onKeyPressFunc={this.keyPress}
         />
       </div>
     );
