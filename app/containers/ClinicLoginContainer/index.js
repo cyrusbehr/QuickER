@@ -13,6 +13,7 @@ import { compose } from 'redux';
 import ClinicLoginForm from 'components/ClinicLoginForm/index';
 import injectReducer from 'utils/injectReducer';
 import axios from 'axios';
+import Snackbar from 'components/Snackbar/index';
 import Button from '@material-ui/core/Button';
 import { setProgressBar } from '../HandleProgressBar/actions';
 import { setUserDetails } from './actions';
@@ -24,6 +25,7 @@ export class ClinicLoginContainer extends React.Component {
   state = {
     username: '',
     password: '',
+    openError: false,
   };
 
   handleInputChange = param => event => {
@@ -45,8 +47,10 @@ export class ClinicLoginContainer extends React.Component {
       .then(r => {
         if (r.data.error) {
           this.props.onChangeLoadingStatus(false);
-          // TODO display the error message to the user, perhaps using a snackbar
-          console.log('Error : ', r.data.error);
+          this.setState({
+            errorMessage: r.data.error,
+            openError: true,
+          });
         } else {
           this.props.setUser(r.data.response);
           this.props.history.push('/clinic/dashboard');
@@ -60,8 +64,17 @@ export class ClinicLoginContainer extends React.Component {
     }
   };
 
+  handleErrorClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    this.setState({ openError: false });
+  };
+
   render() {
     const dashMessage = 'Clinic Login';
+    const autoHideDur = 100000; // 100 seconds
     return (
       <div>
         <ClinicDashboardNavbar message={dashMessage} />
@@ -70,6 +83,13 @@ export class ClinicLoginContainer extends React.Component {
           handleInputChange={data => this.handleInputChange(data)}
           handleRegisterNow={this.handleRegisterNow}
           onKeyPressFunc={this.keyPress}
+        />
+        <Snackbar
+          variant="error"
+          message={`Error: ${this.state.errorMessage}`}
+          open={this.state.openError}
+          handleClose={this.handleErrorClose}
+          autoHideDuration={autoHideDur}
         />
       </div>
     );
