@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import HospitalLoginForm from 'components/HospitalLoginForm/index';
+import ClinicDashboardNavbar from 'components/ClinicDashboardNavbar/index';
 
 import injectReducer from 'utils/injectReducer';
 import axios from 'axios';
@@ -51,9 +52,10 @@ export class HospitalLoginContainer extends React.Component {
   };
 
   render() {
+    const dashMessage = 'Hospital Login';
     return (
       <div>
-        This is the hospital Login HospitalLoginContainer
+        <ClinicDashboardNavbar message={dashMessage} />
         <HospitalLoginForm
           onLogin={() => this.handleLogin}
           handleInputChange={data => this.handleInputChange(data)}

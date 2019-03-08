@@ -8,6 +8,7 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
+import Card from '@material-ui/core/Card';
 
 import PropTypes from 'prop-types';
 // import styled from 'styled-components';
@@ -16,7 +17,7 @@ import PropTypes from 'prop-types';
 class HospitalLoginForm extends React.PureComponent {
   render() {
     return (
-      <div>
+      <Card className="card-login">
         <FormControl required className="hospital-login-form-input">
           <TextField
             id="username"
@@ -42,7 +43,7 @@ class HospitalLoginForm extends React.PureComponent {
             Login
           </Button>
         </FormControl>
-      </div>
+      </Card>
     );
   }
 }
