@@ -200,10 +200,62 @@ api.get('/clinics', (req, res) => {
         destinations: endCoordinates,
         travelMode: 'driving',
       };
+      axios
+        .post(queryString, postBody)
+        .then(response => {
+          const driveTimeArr = response.data.resourceSets[0].resources[0].results.map(
+            des => des.travelDuration,
+          );
+          return driveTimeArr;
+        })
+        .then(driveTimeArr => {
+          postBody.travelMode = 'walking';
+          axios
+            .post(queryString, postBody)
+            .then(response => {
+              const walkTimeArr = response.data.resourceSets[0].resources[0].results.map(
+                des => des.travelDuration,
+              );
 
-      axios.post(queryString, postBody).then(response => {
-        console.log(response.data);
-      });
+              const travelTimeArr = [];
+              for (let i = 0; i < clinics.length; i += 1) {
+                travelTimeArr.push({
+                  driveTime: driveTimeArr[i],
+                  walkTime: walkTimeArr[i],
+                });
+              }
+              return travelTimeArr;
+            })
+            .then(travelTimeArr => {
+              const clinicWithTravelTime = clinics.map((clin, idx) => {
+                const notActive =
+                  clin.waitTime === 'At Capacity' ||
+                  clin.waitTime === 'Walk-in Closed' ||
+                  clin.waitTime === 'Reopening';
+                const active = !notActive;
+                const waitTime = active
+                  ? clin.waitTime.split(' ')
+                  : clin.waitTime;
+                return {
+                  driveTime: parseInt(travelTimeArr[idx].driveTime, 10),
+                  walkTime: parseInt(travelTimeArr[idx].walkTime, 10),
+                  clinicName: clin.name,
+                  waitTime: active ? waitTime[0] : waitTime,
+                  waitUnit: active ? waitTime[1] : waitTime,
+                  address: clin.address,
+                  phone: clin.phone,
+                  active,
+                };
+              });
+
+              res.json({
+                error: null,
+                response: {
+                  dashboardCardData: clinicWithTravelTime,
+                },
+              });
+            });
+        });
     });
 
     // Checks if lattitude and longitude have previously been computed for the clinic
@@ -253,13 +305,6 @@ api.get('/clinics', (req, res) => {
       if (a.score < b.score) return -1;
       if (a.score > b.score) return 1;
       return 0;
-    });
-
-    res.json({
-      error: null,
-      response: {
-        dashboardCardData: sortedClinics,
-      },
     });
   });
 

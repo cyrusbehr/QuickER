@@ -27,9 +27,7 @@ class HospitalDashboardCard extends React.Component {
     if (this.props.active) {
       return (
         <React.Fragment>
-          <span className="waitTimeStr">
-            {'~'.concat(this.props.waitTime.toString(10))}
-          </span>
+          <span className="waitTimeStr">{'~'.concat(this.props.waitTime)}</span>
           <span className="waitUnitStr">
             {this.props.waitUnit}
             <br />
@@ -38,11 +36,7 @@ class HospitalDashboardCard extends React.Component {
         </React.Fragment>
       );
     }
-    return (
-      <span className="closedCardWaitTimeStr">
-        Opens at {this.props.waitTime.toString(10)} {this.props.waitUnit}
-      </span>
-    );
+    return <span className="closedCardWaitTimeStr">{this.props.waitTime}</span>;
   };
 
   onPress = () => {
@@ -112,7 +106,7 @@ class HospitalDashboardCard extends React.Component {
 HospitalDashboardCard.propTypes = {
   waitUnit: PropTypes.string,
   active: PropTypes.bool,
-  waitTime: PropTypes.number,
+  waitTime: PropTypes.string,
   walkTime: PropTypes.number,
   driveTime: PropTypes.number,
   address: PropTypes.string,
