@@ -7,70 +7,6 @@ const axios = require('axios');
 
 const { Hospital, User, ScrapedClinic, Patient } = require('../models/models');
 
-// TODO remove the dashboardCardData array
-const DashboardCardData = [
-  {
-    // base
-    waitTime: 5,
-    waitUnit: 'mins',
-    // TODO use bing maps API to get real time walking time
-    walkTime: 5,
-    driveTime: 1,
-    clinicName: 'University Village Medical Clinic',
-    address: '2155 Allison Road, Vancouver',
-    id: '5c84562e1e38047192d19724',
-    active: true,
-  },
-  {
-    // longer walktime
-    waitTime: 20,
-    waitUnit: 'mins',
-    // TODO use bing maps API to get real time walking time
-    walkTime: 16,
-    driveTime: 3,
-    clinicName: 'Careville Clinic',
-    address: '3317 Wesbrook Mall, Vancouver',
-    id: '5c84562e1e38047192d19724',
-    active: true,
-  },
-  {
-    // longer waittime
-    waitTime: 45,
-    waitUnit: 'mins',
-    // TODO use bing maps API to get real time walking time
-    walkTime: 16,
-    driveTime: 4,
-    clinicName: 'University Village Medical Clinic - Birney Ave',
-    address: '5933 Birney Ave, Vancouver',
-    id: '5c84562e1e38047192d19724',
-    active: true,
-  },
-  {
-    // longer walktime but shorter waittime
-    waitTime: 10,
-    waitUnit: 'AM',
-    // TODO use bing maps API to get real time walking time
-    walkTime: 16,
-    driveTime: 6,
-    clinicName: 'Point Grey Medical Clinic',
-    address: '4448 W 10th Ave, Vancouver',
-    id: '5c84562e1e38047192d19724',
-    active: false,
-  },
-  {
-    // longer waittime but shorter walktime
-    waitTime: 1,
-    waitUnit: 'hr',
-    // TODO use bing maps API to get real time walking time
-    walkTime: 72,
-    driveTime: 12,
-    clinicName: 'Khatsahlano Medical Clinic',
-    address: '2685 W Broadway, Vancouver',
-    id: '5c84562e1e38047192d19724',
-    active: true,
-  },
-];
-
 api.post('/incoming/delete', (req, res) => {
   Patient.findByIdAndRemove(req.body.patientId).then(() => {
     ScrapedClinic.update(
@@ -250,7 +186,13 @@ api.get('/clinics', (req, res) => {
 
               const sortedClinics = clinicWithTravelTime.map(c => {
                 // calculate weighted score, lower scores are better
-                c.score = c.waitTime * 0.1 * 0.8 + c.walkTime * 0.5;
+                if (!c.active) {
+                  c.score = -1;
+                } else {
+                  // Wait time is string, convert to float
+                  c.score =
+                    parseFloat(c.waitTime) * 0.1 * 0.8 + c.walkTime * 0.5;
+                }
                 return c;
               });
 
