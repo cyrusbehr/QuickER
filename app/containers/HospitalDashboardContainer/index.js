@@ -52,6 +52,7 @@ export class HospitalDashboardContainer extends React.Component {
   };
 
   componentDidMount() {
+    this.props.onChangeLoadingStatus(true);
     axios.get('/checklogin/hospital').then(r => {
       if (r.data.loggedIn) {
         this.props.setUser(r.data.user);
@@ -73,6 +74,7 @@ export class HospitalDashboardContainer extends React.Component {
             }
           });
       } else {
+        this.props.onChangeLoadingStatus(false);
         this.props.history.push('/');
       }
     });

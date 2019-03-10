@@ -147,6 +147,7 @@ export class ClinicDashboardContainer extends React.Component {
   };
 
   componentDidMount() {
+    this.props.onChangeLoadingStatus(true);
     // Check that the user is loged in
     axios.get('/checklogin/clinic').then(r => {
       if (r.data.loggedIn) {
@@ -203,6 +204,7 @@ export class ClinicDashboardContainer extends React.Component {
             this.props.onChangeLoadingStatus(false);
           });
       } else {
+        this.props.onChangeLoadingStatus(false);
         this.props.history.push('/');
       }
     });
