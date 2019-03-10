@@ -11,8 +11,8 @@ import reducer from './reducer';
 
 TopBarProgress.config({
   barColors: {
-    '0': '#19B5FE',
-    '1.0': '#19B5FE',
+    '0': '#213a8e',
+    '1.0': '#213a8e',
   },
   shadowBlur: 0,
   barThickness: 3,
