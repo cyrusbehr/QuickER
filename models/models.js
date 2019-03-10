@@ -36,8 +36,6 @@ const PatientSchema = mongoose.Schema({
   DOB: String,
   phone: String,
   hospitalName: String,
-  lattitude: Number,
-  longitude: Number,
 });
 
 const UserSchema = mongoose.Schema({
@@ -55,18 +53,13 @@ const UserSchema = mongoose.Schema({
   userReference: mongoose.Schema.ObjectId,
 });
 
-const ClinicSchema = mongoose.Schema({
-  clinicName: String,
-  address: String,
-  waitTime: Number,
-});
-
 const HospitalSchema = mongoose.Schema({
   hospitalName: String,
   address: String,
+  lattitude: Number,
+  longitude: Number,
 });
 
-const Clinic = mongoose.model('Clinic', ClinicSchema);
 const Patient = mongoose.model('Patient', PatientSchema);
 const Hospital = mongoose.model('Hospital', HospitalSchema);
 const User = mongoose.model('User', UserSchema);
@@ -77,7 +70,6 @@ const ScrapedClinic = mongoose.model(
 );
 
 module.exports = {
-  Clinic,
   Hospital,
   User,
   ScrapedClinic,

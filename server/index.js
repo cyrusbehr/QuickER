@@ -10,13 +10,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const {
-  Clinic,
-  Hospital,
-  User,
-  ScrapedClinic,
-  Patient,
-} = require('../models/models');
+const { Hospital, User, ScrapedClinic, Patient } = require('../models/models');
 const bcrypt = require('bcrypt');
 
 const argv = require('./argv');

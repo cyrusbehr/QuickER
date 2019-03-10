@@ -5,13 +5,7 @@ const { check, validationResult } = require('express-validator/check');
 const bcrypt = require('bcrypt');
 const axios = require('axios');
 
-const {
-  Clinic,
-  Hospital,
-  User,
-  ScrapedClinic,
-  Patient,
-} = require('../models/models');
+const { Hospital, User, ScrapedClinic, Patient } = require('../models/models');
 
 // TODO remove the dashboardCardData array
 const DashboardCardData = [
@@ -24,7 +18,7 @@ const DashboardCardData = [
     driveTime: 1,
     clinicName: 'University Village Medical Clinic',
     address: '2155 Allison Road, Vancouver',
-    id: '5c82c47551274440c4852da9',
+    id: '5c84562e1e38047192d19724',
     active: true,
   },
   {
@@ -36,7 +30,7 @@ const DashboardCardData = [
     driveTime: 3,
     clinicName: 'Careville Clinic',
     address: '3317 Wesbrook Mall, Vancouver',
-    id: '5c82c47551274440c4852da9',
+    id: '5c84562e1e38047192d19724',
     active: true,
   },
   {
@@ -48,7 +42,7 @@ const DashboardCardData = [
     driveTime: 4,
     clinicName: 'University Village Medical Clinic - Birney Ave',
     address: '5933 Birney Ave, Vancouver',
-    id: '5c82c47551274440c4852da9',
+    id: '5c84562e1e38047192d19724',
     active: true,
   },
   {
@@ -60,7 +54,7 @@ const DashboardCardData = [
     driveTime: 6,
     clinicName: 'Point Grey Medical Clinic',
     address: '4448 W 10th Ave, Vancouver',
-    id: '5c82c47551274440c4852da9',
+    id: '5c84562e1e38047192d19724',
     active: false,
   },
   {
@@ -72,7 +66,7 @@ const DashboardCardData = [
     driveTime: 12,
     clinicName: 'Khatsahlano Medical Clinic',
     address: '2685 W Broadway, Vancouver',
-    id: '5c82c47551274440c4852da9',
+    id: '5c84562e1e38047192d19724',
     active: true,
   },
 ];
@@ -177,23 +171,40 @@ api.get('/scrapedclinics', (req, res) => {
   });
 });
 
-function getCoordinates(endpoint) {
-  return new Promise((resolve, reject) => {
-    axios
-      .get(endpoint)
-      .then(response => {
-        console.log(response.data.resourceSets[0]);
-        resolve(response.data.resourceSets[0].resources[0].point.coordinates);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  });
-}
-
 api.get('/clinics', (req, res) => {
   ScrapedClinic.find({ hasRegistered: true }).then(clinics => {
-    const bingToken = process.env.BING_TOKEN;
+    // Get the lattitude longitude of the hospital
+    Hospital.findById(req.user.userReference).then(hospital => {
+      const startCoordinates = {
+        lattitude: hospital.lattitude,
+        longitude: hospital.longitude,
+      };
+
+      const bingToken = process.env.BING_TOKEN;
+
+      const endCoordinates = clinics.map(clinic => {
+        return {
+          latitude: clinic.lattitude,
+          longitude: clinic.longitude,
+        };
+      });
+
+      const queryString = `https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?key=${bingToken}`;
+      const postBody = {
+        origins: [
+          {
+            latitude: startCoordinates.lattitude,
+            longitude: startCoordinates.longitude,
+          },
+        ],
+        destinations: endCoordinates,
+        travelMode: 'driving',
+      };
+
+      axios.post(queryString, postBody).then(response => {
+        console.log(response.data);
+      });
+    });
 
     // Checks if lattitude and longitude have previously been computed for the clinic
     // If not, use bing to get lat / long and update mongoDB
@@ -228,7 +239,7 @@ api.get('/clinics', (req, res) => {
         console.error(e);
       });
 */
-    clinics = DashboardCardData; // / TODO remove this
+    // clinics = DashboardCardData; // / TODO remove this
     // new array with weighted scores
     const sortedClinics = clinics.map(clinic => {
       // calculate weighted score, lower scores are better
