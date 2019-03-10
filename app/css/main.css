@@ -412,7 +412,7 @@ TODO need to fix and split up CSS below
 }
 
 .boxShadowEffect {
-  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.24), 0 1px 6px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 1px rgba(0, 0, 0, 0), 0 1px 6px rgba(0, 0, 0, 0.12);
 }
 
 .hospitalDashIconLarge {
@@ -508,7 +508,7 @@ TODO need to fix and split up CSS below
   font-family: 'Open Sans', sans-serif;
   font-style: italic;
   font-weight: bold;
-  padding: 30px 10px;
+  padding: 0px 10px;
   height: 80px;
 }
 
