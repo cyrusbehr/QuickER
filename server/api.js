@@ -180,6 +180,7 @@ api.get('/clinics', (req, res) => {
                   waitUnit: active ? waitTime[1] : waitTime,
                   address: clin.address,
                   phone: clin.phone,
+                  id: clin._id,
                   active,
                 };
               });
