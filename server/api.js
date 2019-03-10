@@ -248,117 +248,28 @@ api.get('/clinics', (req, res) => {
                 };
               });
 
+              const sortedClinics = clinicWithTravelTime.map(c => {
+                // calculate weighted score, lower scores are better
+                c.score = c.waitTime * 0.1 * 0.8 + c.walkTime * 0.5;
+                return c;
+              });
+
+              sortedClinics.sort((a, b) => {
+                if (a.score < b.score) return -1;
+                if (a.score > b.score) return 1;
+                return 0;
+              });
+
               res.json({
                 error: null,
                 response: {
-                  dashboardCardData: clinicWithTravelTime,
+                  dashboardCardData: sortedClinics,
                 },
               });
             });
         });
     });
-
-    // Checks if lattitude and longitude have previously been computed for the clinic
-    // If not, use bing to get lat / long and update mongoDB
-    /*
-    let promises = clinics.map(clinic => {
-      if (clinic.lattitude) {
-        return clinic;
-      }
-      const address = clinic.address.replace(/ /g, '%');
-      const queryString = `http://dev.virtualearth.net/REST/v1/Locations?CountryRegion=CA&adminDistrict=BC&locality=Vancouver&addressLine=${address}&o=json&key=${bingToken}`;
-      console.log(queryString);
-      return getCoordinates(queryString).then(resp => {
-        const lattitude = resp[0];
-        const longitude = resp[1];
-        clinic.lattitude = lattitude;
-        clinic.longitude = longitude;
-
-        return ScrapedClinic.findByIdAndUpdate(clinic._id, {
-          lattitude,
-          longitude,
-        }).then(() => {
-          return clinic;
-        });
-      });
-    });
-
-    Promise.all(promises)
-      .then(results => {
-        console.log(results);
-      })
-      .catch(e => {
-        console.error(e);
-      });
-*/
-    // clinics = DashboardCardData; // / TODO remove this
-    // new array with weighted scores
-    const sortedClinics = clinics.map(clinic => {
-      // calculate weighted score, lower scores are better
-      const score = clinic.waitTime * 0.1 * 0.8 + clinic.walkTime * 0.5;
-      // assign key name to value
-      clinic.score = score;
-      return clinic;
-    });
-
-    sortedClinics.sort((a, b) => {
-      if (a.score < b.score) return -1;
-      if (a.score > b.score) return 1;
-      return 0;
-    });
   });
-
-  // Hospital.findById(req.body.id).then(hospital => {});
-
-  /*
-  add more clinics to DashboardCardData manually so you have data to sort. manually change the parameters of interest
-  sort the DashboardCardData
-
-  once you get that working, then you can worry about doing it with database data
-
-  console.log(DashboardCardData) --> is going to print to your terminal
-  any time you make changes to backend code, you need to restart the dev server for the changes to take effect
-  ctr c, then run 'npm run start' (remember to have source env.sh) 
-  /*
-
-  /*
-  ScrapedClinic.find({hasRegistered: true}).then(clinics => {
-    // clinics is an array of clinic objects
-    Hospital.findById(req.body.id).then(hospital => {
-      // Now we have our hospital
-
-      // Now we need to do bing maps calls here
-
-      // sorting here ANDREW'S ALGORITHM!!
-
-      // send response here aka res.json...
-    })
-  })
-
-
-  /*
-   Andrew your code goes here
-  1) query mongodb and obtain all the clinics that are regsitered --> check the isRegsitered flag (hint I do something similar)
-  ScrapedClinic.find({ hasRegistered: true }).then(clinics => {
-  2) create a bing API account --> need to put credit card, so be sure to set limits for request
-    --> put API key into env.sh variable
-  3) use the address from each clinic and call the bing API to get the walk and drive time
-  --> endpoint is clinic address which you have in the clinics array object, you will recieve an id in the req parameters which you can
-  access via req.body.id
-  Hospital.findById(req.body.id).then(foundHospital => {
-    address --> foundHospital.address
-  }
-  })
-  now at this point we have unsorted array of clinic objects, we also have our hospital, we 
-  have all the wait times, distances
-  
-  ANDREWS ALGORITHM HERE
-
-  res.json({
-    error: null,
-    response: sortedArrayOfClinicObjects
-  })
-    */
 });
 
 module.exports = {
