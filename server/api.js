@@ -187,7 +187,7 @@ api.get('/clinics', (req, res) => {
               const sortedClinics = clinicWithTravelTime.map(c => {
                 // calculate weighted score, lower scores are better
                 if (!c.active) {
-                  c.score = -1;
+                  c.score = Number.MAX_SAFE_INTEGER;
                 } else {
                   // Wait time is string, convert to float
                   c.score =
