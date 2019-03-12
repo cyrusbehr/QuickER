@@ -139,7 +139,7 @@ app.post('/patient', (req, res) => {
                 clin.name
               }. You will receieve another notification once your status has been confirmed by the clinic`,
               to: clientNumber,
-              from: '+16042600949',
+              messagingServiceSid: 'MG2df860e11a20b54a5deca683e7e83a01',
             })
             .then(message => {
               console.log(message);

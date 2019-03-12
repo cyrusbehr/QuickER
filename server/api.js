@@ -27,7 +27,7 @@ api.post('/incoming/delete', (req, res) => {
             .create({
               body: `Your request was not approved by the clinic. Please try another walk in clinic`,
               to: clientNumber,
-              from: '+16042600949',
+              messagingServiceSid: 'MG2df860e11a20b54a5deca683e7e83a01',
             })
             .then(message => {
               console.log(message);
@@ -78,7 +78,7 @@ api.post('/incoming/accept', (req, res) => {
                 clin.name
               } queue. Your esimated wait time is ${clin.waitTime}`,
               to: clientNumber,
-              from: '+16042600949',
+              messagingServiceSid: 'MG2df860e11a20b54a5deca683e7e83a01',
             })
             .then(message => {
               console.log(message);
