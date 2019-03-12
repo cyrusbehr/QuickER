@@ -135,11 +135,11 @@ app.post('/patient', (req, res) => {
             .create({
               body: `Hi ${
                 req.body.firstname
-              }, you have successfully been added to the ${
+              }, your request was successfully sent to ${
                 clin.name
-              } queue. You will receieve another notification once your status has been confirmed by the clinic`,
+              }. You will receieve another notification once your status has been confirmed by the clinic`,
               to: clientNumber,
-              from: '+15202249060',
+              from: '+16042600949',
             })
             .then(message => {
               console.log(message);

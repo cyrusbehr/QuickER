@@ -4,18 +4,39 @@ const mongoose = require('mongoose');
 const { check, validationResult } = require('express-validator/check');
 const bcrypt = require('bcrypt');
 const axios = require('axios');
+const accountSid = 'ACe275517637075b7fb777f44f7b549efc';
+const authToken = process.env.TWILIO_TOKEN;
+const twilioClient = require('twilio')(accountSid, authToken);
 
 const { Hospital, User, ScrapedClinic, Patient } = require('../models/models');
 
 api.post('/incoming/delete', (req, res) => {
-  Patient.findByIdAndRemove(req.body.patientId).then(() => {
-    ScrapedClinic.update(
-      { _id: req.body.clinicId },
-      { $pull: { incomingRequests: req.body.patientId } },
-    ).then(() => {
-      res.json({
-        error: null,
-        response: 'Success',
+  Patient.findById(req.body.patientId).then(patient => {
+    Patient.findByIdAndRemove(req.body.patientId).then(() => {
+      ScrapedClinic.update(
+        { _id: req.body.clinicId },
+        { $pull: { incomingRequests: req.body.patientId } },
+      ).then(() => {
+        if (patient.phone && patient.phone.length) {
+          let clientNumber = patient.phone;
+          if (clientNumber.length === 10) {
+            clientNumber = `1${clientNumber}`;
+          }
+          clientNumber = `+${clientNumber}`;
+          twilioClient.messages
+            .create({
+              body: `Your request was not approved by the clinic. Please try another walk in clinic`,
+              to: clientNumber,
+              from: '+16042600949',
+            })
+            .then(message => {
+              console.log(message);
+            });
+        }
+        res.json({
+          error: null,
+          response: 'Success',
+        });
       });
     });
   });
@@ -43,9 +64,31 @@ api.post('/incoming/accept', (req, res) => {
       $push: { acceptedRequests: req.body.patientId },
     },
   ).then(() => {
-    res.json({
-      error: null,
-      response: '',
+    Patient.findById(req.body.patientId).then(patient => {
+      if (patient.phone && patient.phone.length) {
+        ScrapedClinic.findById(req.body.clinicId).then(clin => {
+          let clientNumber = patient.phone;
+          if (clientNumber.length === 10) {
+            clientNumber = `1${clientNumber}`;
+          }
+          clientNumber = `+${clientNumber}`;
+          twilioClient.messages
+            .create({
+              body: `You have succesfully been added to the ${
+                clin.name
+              } queue. Your esimated wait time is ${clin.waitTime}`,
+              to: clientNumber,
+              from: '+16042600949',
+            })
+            .then(message => {
+              console.log(message);
+            });
+        });
+      }
+      res.json({
+        error: null,
+        response: '',
+      });
     });
   });
 });
