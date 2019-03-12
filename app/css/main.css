@@ -344,6 +344,11 @@ TODO need to fix and split up CSS below
   width: 350px;
 }
 
+.hospital-modal-form-content {
+  margin-top: 20px;
+  width: 100%;
+}
+
 .hospitalDashCards {
   width: 250px;
   height: 250px;

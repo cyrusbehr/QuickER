@@ -208,7 +208,7 @@ export class HospitalDashboardContainer extends React.Component {
           </DialogTitle>
           <DialogContent>
             <DialogContentText>{/* this.state.clinicName */}</DialogContentText>
-            <div className="modal-form-content">
+            <div className="hospital-modal-form-content">
               <TextField
                 required
                 autoFocus
