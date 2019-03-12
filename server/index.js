@@ -25,6 +25,11 @@ const { resolve } = require('path');
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
+
+const accountSid = 'ACe275517637075b7fb777f44f7b549efc';
+const authToken = process.env.TWILIO_TOKEN;
+const twilioClient = require('twilio')(accountSid, authToken);
+
 app.use(
   session({
     secret: 'crypto kittens',
@@ -117,6 +122,30 @@ app.post('/patient', (req, res) => {
     ).then(updatedClinic => {
       // Forward the new patient to the clinic via socket
       req.app.io.to(req.body.clinicId).emit('forwardPatient', savedUser);
+      // If a phone number is provided, send a text message to the client
+      if (req.body.phone && req.body.phone.length) {
+        ScrapedClinic.findById(req.body.clinicId).then(clin => {
+          let clientNumber = req.body.phone;
+          if (clientNumber.length === 10) {
+            clientNumber = `1${clientNumber}`;
+          }
+          clientNumber = `+${clientNumber}`;
+
+          twilioClient.messages
+            .create({
+              body: `Hi ${
+                req.body.firstname
+              }, you have successfully been added to the ${
+                clin.name
+              } queue. You will receieve another notification once your status has been confirmed by the clinic`,
+              to: clientNumber,
+              from: '+15202249060',
+            })
+            .then(message => {
+              console.log(message);
+            });
+        });
+      }
 
       res.json({
         error: null,
