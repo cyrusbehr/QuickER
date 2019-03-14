@@ -91,6 +91,10 @@ center in div
   font-weight: lighter;
 }
 
+.full-width {
+  width: 100%;
+}
+
 /*
 Custom cards
 DEMO: https://codepen.io/anon/pen/xMgRQq
@@ -185,6 +189,10 @@ hr {
 
 .align-text-center {
   text-align: center;
+}
+
+.padding-right-hour {
+  padding-right: 10px;
 }
 
 .login-card {
@@ -462,6 +470,7 @@ TODO need to fix and split up CSS below
 .closedCardWaitTimeStr {
   font-size: 20px;
   font-weight: 500;
+  height: 60px;
 }
 
 .open-time-margin {

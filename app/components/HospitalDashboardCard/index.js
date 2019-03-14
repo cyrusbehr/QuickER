@@ -24,12 +24,14 @@ class HospitalDashboardCard extends React.Component {
   };
 
   getWaitMinCont = () => {
-    if (this.props.mins > 0) {
+    if (this.props.mins !== '') {
       return (
         <React.Fragment>
           <span className="waitTimeStr">{this.props.mins}</span>
           <span className="waitUnitStr">
-            {this.props.mins === 1 ? 'MIN' : 'MINS'}
+            {this.props.mins === '1' ? 'min' : 'mins'}
+            <br />
+            wait
           </span>
         </React.Fragment>
       );
@@ -38,12 +40,26 @@ class HospitalDashboardCard extends React.Component {
   };
 
   getWaitHrCont = () => {
-    if (this.props.hours > 0) {
+    if (this.props.hours !== '') {
       return (
         <React.Fragment>
           <span className="waitTimeStr">{this.props.hours}</span>
-          <span className="waitUnitStr">
-            {this.props.hours === 1 ? 'HR' : 'HRS'}
+          <span
+            className={
+              this.props.mins !== ''
+                ? 'padding-right-hour waitUnitStr'
+                : 'waitUnitStr'
+            }
+          >
+            {this.props.hours === '1' ? 'hr' : 'hrs'}
+            {this.props.mins !== '' ? (
+              ''
+            ) : (
+              <React.Fragment>
+                <br />
+                wait
+              </React.Fragment>
+            )}
           </span>
         </React.Fragment>
       );
@@ -54,14 +70,18 @@ class HospitalDashboardCard extends React.Component {
   getWaitTimeContent = () => {
     if (this.props.active) {
       return (
-        <span className="">
+        <span className="center">
           <i className="material-icons hospitalDashIconLarge">access_time</i>
-          {this.getWaitHrCont()}
-          {this.getWaitMinCont()}
+          <span className="full-width center">
+            {this.getWaitHrCont()}
+            {this.getWaitMinCont()}
+          </span>
         </span>
       );
     }
-    return <span className="closedCardWaitTimeStr">{this.props.message}</span>;
+    return (
+      <span className="closedCardWaitTimeStr center">{this.props.message}</span>
+    );
   };
 
   onPress = () => {
