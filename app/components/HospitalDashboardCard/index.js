@@ -23,20 +23,45 @@ class HospitalDashboardCard extends React.Component {
     );
   };
 
-  getWaitTimeContent = () => {
-    if (this.props.active) {
+  getWaitMinCont = () => {
+    if (this.props.mins > 0) {
       return (
         <React.Fragment>
-          <span className="waitTimeStr">{'~'.concat(this.props.waitTime)}</span>
+          <span className="waitTimeStr">{this.props.mins}</span>
           <span className="waitUnitStr">
-            {this.props.waitUnit}
-            <br />
-            wait
+            {this.props.mins === 1 ? 'MIN' : 'MINS'}
           </span>
         </React.Fragment>
       );
     }
-    return <span className="closedCardWaitTimeStr">{this.props.waitTime}</span>;
+    return '';
+  };
+
+  getWaitHrCont = () => {
+    if (this.props.hours > 0) {
+      return (
+        <React.Fragment>
+          <span className="waitTimeStr">{this.props.hours}</span>
+          <span className="waitUnitStr">
+            {this.props.hours === 1 ? 'HR' : 'HRS'}
+          </span>
+        </React.Fragment>
+      );
+    }
+    return '';
+  };
+
+  getWaitTimeContent = () => {
+    if (this.props.active) {
+      return (
+        <span className="">
+          <i className="material-icons hospitalDashIconLarge">access_time</i>
+          {this.getWaitHrCont()}
+          {this.getWaitMinCont()}
+        </span>
+      );
+    }
+    return <span className="closedCardWaitTimeStr">{this.props.message}</span>;
   };
 
   onPress = () => {
@@ -56,17 +81,14 @@ class HospitalDashboardCard extends React.Component {
         }
       >
         <div className="hospitalDashCardsPad">
-          <div className="waitTime boxShadowEffect">
-            <span
-              className={
-                this.props.active ? 'center' : 'center open-time-margin'
-              }
-            >
-              <i className="material-icons hospitalDashIconLarge">
-                access_time
-              </i>
-              {this.getWaitTimeContent()}
-            </span>
+          <div
+            className={
+              this.props.active
+                ? 'waitTime boxShadowEffect'
+                : 'waitTime boxShadowEffect center'
+            }
+          >
+            {this.getWaitTimeContent()}
           </div>
           <div className="commuteTimeCont">
             <div className="center boxShadowEffect commuteTime commuteTimeLeft">
