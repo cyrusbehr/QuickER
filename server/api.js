@@ -150,6 +150,42 @@ api.get('/scrapedclinics', (req, res) => {
   });
 });
 
+function parseWaitTime(waitTimeStr) {
+  const closedStr1 = 'Walk-in Closed';
+  const closedStr2 = 'At Capacity';
+  const closedStr3 = 'Reopening Later Today';
+  const closedStr4 = 'No Recent Updates';
+  const retStruct = {
+    active: null,
+    message: '',
+    mins: '',
+    hours: '',
+  };
+
+  if (
+    waitTimeStr === closedStr1 ||
+    waitTimeStr === closedStr2 ||
+    waitTimeStr === closedStr3 ||
+    waitTimeStr === closedStr4
+  ) {
+    retStruct.active = false;
+    retStruct.message = waitTimeStr;
+  } else {
+    retStruct.active = true;
+    const waitTimeArr = waitTimeStr.split(' ');
+    if (waitTimeArr.length > 2) {
+      // we have minutes and hours
+      retStruct.mins = waitTimeArr[2];
+      retStruct.hours = waitTimeArr[0];
+    } else if (waitTimeArr[1] == 'MINS') {
+      retStruct.mins = waitTimeArr[0];
+    } else {
+      retStruct.hours = waitTimeArr[0];
+    }
+  }
+  return retStruct;
+}
+
 api.get('/clinics', (req, res) => {
   ScrapedClinic.find({ hasRegistered: true }).then(clinics => {
     // Get the lattitude longitude of the hospital
@@ -207,24 +243,18 @@ api.get('/clinics', (req, res) => {
             })
             .then(travelTimeArr => {
               const clinicWithTravelTime = clinics.map((clin, idx) => {
-                const notActive =
-                  clin.waitTime === 'At Capacity' ||
-                  clin.waitTime === 'Walk-in Closed' ||
-                  clin.waitTime === 'Reopening';
-                const active = !notActive;
-                const waitTime = active
-                  ? clin.waitTime.split(' ')
-                  : clin.waitTime;
+                const waitTimeObj = parseWaitTime(clin.waitTime);
                 return {
                   driveTime: parseInt(travelTimeArr[idx].driveTime, 10),
                   walkTime: parseInt(travelTimeArr[idx].walkTime, 10),
                   clinicName: clin.name,
-                  waitTime: active ? waitTime[0] : waitTime,
-                  waitUnit: active ? waitTime[1] : waitTime,
+                  message: waitTimeObj.message,
+                  mins: waitTimeObj.mins,
+                  hours: waitTimeObj.hours,
                   address: clin.address,
                   phone: clin.phone,
                   id: clin._id,
-                  active,
+                  active: waitTimeObj.active,
                 };
               });
 

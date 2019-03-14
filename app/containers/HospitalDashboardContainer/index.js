@@ -184,9 +184,10 @@ export class HospitalDashboardContainer extends React.Component {
             <HospitalDashboardCard
               key={data.clinicName}
               clinicName={data.clinicName}
-              waitTime={data.waitTime}
+              mins={data.mins}
+              hours={data.hours}
+              message={data.message}
               walkTime={data.walkTime}
-              waitUnit={data.waitUnit}
               driveTime={data.driveTime}
               address={data.address}
               active={data.active}
