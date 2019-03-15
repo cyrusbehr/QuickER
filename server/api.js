@@ -153,7 +153,7 @@ api.get('/scrapedclinics', (req, res) => {
 function parseWaitTime(waitTimeStr) {
   const closedStr1 = 'Walk-in Closed';
   const closedStr2 = 'At Capacity';
-  const closedStr3 = 'Reopening Later Today';
+  const closedStr3 = 'Reopening';
   const closedStr4 = 'No Recent Updates';
   const retStruct = {
     active: null,
