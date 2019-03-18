@@ -265,7 +265,10 @@ api.get('/clinics', (req, res) => {
                 } else {
                   // Wait time is string, convert to float
                   c.score =
-                    parseFloat(c.waitTime) * 0.1 * 0.8 + c.walkTime * 0.5;
+                    (parseFloat(c.mins) + 60 * parseFloat(c.hours)) *
+                      0.1 *
+                      0.8 +
+                    c.walkTime * 0.5;
                 }
                 return c;
               });
