@@ -17,7 +17,7 @@ As a hospital user, you can view all the nearby walk-in clinics and their live w
 As a clinic, you recieve a notifaction when a new patient has been added to the clinic queue. You can then accept the request, and later check-in the patient once they have arrived.
 ![alt text](clinicDemo.gif)
 
+![alt text](clinicDemo.gif)
 <br/>
 When a patient is redirected using the system, they recieve updates sent to their mobile phone.
-![alt text](clinicDemo.gif)
 
