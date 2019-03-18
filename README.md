@@ -24,5 +24,6 @@ As a clinic, you recieve a notifaction when a new patient has been added to the 
 
 When a patient is redirected using the system, they recieve updates sent to their mobile phone.
 <br />
-<br />
+<div style="text-align: center">
 <img src="textDemo.gif" height="600" align="center" />
+</div>
