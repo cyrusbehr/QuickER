@@ -11,7 +11,7 @@ QuickER is a software that works to solve this problem by allowing triage staff 
 ## Usage
 
 As a hospital user, you can view all the nearby walk-in clinics and their live wait times and commute times. You can then choose to forward the patient to a specified clinic.
-![alt text]('/githubAssets/hospitalDemo.gif')
+![alt text](hospitalDemo.gif)
 
 As a clinic, you recieve a notifaction when a new patient has been added to the clinic queue. You can then accept the request, and later check-in the patient once they have arrived.
 
