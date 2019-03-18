@@ -8,7 +8,7 @@ One of the most pressing issues facing public healthcare systems is the overcrow
 
 QuickER is a software that works to solve this problem by allowing triage staff at hospitals to redirect non-critical patients to less crowded walk-in clinics nearby. Thus the number of low priority patients in ERs will decrease, the number of patients at clinics will increase and the overall wait time for patients will be reduced. 
 
-## Usage
+## Demo
 
 As a hospital user, you can view all the nearby walk-in clinics and their live wait times and commute times. You can then choose to forward the patient to a specified clinic.
 ![alt text](hospitalDemo.gif)
@@ -18,5 +18,6 @@ As a clinic, you recieve a notifaction when a new patient has been added to the 
 ![alt text](clinicDemo.gif)
 
 <br/>
-When a patient is redirected using the system, they recieve updates sent to their mobile phone. 
+When a patient is redirected using the system, they recieve updates sent to their mobile phone.
 ![alt text](clinicDemo.gif)
+
