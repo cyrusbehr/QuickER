@@ -47,6 +47,7 @@ export class ClinicRegistrationContainer extends React.Component {
         clinicName: formState.clinicName,
         address: formState.address,
         phone: formState.phone,
+        authToken: formState.authToken,
       })
       .then(r => {
         console.log(r);

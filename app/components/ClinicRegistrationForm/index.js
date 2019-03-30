@@ -27,6 +27,7 @@ class ClinicRegistrationForm extends React.PureComponent {
     username: '',
     password: '',
     passwordRepeat: '',
+    authToken: '',
   };
 
   handleInputChange = param => event => {
@@ -39,10 +40,6 @@ class ClinicRegistrationForm extends React.PureComponent {
       return elem.name === event.target.value;
     });
     this.setState({ address: obj.address, id: obj._id });
-  };
-
-  testing = () => {
-    console.log('this function was called for some reason! ');
   };
 
   render() {
@@ -119,6 +116,15 @@ class ClinicRegistrationForm extends React.PureComponent {
               type="password"
               className=""
               onChange={this.handleInputChange('passwordRepeat')}
+              margin="normal"
+            />
+            <TextField
+              required
+              id="token"
+              label="Authorization Token"
+              type="text"
+              className=""
+              onChange={this.handleInputChange('authToken')}
               margin="normal"
             />
             <input

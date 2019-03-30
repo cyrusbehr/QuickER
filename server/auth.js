@@ -193,12 +193,22 @@ module.exports = passport => {
       check('phone')
         .isLength({ min: 1 })
         .withMessage('Clinic Phone'),
+      check('authToken')
+        .isLength({ min: 1 })
+        .withMessage('Authorization Token'),
     ],
     (req, res) => {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.json({
           errors: errors.array(),
+          response: null,
+        });
+      }
+
+      if (req.body.authToken !== process.env.AUTH_TOKEN_CLINIC) {
+        return res.json({
+          error: 'Incorrect authentication token provided',
           response: null,
         });
       }
