@@ -36,9 +36,9 @@ class ClinicRegistrationForm extends React.PureComponent {
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
-    const obj = this.props.clinicData.find(elem => {
-      return elem.name === event.target.value;
-    });
+    const obj = this.props.clinicData.find(
+      elem => elem.name === event.target.value,
+    );
     this.setState({ address: obj.address, id: obj._id });
   };
 

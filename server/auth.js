@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const { Hospital, User, ScrapedClinic } = require('../models/models');
 const { check, validationResult } = require('express-validator/check');
 const bcrypt = require('bcrypt');
+const { Hospital, User, ScrapedClinic } = require('../models/models');
 
 module.exports = passport => {
   router.get('/checklogin/clinic', (req, res) => {
