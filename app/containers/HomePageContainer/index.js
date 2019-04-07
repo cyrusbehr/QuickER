@@ -86,7 +86,7 @@ export class HomePageContainer extends React.Component {
                       title={data.title}
                       redirectRoute={data.redirectRoute}
                       {...this.props}
-                      onClickFunc={() => console.log('Remove this')}
+                      onClickFunc={() => console.log('')}
                     />
                   }
                   classNames="fade3"

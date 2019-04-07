@@ -118,7 +118,7 @@ export class ClinicRegistrationContainer extends React.Component {
           autoHideDuration={autoHideDur}
         />
         {this.state.formDataReady && (
-          <div>
+          <div className="full-height">
             <CSSTransition
               in={this.state.formDataReady}
               appear

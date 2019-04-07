@@ -168,11 +168,16 @@ hr {
   margin-top: 30px;
 }
 
+.full-height {
+  height: 100%;
+}
+
 .clinic-register-card {
   padding: 20px;
   width: 445px;
   margin: auto;
-  margin-top: 50px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .card-login {
